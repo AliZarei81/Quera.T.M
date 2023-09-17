@@ -13,7 +13,7 @@ module.exports = {
       'pink-secondary': '#FFDEEB',
       'pink-primary': '#E64980',
       'grape-secondary': '#ecebff',
-      'grap-primary': '#BE4BDB',
+      'grape-primary': '#BE4BDB',
       'violet-secondary': '#E5DBFF',
       'violet-primary': '#7950F2',
       'indigo-secondary': '#DBE4FF',
@@ -34,6 +34,27 @@ module.exports = {
       'yellow-primary': '#FAB005',
       'orange-secondary': '#FFE8CC',
       'orange-primary': '#FD7E14'
+    },
+    fontFamily: {
+      'iran-yekan': "Yekan"
+    },
+    fontSize: {
+      'heading-l': '32pt',
+      'heading-m': '28pt',
+      'heading-s': '24pt',
+      'heading-xs': '20pt',
+      'body-xl': '24pt',
+      'body-l': '20pt',
+      'body-m': '16pt',
+      'body-s': '14pt',
+      'body-xs': '12pt',
+    },
+    spacing: {
+      'xs': '8px',
+      's': '16px',
+      'm': '24px',
+      'l': '32px',
+      'xl': '40px'
     },
     extend: {},
   },

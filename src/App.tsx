@@ -1,8 +1,8 @@
 function App() {
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline text-red-500">
-        Hello world!
+      <h1 className="text-body-xl font-bold m-l underline text-grape-primary font-iran-yekan">
+        فونت ایران‌یکان
       </h1>
     </div>
   );
