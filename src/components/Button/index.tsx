@@ -1,12 +1,14 @@
-
+import { MouseEvent } from "react";
 interface IButtonProps {
+  type?: "button" | "submit" | "reset";
   disabled: boolean;
   className: string;
-  onClick(): void;
+  onClick?(e: MouseEvent<HTMLButtonElement>): void;
   title?: string;
 }
 
 const Button: React.FC<IButtonProps> = ({
+  type = "button",
   disabled,
   className,
   onClick,
@@ -14,6 +16,7 @@ const Button: React.FC<IButtonProps> = ({
 }): JSX.Element => {
   return (
     <button
+      type={type}
       className={`w-full flex items-center justify-center ${className}  `}
       disabled={disabled}
       onClick={onClick}
