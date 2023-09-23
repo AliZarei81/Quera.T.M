@@ -27,7 +27,7 @@ const Input: React.FC<IInputProps> = ({
   } else {
     return (
       <div className="w-[592px] h-[72px]  flex flex-col items-end gap-[px]">
-        <label className="self-end text-Yekan text-body-s text-balck">
+        <label className="self-start font-iran-yekan  w-[145px] h-[24px] text-[14px] font-thin pb-[30px] ">
           {label}
         </label>
         <input
