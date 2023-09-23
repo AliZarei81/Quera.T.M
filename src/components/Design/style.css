@@ -1,0 +1,9 @@
+.linear__gradient{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(269.55deg, #06846f 0.35%, #54bee8 103.4%);
+    z-index: -1;
+    clip-path: polygon(100% 100%, -80% 100%, 100% 5%);
+} 
