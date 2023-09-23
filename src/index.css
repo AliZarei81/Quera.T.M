@@ -6,3 +6,7 @@
   font-family: Yekan;
   src: url("fonts/Yekan.ttf") format("truetype");
 }
+
+body {
+  font-family: "Yekan";
+}
