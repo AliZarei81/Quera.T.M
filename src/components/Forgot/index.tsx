@@ -27,7 +27,8 @@ const ForgetPassword: React.FC = () => {
           <Form onSubmit={handleSubmit}>
             <Input
               type="email"
-              label="ایمیل خود را وارد کنید"
+              id="email"
+              label={{ text: "ایمیل خود را وارد کنید", for: "email" }}
               onChange={handleEmailChange}
               value={email}
             />

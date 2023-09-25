@@ -2,6 +2,7 @@ import { useState, MouseEvent, ChangeEvent } from "react";
 import Input from "../Input";
 import Button from "../Button";
 import Form from "../Form";
+import { BiSearch, BiAlarm } from "react-icons/bi";
 const Register: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -36,20 +37,23 @@ const Register: React.FC = () => {
         <Input
           type="text"
           value={name}
+          id="fullName"
           onChange={handleNameChange}
-          label="نام کامل"
+          label={{ text: "نام کامل", for: "fullName" }}
         />
         <Input
           type="email"
           value={email}
+          id="email"
           onChange={handleEmailChange}
-          label="ایمیل"
+          label={{ text: "ایمیل", for: "email" }}
         />
         <Input
           type="password"
           value={password}
+          id="password"
           onChange={handlePasswordChange}
-          label="رمز عبور"
+          label={{ text: "رمز عبور", for: "password" }}
         />
         <div className="self-start flex items-center gap-[5px] ">
           <input
