@@ -27,7 +27,7 @@ const Profile: React.FC<IProfileProbs> = ({
       );
     } else {
       return (
-        <div className="h-[37px] rounded-full bg-indigo-secondary flex items-center justify-center">
+        <div className="w-[36px] h-[37px] rounded-full bg-indigo-secondary flex items-center justify-center">
           <span className="text-xs font-normal text-indigo-primary ">
             {initials}
           </span>
