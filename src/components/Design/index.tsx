@@ -14,16 +14,18 @@ const Design: React.FC = () => {
           <div className="w-[150px] h-[24px] flex font-iran-yekan  text-[16px] leading-[19px] tracking-normal text-rightbg-black bg-clip-text text-transparent [-webkit-text-fill]">
             قبلا ثبت‌نام کرده‌ای؟
           </div>
-          <button  className=" bg-brand-primary cursor-pointer w-[95px] h-[40px] p-[6px] rounded-[10px] border-none gap-[10px] text-gray-secondary font-iran-yekan  ">ثبت‌نام </button>
+          <button className=" bg-brand-primary cursor-pointer w-[95px] h-[40px] p-[6px] rounded-[10px] border-none gap-[10px] text-gray-secondary font-iran-yekan  ">
+            ثبت‌نام{" "}
+          </button>
         </div>
       </header>
 
-      <div className='flex justify-center items-center h-screen '> 
+      <div className="flex justify-center items-center h-screen ">
         {/* <ForgetPassword/> */}
         {/* <ResetPassword></ResetPassword> */}
         {/* <Login></Login> */}
-        {/* <Register></Register> */}
-        </div> 
+        <Register></Register>
+      </div>
 
       <div className="linear__gradient"></div>
     </div>

@@ -26,7 +26,8 @@ const ResetPassword: React.FC = () => {
       <Form onSubmit={handleSubmit}>
         <Input
           type="password"
-          label="رمز عبور جدید را وارد کنید"
+          id="password"
+          label={{ text: "رمز عبور جدید را وارد کنید", for: "password" }}
           onChange={handlePasswordChange}
           value={password}
         />

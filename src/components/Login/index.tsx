@@ -31,14 +31,16 @@ const Login: React.FC = () => {
         <Input
           type="email"
           value={email}
+          id="email"
           onChange={handleEmailChange}
-          label="ایمیل"
+          label={{ text: "ایمیل", for: "email" }}
         />
         <Input
           type="password"
           value={password}
+          id="password"
           onChange={handlePasswordChange}
-          label="رمز عبور"
+          label={{ text: "رمز عبور", for: "password" }}
         />
         <div className="font-iran-yekan self-start text-[13px] font-extrabold   text-brand-primary">
           <p>رمز عبور را فراموش کرده‌ای؟</p>
