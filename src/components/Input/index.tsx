@@ -35,10 +35,9 @@ const Input: React.FC<IInputProps> = ({
           {label?.text}
         </label>
       )}
-
-      <div className="relative flex items-center text-gray-secondary focus-within:text-gray-primary">
+      <div className="relative flex items-center text-gray-secondary border gap-[2px] border-[#AAAAAA] rounded-md">
         <IconContext.Provider
-          value={{ className: "w-5 h-5 absolute ml-3 pointer-events-none" }}
+          value={{ color: "#AAAAAA", size: "50px", className: "" }}
         >
           {icon && cloneElement(icon)}
         </IconContext.Provider>
@@ -49,7 +48,7 @@ const Input: React.FC<IInputProps> = ({
           placeholder={placeholder}
           autoComplete="off"
           onChange={onChange}
-          className="w-full pr-3 pl-10 py-2 font-semibold placeholder-gray-secondary text-black rounded-md border-none ring-2 ring-gray-secondary focus:ring-gray-secondary focus:ring-2"
+          className="h-[40px] ml-[1px] w-full font-semibold placeholder-gray-secondary text-black  border-none  outline-none shadow-none"
         />
       </div>
     </div>
