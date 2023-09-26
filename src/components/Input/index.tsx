@@ -9,6 +9,7 @@ interface ILabel {
 interface IInputProps {
   type: "text" | "password" | "email";
   value: string;
+  className?: string;
   id?: string;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +20,7 @@ interface IInputProps {
 const Input: React.FC<IInputProps> = ({
   type,
   value,
+  className,
   id,
   placeholder,
   onChange,
@@ -35,7 +37,9 @@ const Input: React.FC<IInputProps> = ({
           {label?.text}
         </label>
       )}
-      <div className="relative flex items-center text-gray-secondary border gap-[2px] border-[#AAAAAA] rounded-md">
+      <div
+        className={`relative flex items-center text-gray-secondary border gap-[2px] border-[#AAAAAA] rounded-md`}
+      >
         <IconContext.Provider
           value={{ color: "#AAAAAA", size: "50px", className: "" }}
         >
