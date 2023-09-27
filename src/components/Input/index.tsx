@@ -14,6 +14,7 @@ interface IInputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   icon?: ReactElement;
   label?: ILabel;
+  className?: string;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -24,9 +25,10 @@ const Input: React.FC<IInputProps> = ({
   onChange,
   icon,
   label,
+  className,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-xs">
       {label && (
         <label
           className="self-start text-[14px] font-thin"
@@ -35,9 +37,13 @@ const Input: React.FC<IInputProps> = ({
           {label?.text}
         </label>
       )}
-      <div className="relative flex items-center text-gray-secondary border gap-[2px] border-[#AAAAAA] rounded-md">
+      <div className="relative flex items-center">
         <IconContext.Provider
-          value={{ color: "#AAAAAA", size: "50px", className: "" }}
+          value={{
+            size: "25",
+            color: "#323232",
+            className: "absolute pointer-events-none mr-xs",
+          }}
         >
           {icon && cloneElement(icon)}
         </IconContext.Provider>
@@ -46,9 +52,10 @@ const Input: React.FC<IInputProps> = ({
           value={value}
           id={id}
           placeholder={placeholder}
-          autoComplete="off"
           onChange={onChange}
-          className="h-[40px] ml-[1px] w-full font-semibold placeholder-gray-secondary text-black  border-none  outline-none shadow-none"
+          className={`h-[40px] w-full rounded-md focus:outline-none ${
+            icon ? "pr-xl" : "pr-xs"
+          } ${className}`}
         />
       </div>
     </div>
