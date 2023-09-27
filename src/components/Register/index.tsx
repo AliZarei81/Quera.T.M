@@ -40,6 +40,7 @@ const Register: React.FC = () => {
           id="fullName"
           onChange={handleNameChange}
           label={{ text: "نام کامل", for: "fullName" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="email"
@@ -47,6 +48,7 @@ const Register: React.FC = () => {
           id="email"
           onChange={handleEmailChange}
           label={{ text: "ایمیل", for: "email" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="password"
@@ -54,6 +56,7 @@ const Register: React.FC = () => {
           id="password"
           onChange={handlePasswordChange}
           label={{ text: "رمز عبور", for: "password" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <div className="self-start flex items-center gap-[5px] ">
           <input
@@ -74,7 +77,7 @@ const Register: React.FC = () => {
         <Button
           type="submit"
           disabled={!name || !email || !password}
-          className="font-iran-yekan w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center text-white bg-brand-primary text-gray-secondary rounded cursor-pointer"
+          className="h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
           onClick={handleSubmit}
           title="ثبت نام"
         />
