@@ -5,6 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { TbUserEdit, TbUserCheck } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useState } from "react";
+import ProfileForm from "../ProfileForm";
 
 const Account: React.FC = () => {
   const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
@@ -15,7 +16,7 @@ const Account: React.FC = () => {
           <Button
             title="بازگشت"
             disabled={false}
-            className="bg-brand-primary justify-center text-white w-[113px] h-[43px] text-[20px] rounded-[8px]"
+            className="bg-brand-primary justify-center text-white w-5/12 h-[43px] text-[20px] rounded-[8px]"
             icon={<BsArrowRight />}
           />
           <div
@@ -59,7 +60,8 @@ const Account: React.FC = () => {
           </div>
         </div>
       </SideBar>
-      <AccountForm />
+      {/* <AccountForm /> */}
+      <ProfileForm />
     </div>
   );
 };
