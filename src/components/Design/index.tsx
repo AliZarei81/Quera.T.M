@@ -21,10 +21,10 @@ const Design: React.FC = () => {
       </header>
 
       <div className="flex justify-center items-center h-screen ">
-        {/* <ForgetPassword/> */}
+        <ForgetPassword />
         {/* <ResetPassword></ResetPassword> */}
         {/* <Login></Login> */}
-        <Register></Register>
+        {/* <Register></Register> */}
       </div>
 
       <div className="linear__gradient"></div>

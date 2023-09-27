@@ -53,7 +53,7 @@ const Input: React.FC<IInputProps> = ({
           id={id}
           placeholder={placeholder}
           onChange={onChange}
-          className={`h-[40px] w-full rounded-md focus:outline-none ${
+          className={`h-[40px] rounded-md focus:outline-none ${
             icon ? "pr-xl" : "pr-xs"
           } ${className}`}
         />
