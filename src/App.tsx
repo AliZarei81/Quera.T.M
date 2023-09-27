@@ -10,6 +10,7 @@ function App() {
     {/* <Login></Login> */}
     {/* <ForgetPassword></ForgetPassword> */}
     {/* <ResetPassword></ResetPassword> */}
+    
   </div>;
 }
 

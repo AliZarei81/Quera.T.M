@@ -5,6 +5,7 @@ interface IProfileProbs {
   hasProfilePicture: boolean;
   isOwner: boolean;
   profileColor: string;
+  userNameShow?: boolean;
 }
 
 const Profile: React.FC<IProfileProbs> = ({
@@ -13,6 +14,7 @@ const Profile: React.FC<IProfileProbs> = ({
   hasProfilePicture,
   isOwner = false,
   profileColor,
+  userNameShow = true,
 }): JSX.Element => {
   // Extract initials from the user's name
 
@@ -52,7 +54,7 @@ const Profile: React.FC<IProfileProbs> = ({
     <div className="flex justify-start w-[220px] gap-xs items-center">
       <div className=" h-[37px] gap-xs justify-start items-center flex">
         {renderProfilePicture()}
-        <h1 className="flex ">{user()}</h1>
+        {userNameShow && <h1 className="flex ">{user()}</h1>}
       </div>
       {isOwner && (
         <div className="rounded-md flex text-center justify-center items-center bg-blue-secondary text-blue-primary text-[12px] w-[114px] h-[29px] px-[8px] py-[4px] ">
