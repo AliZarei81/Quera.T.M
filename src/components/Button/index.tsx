@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 interface IButtonProps {
   type?: "button" | "submit" | "reset";
   disabled: boolean;
-  className: string;
+  className?: string;
   onClick?(e: MouseEvent<HTMLButtonElement>): void;
   title: string;
   icon?: ReactElement;
@@ -29,11 +29,11 @@ const Button: React.FC<IButtonProps> = ({
   return (
     <button
       type={type}
-      className={`w-full flex items-center justify-center ${className}  `}
+      className={`w-full flex items-center gap-xs ${className}  `}
       disabled={disabled}
       onClick={onClick}
     >
-      <IconContext.Provider value={{ size: "20px" }}>
+      <IconContext.Provider value={{}}>
         {icon && cloneElement(icon)}
       </IconContext.Provider>
       {title}
