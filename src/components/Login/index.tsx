@@ -31,14 +31,18 @@ const Login: React.FC = () => {
         <Input
           type="email"
           value={email}
+          id="email"
           onChange={handleEmailChange}
-          label="ایمیل"
+          label={{ text: "ایمیل", for: "email" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="password"
           value={password}
+          id="password"
           onChange={handlePasswordChange}
-          label="رمز عبور"
+          label={{ text: "رمز عبور", for: "password" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <div className="font-iran-yekan self-start text-[13px] font-extrabold   text-brand-primary">
           <p>رمز عبور را فراموش کرده‌ای؟</p>
@@ -46,7 +50,7 @@ const Login: React.FC = () => {
         <Button
           type="submit"
           disabled={!email || !password}
-          className="font-iran-yekan w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center text-white bg-brand-primary text-gray-secondary rounded cursor-pointer"
+          className="font-iran-yekan w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center  bg-brand-primary text-gray-secondary rounded cursor-pointer"
           onClick={handleSubmit}
           title="ورود"
         />

@@ -2,6 +2,7 @@ import { useState, MouseEvent, ChangeEvent } from "react";
 import Input from "../Input";
 import Button from "../Button";
 import Form from "../Form";
+import { BiSearch, BiAlarm } from "react-icons/bi";
 const Register: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -36,20 +37,26 @@ const Register: React.FC = () => {
         <Input
           type="text"
           value={name}
+          id="fullName"
           onChange={handleNameChange}
-          label="نام کامل"
+          label={{ text: "نام کامل", for: "fullName" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="email"
           value={email}
+          id="email"
           onChange={handleEmailChange}
-          label="ایمیل"
+          label={{ text: "ایمیل", for: "email" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="password"
           value={password}
+          id="password"
           onChange={handlePasswordChange}
-          label="رمز عبور"
+          label={{ text: "رمز عبور", for: "password" }}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <div className="self-start flex items-center gap-[5px] ">
           <input
@@ -70,7 +77,7 @@ const Register: React.FC = () => {
         <Button
           type="submit"
           disabled={!name || !email || !password}
-          className="font-iran-yekan w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center text-white bg-brand-primary text-gray-secondary rounded cursor-pointer"
+          className="h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
           onClick={handleSubmit}
           title="ثبت نام"
         />

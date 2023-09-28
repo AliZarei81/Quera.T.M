@@ -26,14 +26,16 @@ const ResetPassword: React.FC = () => {
       <Form onSubmit={handleSubmit}>
         <Input
           type="password"
-          label="رمز عبور جدید را وارد کنید"
+          id="password"
+          label={{ text: "رمز عبور جدید را وارد کنید", for: "password" }}
           onChange={handlePasswordChange}
           value={password}
+          className="ring-2 ring-gray-primary w-[592px]"
         />
         <Button
           type="submit"
           disabled={!password}
-          className="font-iran-yekan w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center text-white bg-brand-primary text-gray-secondary rounded cursor-pointer"
+          className="font-iran-yekan w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
           title="تغییر رمز عبور"
         />
       </Form>

@@ -1,44 +1,65 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactElement, cloneElement } from "react";
+import { IconContext } from "react-icons";
+
+interface ILabel {
+  for?: string;
+  text: string;
+}
 
 interface IInputProps {
   type: "text" | "password" | "email";
   value: string;
-  label?: string;
-  onChange(event: ChangeEvent<HTMLInputElement>): void;
+  id?: string;
+  placeholder?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  icon?: ReactElement;
+  label?: ILabel;
+  className?: string;
 }
 
 const Input: React.FC<IInputProps> = ({
   type,
-  label = "",
   value,
+  id,
+  placeholder,
   onChange,
+  icon,
+  label,
+  className,
 }) => {
-  if (label == "") {
-    return (
-      <div className="w-[592px] h-[72px] ">
-        <input
-          type={type}
-          value={value}
-          onChange={onChange}
-          className="w-[592px] h-[40px] rounded-md border border-input-gray bg-input-white px-1"
-        />
-      </div>
-    );
-  } else {
-    return (
-      <div className="w-[592px] h-[72px]  flex flex-col items-end gap-[px]">
-        <label className="self-start font-iran-yekan  w-[145px] h-[24px] text-[14px] font-thin pb-[30px] ">
-          {label}
+  return (
+    <div className="flex flex-col gap-xs">
+      {label && (
+        <label
+          className="self-start text-[14px] font-thin"
+          htmlFor={label?.for}
+        >
+          {label?.text}
         </label>
+      )}
+      <div className="relative flex items-center">
+        <IconContext.Provider
+          value={{
+            size: "25",
+            color: "#323232",
+            className: "absolute pointer-events-none mr-xs",
+          }}
+        >
+          {icon && cloneElement(icon)}
+        </IconContext.Provider>
         <input
           type={type}
           value={value}
+          id={id}
+          placeholder={placeholder}
           onChange={onChange}
-          className="w-[592px] h-[40px] rounded-md border border-input-gray bg-input-white px-1"
+          className={`h-[40px] rounded-md focus:outline-none ${
+            icon ? "pr-xl" : "pr-xs"
+          } ${className}`}
         />
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Input;
