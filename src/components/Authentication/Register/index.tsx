@@ -1,7 +1,7 @@
 import { useState, MouseEvent, ChangeEvent } from "react";
-import Input from "../Input";
-import Button from "../Button";
-import Form from "../Form";
+import Input from "../../Common/Input";
+import Button from "../../Common/Button";
+import Form from "../../Common/Form";
 import { BiSearch, BiAlarm } from "react-icons/bi";
 const Register: React.FC = () => {
   const [name, setName] = useState<string>("");

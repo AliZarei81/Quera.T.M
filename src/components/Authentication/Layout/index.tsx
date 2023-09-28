@@ -1,10 +1,10 @@
 import "./style.css";
-import Button from "../Button";
-import ForgetPassword from "../Forgot";
-import ResetPassword from "../Reset";
-import Login from "../Login";
-import Register from "../Register";
-const Design: React.FC = () => {
+import Button from "../../Common/Button";
+import { Outlet } from "react-router-dom";
+
+interface ILayoutProps {}
+
+const Layout: React.FC<ILayoutProps> = ({}): React.JSX.Element => {
   return (
     <div className="w-full h-screen fixed m-auto ">
       <header className="w-full h-[51px] fixed top-[50px] px-[80px] flex justify-between">
@@ -24,15 +24,11 @@ const Design: React.FC = () => {
       </header>
 
       <div className="flex justify-center items-center h-screen ">
-        {/* <ForgetPassword/> */}
-        <ResetPassword></ResetPassword>
-        {/* <Login></Login> */}
-        {/* <Register></Register> */}
-
-        <div className="linear__gradient"></div>
+        <Outlet />
+        <div className="linear__gradient">Ou</div>
       </div>
     </div>
   );
 };
 
-export default Design;
+export default Layout;

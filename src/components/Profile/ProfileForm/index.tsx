@@ -1,8 +1,8 @@
 import { useState, MouseEvent, ChangeEvent } from "react";
-import Input from "../Input";
-import Button from "../Button";
-import Form from "../Form";
-import Profile from "../Profile";
+import Input from "../../Common/Input";
+import Button from "../../Common/Button";
+import Form from "../../Common/Form";
+import Profile from "../../Common/User";
 const ProfileForm: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");

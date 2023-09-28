@@ -1,7 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-import Button from "../Button";
-import Input from "../Input";
-import Form from "../Form";
+import Button from "../../Common/Button";
+import Input from "../../Common/Input";
+import Form from "../../Common/Form";
 
 const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState<string>("");

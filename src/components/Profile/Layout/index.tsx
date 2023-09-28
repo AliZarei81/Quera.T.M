@@ -1,13 +1,13 @@
 import AccountForm from "../AccountForm";
-import Button from "../Button";
-import SideBar from "../Sidebar";
+import Button from "../../Common/Button";
+import SideBar from "../../Common/Sidebar";
 import { BsArrowRight } from "react-icons/bs";
 import { TbUserEdit, TbUserCheck } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useState } from "react";
 import ProfileForm from "../ProfileForm";
 
-const Account: React.FC = () => {
+const Layout: React.FC = () => {
   const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
   return (
     <div className="flex">
@@ -60,10 +60,10 @@ const Account: React.FC = () => {
           </div>
         </div>
       </SideBar>
-      {/* <AccountForm /> */}
+      {/* <LayoutForm /> */}
       <ProfileForm />
     </div>
   );
 };
 
-export default Account;
+export default Layout;

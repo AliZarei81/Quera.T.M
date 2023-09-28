@@ -1,7 +1,7 @@
 import { useState, MouseEvent, ChangeEvent } from "react";
-import Input from "../Input";
-import Button from "../Button";
-import Form from "../Form";
+import Input from "../../Common/Input";
+import Button from "../../Common/Button";
+import Form from "../../Common/Form";
 const AccountForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [username, setUserName] = useState<string>("");

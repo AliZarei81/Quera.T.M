@@ -8,7 +8,7 @@ interface IProfileProbs {
   className?: string;
 }
 
-const Profile: React.FC<IProfileProbs> = ({
+const User: React.FC<IProfileProbs> = ({
   userName,
   userProfilePicture,
   hasProfilePicture,
@@ -65,4 +65,4 @@ const Profile: React.FC<IProfileProbs> = ({
   );
 };
 
-export default Profile;
+export default User;

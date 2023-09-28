@@ -1,7 +1,7 @@
-import { useState, MouseEvent, ChangeEvent } from "react";
-import Input from "../Input";
-import Button from "../Button";
-import Form from "../Form";
+import { useState, MouseEvent, ChangeEvent, FormEvent } from "react";
+import Input from "../../Common/Input";
+import Button from "../../Common/Button";
+import Form from "../../Common/Form";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -15,19 +15,19 @@ const Login: React.FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Email: ", email);
     console.log("Password: ", password);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-[640px] gap-[32px] p-[24px]  [background-color:#ffff] shadow-2xl rounded-b-2xl">
-      <h3 className="font-iran-yekan w-[509px] h-[55px] text-[32px] font-black text-center">
+    <div className="flex flex-col items-center justify-center gap-m p-l bg-white shadow-2xl rounded-2xl">
+      <h3 className="text-body-xl font-black text-center">
         به کوئرا تسک منیجر خوش برگشتی :)
       </h3>
 
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Input
           type="email"
           value={email}
@@ -50,8 +50,7 @@ const Login: React.FC = () => {
         <Button
           type="submit"
           disabled={!email || !password}
-          className="font-iran-yekan w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center  bg-brand-primary text-gray-secondary rounded cursor-pointer"
-          onClick={handleSubmit}
+          className="px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
           title="ورود"
         />
         <div className="font-iran-yekan  text-[16px]  font-extrabold   flex items-center justify-center gap-[5px]">
