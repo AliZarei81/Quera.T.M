@@ -9,15 +9,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Dropdown hasSearchBar={true}></Dropdown> */}
       
       <Dropdown></Dropdown>
-      
-     
-      
-
-      {/* <Button type="submit" disabled={false} className=" w-[100px] h-[30px] border" title="" ></Button> */}
-      
       
     </div>
   );
