@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: Yekan;
-  src: url("fonts/Yekan.ttf") format("truetype");
+  src: url("./assets/fonts/Yekan.ttf") format("truetype");
 }
 
 body {

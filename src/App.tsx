@@ -4,8 +4,7 @@ import Design from "./components/Design";
 function App() {
   return (
     <div className="App">
-      {/* <Design></Design> */}
-      <Account />
+      <Design></Design>
     </div>
   );
 }
