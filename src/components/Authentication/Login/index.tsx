@@ -58,6 +58,7 @@ const Login: React.FC = () => {
           <p className="text-brand-primary">ثبت نام</p>
         </div>
       </Form>
+      
     </div>
   );
 };

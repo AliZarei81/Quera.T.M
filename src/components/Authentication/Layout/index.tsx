@@ -4,7 +4,9 @@ import { Outlet } from "react-router-dom";
 
 interface ILayoutProps {}
 
-const Layout: React.FC<ILayoutProps> = ({}): React.JSX.Element => {
+const AuthenticationLayout: React.FC<
+  ILayoutProps
+> = ({}): React.JSX.Element => {
   return (
     <div className="w-full h-screen fixed m-auto ">
       <header className="w-full h-[51px] fixed top-[50px] px-[80px] flex justify-between">
@@ -31,4 +33,4 @@ const Layout: React.FC<ILayoutProps> = ({}): React.JSX.Element => {
   );
 };
 
-export default Layout;
+export default AuthenticationLayout;

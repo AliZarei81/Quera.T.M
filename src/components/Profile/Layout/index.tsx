@@ -1,23 +1,21 @@
-import AccountForm from "../AccountForm";
 import Button from "../../Common/Button";
 import SideBar from "../../Common/Sidebar";
 import { BsArrowRight } from "react-icons/bs";
 import { TbUserEdit, TbUserCheck } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useState } from "react";
-import ProfileForm from "../ProfileForm";
-import SettingForm from "../SettingForm";
+import { Outlet } from "react-router-dom";
 
-const Layout: React.FC = () => {
+const ProfileLayout: React.FC = () => {
   const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
   return (
     <div className="flex">
       <SideBar>
-        <div className="flex flex-col items-start mt-[60px] mr-l w-full gap-m">
+        <div className="flex flex-col items-start mt-[60px] mr-l w-full gap-m ">
           <Button
             title="بازگشت"
             disabled={false}
-            className="bg-brand-primary justify-center text-white w-5/12 h-[43px] text-[20px] rounded-[8px]"
+            className="bg-brand-primary justify-center text-white w-2/5 h-[43px] text-[20px] rounded-[8px]"
             icon={<BsArrowRight />}
           />
           <div
@@ -61,9 +59,9 @@ const Layout: React.FC = () => {
           </div>
         </div>
       </SideBar>
-      <SettingForm />
+      <Outlet />
     </div>
   );
 };
 
-export default Layout;
+export default ProfileLayout;

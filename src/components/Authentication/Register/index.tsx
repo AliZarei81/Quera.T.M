@@ -28,7 +28,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-[640px] gap-[32px] p-[24px]  [background-color:#ffff] shadow-2xl rounded-b-2xl">
+    <div className="flex flex-col items-center justify-center w-[640px] gap-[32px] p-[24px]  bg-white shadow-2xl rounded-b-2xl">
       <h3 className="font-iran-yekan w-[509px] h-[55px] text-[32px] font-black text-center">
         ثبت‌نام در کوئرا تسک منیجر
       </h3>
