@@ -6,6 +6,7 @@ import { TbUserEdit, TbUserCheck } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useState } from "react";
 import ProfileForm from "../ProfileForm";
+import SettingForm from "../SettingForm";
 
 const Layout: React.FC = () => {
   const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
@@ -60,8 +61,7 @@ const Layout: React.FC = () => {
           </div>
         </div>
       </SideBar>
-      {/* <LayoutForm /> */}
-      <ProfileForm />
+      <SettingForm />
     </div>
   );
 };
