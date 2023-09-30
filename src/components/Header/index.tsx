@@ -1,0 +1,39 @@
+import React, { FC, useState } from "react";
+import Input from "../Input";
+import { CiSearch } from "react-icons/ci";
+
+interface IHeaderProps {
+  placeholder?: string;
+  onSearch?: (value: string) => void;
+  children?: React.ReactNode;
+}
+
+const Header: FC<IHeaderProps> = ({  onSearch, children }) => {
+  const [value, setValue] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+    if (onSearch) {
+      onSearch(event.target.value);
+    }
+  };
+
+  return (
+    <div className="font-iran-yekan flex items-center border-b-2 border-gray-primary w-[1034px] h-[61px]">
+      <Input
+        type="text"
+        value={value}
+        onChange={handleChange}
+        placeholder={'جستجو بین تسک‌ها'}
+        icon={<CiSearch />}
+        className="font-iran-yekan w-[200px] h-[24px] text-[14px] font-normal "
+      />
+      <div className="before:border-l-2 text-gray-primary pr-[10px]" />
+      <div className="pr-[30px]">
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export default Header;
