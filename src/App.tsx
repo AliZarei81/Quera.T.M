@@ -10,6 +10,9 @@ import ProfileLayout from "./components/Profile/Layout";
 import ProfileForm from "./components/Profile/ProfileForm";
 import AccountForm from "./components/Profile/AccountForm";
 import SettingForm from "./components/Profile/SettingForm";
+import MainPage from "./pages/MainPage/MainPage";
+import WorkSpaceLayout from "./components/MainPage/WorkSpace/WorkSpaceLayout";
+import BoardLayout from "./components/MainPage/Board/BoardLayout";
 
 function App() {
   return (
@@ -31,6 +34,14 @@ function App() {
             <Route path="/profile/account" element={<AccountForm />} />
             <Route path="/profile/settings" element={<SettingForm />} />
           </Route>
+        </Route>
+      </Routes>
+      <Routes>
+        <Route element={<MainPage />}>
+          <Route path="/main" element={<WorkSpaceLayout />}>
+            {/* <Route index element={<ProfileForm />} /> */}
+          </Route>
+          <Route path="/main/board" element={<BoardLayout />}></Route>
         </Route>
       </Routes>
     </Router>

@@ -10,8 +10,8 @@ const Navbar: React.FC = () => {
   const [activeLink, setActiveLink] = React.useState<string | null>(null);
 
   return (
-    <div className="flex items-center justify-between py-[10px] border-b-2 border-gray-primary w-[1034px]">
-      <div className="flex items-center justify-evenly self-center w-[511px] ">
+    <div className="w-full flex items-center justify-between py-[10px] border-b-2 border-gray-primary">
+      <div className="flex items-center justify-evenly self-center">
         <h3 className="text-[20px] font-extrabold pl-[10px]">پروژه اول</h3>
         <div
           className={`flex items-center justify-center self-center gap-[5px] px-[20px]  border-l-2 border-r-2 border-gray-primary text-[16px] font-medium cursor-pointer relative`}

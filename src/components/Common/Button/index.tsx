@@ -9,15 +9,6 @@ interface IButtonProps {
   icon?: ReactElement;
 }
 
-// import { FaHeart } from "react-icons/fa";
-// give icon as a property to the Button component =>
-// <Button
-// title="ثبت نام"
-// icon={<FaHeart />}
-// disabled={false}
-// className=" bg-brand-primary cursor-pointer w-[95px] h-[40px] p-[6px] rounded-[10px] border-none gap-[10px] text-gray-secondary font-iran-yekan  "
-// />
-
 const Button: React.FC<IButtonProps> = ({
   type = "button",
   disabled,
@@ -29,7 +20,7 @@ const Button: React.FC<IButtonProps> = ({
   return (
     <button
       type={type}
-      className={`flex items-center gap-xs ${className}  `}
+      className={`flex items-center gap-xs ${className} `}
       disabled={disabled}
       onClick={onClick}
     >
