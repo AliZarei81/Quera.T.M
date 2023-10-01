@@ -2,10 +2,10 @@ import { MouseEvent, ReactElement, ReactNode, cloneElement } from "react";
 import { IconContext } from "react-icons";
 interface IButtonProps {
   type?: "button" | "submit" | "reset";
-  disabled: boolean;
+  disabled?: boolean;
   className?: string;
   onClick?(e: MouseEvent<HTMLButtonElement>): void;
-  title: string;
+  title?: string;
   icon?: ReactElement;
 }
 
@@ -29,7 +29,7 @@ const Button: React.FC<IButtonProps> = ({
   return (
     <button
       type={type}
-      className={`w-full flex items-center gap-xs ${className}  `}
+      className={`flex items-center gap-xs ${className}  `}
       disabled={disabled}
       onClick={onClick}
     >

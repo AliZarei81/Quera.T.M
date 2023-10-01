@@ -8,7 +8,7 @@ interface IHeaderProps {
   children?: React.ReactNode;
 }
 
-const Header: FC<IHeaderProps> = ({  onSearch, children }) => {
+const Header: FC<IHeaderProps> = ({ onSearch, children }) => {
   const [value, setValue] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,19 +19,17 @@ const Header: FC<IHeaderProps> = ({  onSearch, children }) => {
   };
 
   return (
-    <div className="font-iran-yekan flex items-center border-b-2 border-gray-primary w-[1034px] h-[61px]">
+    <div className="flex items-center border-b-2 border-gray-primary w-full">
       <Input
         type="text"
         value={value}
         onChange={handleChange}
-        placeholder={'جستجو بین تسک‌ها'}
+        placeholder={"جستجو بین تسک‌ها"}
         icon={<CiSearch />}
-        className="font-iran-yekan w-[200px] h-[24px] text-[14px] font-normal "
+        className="h-[24px] text-[14px] font-normal "
       />
       <div className="before:border-l-2 text-gray-primary pr-[10px]" />
-      <div className="pr-[30px]">
-        {children}
-      </div>
+      <div className="pr-[30px]">{children}</div>
     </div>
   );
 };
