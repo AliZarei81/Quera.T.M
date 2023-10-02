@@ -5,7 +5,7 @@ import PaginationBullet from "./PaginationBullet";
 interface IModalProbs {
   hasPaginationBulet:boolean;
   modalClassname?: string;
-  modalTitle: string;
+  modalTitle?: string;
   totalPages: number;
   currentPage: number;
   handlePrevPage?: () => void;
