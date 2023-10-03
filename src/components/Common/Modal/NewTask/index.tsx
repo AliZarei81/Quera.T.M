@@ -14,7 +14,7 @@ const NewTask: React.FC<INewTaskProbs> = ({
   date,
   handleTaskCreate,
   handleClose,
-}) => {
+}):JSX.Element => {
   const [taskName, setTaskName] = useState<string>("");
   const [isOpen, setIsOpen] = useState(true);
 
