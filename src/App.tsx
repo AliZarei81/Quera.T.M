@@ -13,8 +13,10 @@ import SettingForm from "./components/Profile/SettingForm";
 import MainPage from "./pages/MainPage/MainPage";
 import WorkSpaceLayout from "./components/MainPage/WorkSpace/WorkSpaceLayout";
 import BoardLayout from "./components/MainPage/Board/BoardLayout";
+import { useState } from "react";
 
 function App() {
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <Router>
       <Routes>

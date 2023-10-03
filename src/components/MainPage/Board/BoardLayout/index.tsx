@@ -1,18 +1,24 @@
 import { Outlet } from "react-router-dom";
 import MainPageSideBar from "../../MainPageSideBar";
-import Navbar from "../../../Common/Navbar";
-import Header from "../../../Common/Header";
-import Filterstatus from "../../../Common/FilterStatus";
+import Navbar from "../Navbar";
+import Header from "../Header";
+import Filterstatus from "../FilterStatus";
 import ChangeDate from "../../../Common/ChangeDate";
+import { useState } from "react";
+import Filter from "../Filter";
 const BoardLayout = () => {
-  const show = false;
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <div className="flex">
       <MainPageSideBar />
       <div className="flex flex-grow flex-col mx-xl gap-m">
         <Navbar />
+        <Header>
+          <Filterstatus setVisible={() => setIsVisible(true)} />
+        </Header>
         <Outlet />
       </div>
+      <Filter isVisible={isVisible} onClose={() => setIsVisible(false)} />
     </div>
   );
 };

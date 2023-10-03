@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../Button";
-import Link from "../Link";
+import Button from "../../../Common/Button";
+import Link from "../../../Common/Link";
 import { FiShare2 } from "react-icons/fi";
 import { BsCalendar4Week } from "react-icons/bs";
 import { BsKanban } from "react-icons/bs";

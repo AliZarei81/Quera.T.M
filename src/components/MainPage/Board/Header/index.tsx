@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import Input from "../Input";
+import Input from "../../../Common/Input";
 import { CiSearch } from "react-icons/ci";
 
 interface IHeaderProps {
