@@ -30,7 +30,7 @@ const ShareWorkspace: React.FC<IShareWorkspaceProbs> = ({privateLink}): JSX.Elem
           <Button
             type="submit"
             disabled={false}
-            className="rounded-l-[8px] w-[75px] h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
+            className="rounded-l-[8px] w-1/4 h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
             onClick={handleSend}
             title="ارسال"
 

@@ -25,6 +25,7 @@ const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({handleSubmit}): JSX.
       modalClassname="w-[500px] h-[272px] "
       onClick={handleSubmit}
       hasFooter={true}
+      mBodyStyle="justify-center"
     />
   );
 };

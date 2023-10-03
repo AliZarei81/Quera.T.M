@@ -29,7 +29,7 @@ const CopyLinkButton: React.FC<ICopyLinkButtonProbs> = ({
         title={isCopied ? "کپی شد!" : "کپی لینک"}
         className={`${
           isCopied ? "bg-cyan-primary text-white" : "bg-white"
-        } text-black rounded-[6px] text-[1px] p-2 w-[75px] h-[28px] flex justify-center `}
+        } text-black rounded-[6px] text-[1px] p-2 w-1/5 h-[28px] flex justify-center `}
       />
     </div>
   );
