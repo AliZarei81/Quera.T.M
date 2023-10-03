@@ -7,6 +7,7 @@ const Filterstatus: React.FC = () => {
     <div className="w-[238px] h-[29px] flex gap-s">
       <div className="w-[67px] h-[24px] gap-xs flex font-iran-yekan text-body-xs self-start">
         <Button
+          type="button"
           title="فیلترها"
           disabled={false}
           onClick={() => 0}

@@ -18,6 +18,7 @@ const AuthenticationLayout: React.FC<
             قبلا ثبت‌نام کرده‌ای؟
           </div>
           <Button
+            type="button"
             title="ثبت نام"
             disabled={false}
             className=" bg-brand-primary cursor-pointer w-[95px] h-[40px] p-[6px] rounded-[10px] border-none gap-[10px] text-gray-secondary font-iran-yekan  "

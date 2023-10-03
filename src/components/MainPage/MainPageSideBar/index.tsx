@@ -20,6 +20,8 @@ const MainPageSideBar = () => {
         />
         <div className="flex justify-around">
           <Button
+            type="button"
+            disabled={false}
             title="خروج"
             icon={<TbDoorExit />}
             className="text-gray-primary text-body-m"

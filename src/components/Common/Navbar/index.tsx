@@ -69,6 +69,7 @@ const Navbar: React.FC = () => {
 
       <div className="flex items-center justify-center gap-[5px]">
         <Button
+          type="button"
           className="p-2 text-black bg-white rounded-full border-none cursor-pointer font-medium text-[16px] "
           title="اشتراک‌ گذاری"
           disabled={false}

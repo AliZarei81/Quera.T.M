@@ -1,12 +1,12 @@
 import { MouseEvent, ReactElement, ReactNode, cloneElement } from "react";
 import { IconContext } from "react-icons";
 interface IButtonProps {
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
+  type: "button" | "submit";
+  disabled: boolean;
   className?: string;
-  onClick?(e: MouseEvent<HTMLButtonElement>): void;
   title?: string;
   icon?: ReactElement;
+  onClick?(e: MouseEvent<HTMLButtonElement>): void;
 }
 
 const Button: React.FC<IButtonProps> = ({

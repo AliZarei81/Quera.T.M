@@ -50,7 +50,7 @@ const Login: React.FC = () => {
         <Button
           type="submit"
           disabled={!email || !password}
-          className="px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
+          className="w-full px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
           title="ورود"
         />
         <div className="font-iran-yekan  text-[16px]  font-extrabold   flex items-center justify-center gap-[5px]">
@@ -58,7 +58,6 @@ const Login: React.FC = () => {
           <p className="text-brand-primary">ثبت نام</p>
         </div>
       </Form>
-      
     </div>
   );
 };

@@ -13,6 +13,7 @@ const ProfileLayout: React.FC = () => {
       <SideBar>
         <div className="flex flex-col items-start mt-[60px] mr-l w-full gap-m ">
           <Button
+            type="button"
             title="بازگشت"
             disabled={false}
             className="bg-brand-primary justify-center text-white w-2/5 h-[43px] text-[20px] rounded-[8px]"
@@ -25,6 +26,7 @@ const ProfileLayout: React.FC = () => {
             }`}
           >
             <Button
+              type="button"
               title="اطلاعات فردی"
               disabled={false}
               onClick={() => setActiveButtonIndex(0)}
@@ -38,6 +40,7 @@ const ProfileLayout: React.FC = () => {
             }`}
           >
             <Button
+              type="button"
               title="اطلاعات حساب"
               disabled={false}
               onClick={() => setActiveButtonIndex(1)}
@@ -51,6 +54,7 @@ const ProfileLayout: React.FC = () => {
             }`}
           >
             <Button
+              type="button"
               title="تنظیمات"
               disabled={false}
               onClick={() => setActiveButtonIndex(2)}
