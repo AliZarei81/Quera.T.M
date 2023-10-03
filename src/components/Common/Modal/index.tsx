@@ -3,18 +3,19 @@ import Button from "../Button";
 import { MouseEvent, useState } from "react";
 import PaginationBullet from "./PaginationBullet";
 interface IModalProbs {
-  hasPaginationBulet:boolean;
+  hasPaginationBulet: boolean;
   modalClassname?: string;
   modalTitle?: string;
   totalPages: number;
   currentPage: number;
   handlePrevPage?: () => void;
   mBody: React.ReactNode; //Content of modal's body
-  buttonTitle: string; //Content of footer button
+  buttonTitle?: string; //Content of footer button
   buttonClassName?: string;
   onClick?(e: MouseEvent<HTMLButtonElement>): void;
-  mFooter?:React.ReactNode;
-  mBodyStyle?:string
+  mFooter?: React.ReactNode;
+  mBodyStyle?: string;
+  hasFooter: boolean;
 }
 const Modal: React.FC<IModalProbs> = ({
   onClick,
@@ -22,13 +23,14 @@ const Modal: React.FC<IModalProbs> = ({
   currentPage,
   totalPages,
   mBody,
-  buttonTitle,
+  buttonTitle='',
   modalClassname,
   buttonClassName,
   handlePrevPage,
   hasPaginationBulet,
   mFooter,
-  mBodyStyle
+  mBodyStyle,
+  hasFooter,
 }): JSX.Element => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -67,18 +69,23 @@ const Modal: React.FC<IModalProbs> = ({
         {/* Body content goes here  */}
         <div className={`w-full flex justify-start ${mBodyStyle}`}>{mBody}</div>
         {/* Footer content goes here */}
-        <div className="w-full flex justify-center px-[24px]">
-          <Button
-            type="button"
-            disabled={false}
-            className={` flex justify-center items-start w-[415px] h-[40px] rounded-md  text-[14px] text-gray-secondary bg-brand-primary font-extrabold ${buttonClassName}`}
-            onClick={onClick}
-            title={buttonTitle}
-          ></Button>
-          {mFooter}
-        </div>
+        {hasFooter && (
+          <div className="w-full flex justify-center px-[24px]">
+            <Button
+              type="button"
+              disabled={false}
+              className={` flex justify-center items-start w-[415px] h-[40px] rounded-md  text-[14px] text-gray-secondary bg-brand-primary font-extrabold ${buttonClassName}`}
+              onClick={onClick}
+              title={buttonTitle}
+            ></Button>
+            {mFooter}
+          </div>
+        )}
       </div>
-        {hasPaginationBulet&&<PaginationBullet currentPage={currentPage} totalPages={totalPages}/>}
+
+      {hasPaginationBulet && (
+        <PaginationBullet currentPage={currentPage} totalPages={totalPages} />
+      )}
     </div>
   );
 };

@@ -138,6 +138,8 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
       modalClassname="w-[500px] h-[272px] "
       onClick={handleClick}
       mBodyStyle={currentPage === 1 ? "justify-center" : "justify-start"}
+      hasFooter={true}
+      
     />
   );
 };

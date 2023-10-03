@@ -11,7 +11,6 @@ import ProfileForm from "./components/Profile/ProfileForm";
 import AccountForm from "./components/Profile/AccountForm";
 import SettingForm from "./components/Profile/SettingForm";
 
-
 function App() {
   return (
     <Router>
@@ -35,7 +34,6 @@ function App() {
         </Route>
       </Routes>
     </Router>
-    
   );
 }
 

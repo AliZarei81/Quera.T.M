@@ -24,6 +24,7 @@ const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({handleSubmit}): JSX.
       hasPaginationBulet={false}
       modalClassname="w-[500px] h-[272px] "
       onClick={handleSubmit}
+      hasFooter={true}
     />
   );
 };

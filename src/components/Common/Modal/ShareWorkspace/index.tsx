@@ -4,10 +4,10 @@ import Input from "../../Input";
 import Button from "../../Button";
 import CopyLinkButton from "../../CopyLinkButton";
 
-interface IShareProjectProbs{
+interface IShareWorkspaceProbs{
   privateLink:string
 }
-const ShareProject: React.FC<IShareProjectProbs> = ({privateLink}): JSX.Element => {
+const ShareWorkspace: React.FC<IShareWorkspaceProbs> = ({privateLink}): JSX.Element => {
   const [email, setEmail] = useState<string>("");
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -54,11 +54,11 @@ const ShareProject: React.FC<IShareProjectProbs> = ({privateLink}): JSX.Element 
       hasPaginationBulet={false}
       hasFooter={false}
       modalClassname="w-[470px] rounded-[12px] gap-xl p-[20px] "
-      modalTitle="به اشتراک گذاری پروژه"
+      modalTitle="اشتراک گذاری ورک اسپیس"
       totalPages={1}
       currentPage={1}
       mBody={child()}
     />
   );
 };
-export default ShareProject;
+export default ShareWorkspace;
