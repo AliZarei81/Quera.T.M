@@ -16,7 +16,6 @@ import BoardLayout from "./components/MainPage/Board/BoardLayout";
 import { useState } from "react";
 
 function App() {
-  const [isVisible, setIsVisible] = useState(false);
   return (
     <Router>
       <Routes>

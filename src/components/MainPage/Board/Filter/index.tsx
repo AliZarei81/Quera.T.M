@@ -1,15 +1,18 @@
 import { GrFormClose } from "react-icons/gr";
-import { LiaTrashAlt } from "react-icons/lia";
 import Button from "../../../Common/Button";
+import { PropsWithChildren, useEffect, useState } from "react";
 
-interface IFilterProps {
+interface IFilterProps extends PropsWithChildren {
   isVisible: boolean;
   onClose: () => void;
+  onAddFilter: () => void;
 }
 
 const Filter: React.FC<IFilterProps> = ({
   isVisible,
   onClose,
+  onAddFilter,
+  children,
 }): React.JSX.Element | null => {
   const handleClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLDivElement;
@@ -34,19 +37,13 @@ const Filter: React.FC<IFilterProps> = ({
             onClick={() => onClose()}
           />
         </div>
-        <div className="w-full flex items-center justify-between">
-          <p>تسک هایی که</p>
-          <Button
-            type="button"
-            disabled={false}
-            icon={<LiaTrashAlt size={30} className="text-red-primary" />}
-          />
-        </div>
+        {children}
         <Button
           title="افزودن فیلتر جدید"
           type="button"
           disabled={false}
-          className="text-brand-primary"
+          className="text-brand-primary text-body-[12px]"
+          onClick={onAddFilter}
         />
       </div>
     </div>
