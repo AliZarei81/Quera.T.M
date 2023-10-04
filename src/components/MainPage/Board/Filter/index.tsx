@@ -1,6 +1,6 @@
 import { GrFormClose } from "react-icons/gr";
 import Button from "../../../Common/Button";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren } from "react";
 
 interface IFilterProps extends PropsWithChildren {
   isVisible: boolean;

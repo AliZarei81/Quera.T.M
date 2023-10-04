@@ -14,6 +14,12 @@ import MainPage from "./pages/MainPage/MainPage";
 import WorkSpaceLayout from "./components/MainPage/WorkSpace/WorkSpaceLayout";
 import BoardLayout from "./components/MainPage/Board/BoardLayout";
 import { useState } from "react";
+import PopoverButton from "./components/Common/PopoverButton";
+import Button from "./components/Common/Button";
+import { IoIosAdd } from "react-icons/io";
+import { FiShare2, FiEdit, FiLink } from "react-icons/fi";
+import { MdOutlineColorLens } from "react-icons/md";
+import { LiaTrashAlt } from "react-icons/lia";
 
 function App() {
   return (
