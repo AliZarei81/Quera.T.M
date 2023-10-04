@@ -10,8 +10,6 @@ import ProfileLayout from "./components/Profile/Layout";
 import ProfileForm from "./components/Profile/ProfileForm";
 import AccountForm from "./components/Profile/AccountForm";
 import SettingForm from "./components/Profile/SettingForm";
-import CreateNewWorkspace from "./components/Common/Modal/CreateNewWorkspace";
-
 
 function App() {
   return (
@@ -36,8 +34,6 @@ function App() {
         </Route>
       </Routes>
     </Router>
-    
-  
   );
 }
 

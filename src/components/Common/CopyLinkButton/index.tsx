@@ -23,14 +23,16 @@ const CopyLinkButton: React.FC<ICopyLinkButtonProbs> = ({
         <BiLink className="text-[20px]" />
         <p className="text-[14px]" >لینک خصوصی</p>
       </div>
+      <div className="w-[74px] h-[26px]">
       <Button
         onClick={copyLinkToClipboard}
         disabled={false}
         title={isCopied ? "کپی شد!" : "کپی لینک"}
-        className={`${
-          isCopied ? "bg-cyan-primary text-white" : "bg-white"
-        } text-black rounded-[6px] text-[1px] p-2 w-1/5 h-[28px] flex justify-center `}
+        className={`text-black ${
+          isCopied ? " bg-brand-primary text-white" : "bg-white"
+        } text-black rounded-[6px] text-[1px] p-2 w-[74px] h-[26px] flex justify-center `}
       />
+      </div>
     </div>
   );
 };
