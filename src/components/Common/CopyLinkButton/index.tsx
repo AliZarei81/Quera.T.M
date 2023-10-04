@@ -18,21 +18,23 @@ const CopyLinkButton: React.FC<ICopyLinkButtonProbs> = ({
   };
 
   return (
-    <div className="flex items-center justify-between w-[400px] h-[26px]">
-      <div className="flex justify-start gap-xs">
+    <div className="flex items-center justify-between ">
+      <div className="flex justify-start gap-xs w-[120px]">
         <BiLink className="text-[20px]" />
-        <p className="text-[14px]" >لینک خصوصی</p>
+        <p className="text-[14px] " >لینک خصوصی</p>
       </div>
-      <div className="w-[74px] h-[26px]">
-      <Button
+      <button onClick={copyLinkToClipboard} className={`${
+          isCopied ? "bg-cyan-primary text-white" : "bg-white"
+        } text-black rounded-[6px] text-[12px] p-2 w-[91px] h-[28px] flex justify-center items-center `}
+      >{isCopied ? "کپی شد!" : "کپی لینک"}</button>
+      {/* <Button
         onClick={copyLinkToClipboard}
         disabled={false}
         title={isCopied ? "کپی شد!" : "کپی لینک"}
-        className={`text-black ${
-          isCopied ? " bg-brand-primary text-white" : "bg-white"
-        } text-black rounded-[6px] text-[1px] p-2 w-[74px] h-[26px] flex justify-center `}
-      />
-      </div>
+        className={`w-[91px] ${
+          isCopied ? "bg-cyan-primary text-white" : "bg-white"
+        } text-black rounded-[6px] text-[12px] p-2  h-[28px] flex justify-center items-center `}
+      /> */}
     </div>
   );
 };

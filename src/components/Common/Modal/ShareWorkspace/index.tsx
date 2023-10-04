@@ -13,14 +13,14 @@ interface IUser {
   userNameShow?: boolean;
   userColor: string;
   email: string;
-  access?:string;
+  access?: string;
 }
-interface IShareWorkspaceProbs {
+interface IShareProjectProbs {
   privateLink: string;
   users: IUser[];
   // userAccess: IUser;
 }
-const ShareWorkspace: React.FC<IShareWorkspaceProbs> = ({
+const ShareProject: React.FC<IShareProjectProbs> = ({
   privateLink,
   users,
   // userAccess,
@@ -33,19 +33,22 @@ const ShareWorkspace: React.FC<IShareWorkspaceProbs> = ({
   const renderUsers = () => {
     return users.map((user, index) => (
       <div className="flex justify-between">
-      <User
-        hasProfilePicture={user.hasProfilePicture}
-        isOwner={user.isOwner}
-        userName={user.userName}
-        className={user.userColor}
-        userNameShow={true}
-        userProfilePicture={user.userProfilePicture}
-        email={user.email}
-        showEmailOrUser={false}
-      />
-      {(user.isOwner)&&(<div className="bg-white w-[90px] h-[30px] text-[12px] flex justify-center items-center rounded-[6px] border-[#E9EBF0]">دسترسی کامل</div>) }
-     {(!user.isOwner)&&<CammonDropdown type="fullaccess"/>}
-    
+        <User
+          hasProfilePicture={user.hasProfilePicture}
+          isOwner={user.isOwner}
+          userName={user.userName}
+          className={user.userColor}
+          userNameShow={true}
+          userProfilePicture={user.userProfilePicture}
+          email={user.email}
+          showEmailOrUser={false}
+        />
+        {user.isOwner && (
+          <div className="bg-white w-[90px] h-[30px] text-[12px] flex justify-center items-center rounded-[6px] border-[#E9EBF0]">
+            دسترسی کامل
+          </div>
+        )}
+        {!user.isOwner && <CammonDropdown type="fullaccess" />}
       </div>
     ));
   };
@@ -60,21 +63,29 @@ const ShareWorkspace: React.FC<IShareWorkspaceProbs> = ({
             onChange={handleEmailChange}
             className="w-full"
           />
-          <Button
+          {/* <Button
             type="submit"
             disabled={false}
-            className="rounded-l-[8px] w-1/3 h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
+            className="rounded-l-[8px] w-[91px] h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
             onClick={handleSend}
             title="ارسال"
-          />
+          /> */}
+          <button
+            onClick={handleSend}
+            className="rounded-l-[8px] w-[91px] h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
+          >
+            ارسال
+          </button>
         </div>
-        <div >
-          <CopyLinkButton  linkToCopy={privateLink} />
+        <div>
+          <CopyLinkButton linkToCopy={privateLink} />
         </div>
         <div id="user">
           <p className="text-gray-primary">اشتراک گذاشته شده با</p>
-          <div >
-            <ul className="flex flex-col gap-xs" id="user">{renderUsers()}</ul>
+          <div>
+            <ul className="flex flex-col gap-xs" id="user">
+              {renderUsers()}
+            </ul>
           </div>
         </div>
       </div>
@@ -92,4 +103,4 @@ const ShareWorkspace: React.FC<IShareWorkspaceProbs> = ({
     />
   );
 };
-export default ShareWorkspace;
+export default ShareProject;

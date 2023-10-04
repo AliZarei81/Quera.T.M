@@ -60,13 +60,19 @@ const ShareProject: React.FC<IShareProjectProbs> = ({
             onChange={handleEmailChange}
             className="w-full"
           />
-          <Button
+          {/* <Button
             type="submit"
             disabled={false}
             className="rounded-l-[8px] w-1/3 h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
             onClick={handleSend}
             title="ارسال"
-          />
+          /> */}
+          <button
+            onClick={handleSend}
+            className="rounded-l-[8px] w-[91px] h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
+          >
+            ارسال
+          </button>
         </div>
         <div>
           <CopyLinkButton linkToCopy={privateLink} />
