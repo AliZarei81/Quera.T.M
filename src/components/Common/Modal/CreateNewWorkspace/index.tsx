@@ -11,12 +11,14 @@ interface ICreateNewWorkspaceProbs {
   hasProfilePic:boolean;
   userName:string;
   userColor:string;
+  picture?:string
 }
 const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
   handleCreate /*,colors*/,
   hasProfilePic,
   userName,
   userColor,
+  picture
 }): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const handlePrevPage = () => {
@@ -106,7 +108,7 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
             </div>
             <div className=" w-full flex flex-row justify-between items-start">
               <p>اعضا</p>
-              <User  hasProfilePicture={hasProfilePic} isOwner={false} userName={userName} userNameShow={false} className={userColor} />
+              <User  hasProfilePicture={hasProfilePic} userProfilePicture={picture} isOwner={false} userName={userName} userNameShow={false} className={userColor} />
             </div>
           </div>
         );

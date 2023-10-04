@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BiLink } from "react-icons/bi";
-import Button from "../Button";
+// import Button from "../Button";
 interface ICopyLinkButtonProbs {
   linkToCopy: string;
   

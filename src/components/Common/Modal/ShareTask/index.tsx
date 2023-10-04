@@ -13,14 +13,14 @@ interface IUser {
   userNameShow?: boolean;
   userColor: string;
   email: string;
-  access?: string;
+  access?:string;
 }
-interface IShareProjectProbs {
+interface IShareTaskProbs {
   privateLink: string;
   users: IUser[];
   // userAccess: IUser;
 }
-const ShareProject: React.FC<IShareProjectProbs> = ({
+const ShareTask: React.FC<IShareTaskProbs> = ({
   privateLink,
   users,
   // userAccess,
@@ -33,22 +33,19 @@ const ShareProject: React.FC<IShareProjectProbs> = ({
   const renderUsers = () => {
     return users.map((user, index) => (
       <div className="flex justify-between">
-        <User
-          hasProfilePicture={user.hasProfilePicture}
-          isOwner={user.isOwner}
-          userName={user.userName}
-          className={user.userColor}
-          userNameShow={true}
-          userProfilePicture={user.userProfilePicture}
-          email={user.email}
-          showEmailOrUser={false}
-        />
-        {user.isOwner && (
-          <div className="bg-white w-[90px] h-[30px] text-[12px] flex justify-center items-center rounded-[6px] border-[#E9EBF0]">
-            دسترسی کامل
-          </div>
-        )}
-        {!user.isOwner && <CammonDropdown type="fullaccess" />}
+      <User
+        hasProfilePicture={user.hasProfilePicture}
+        isOwner={user.isOwner}
+        userName={user.userName}
+        className={user.userColor}
+        userNameShow={true}
+        userProfilePicture={user.userProfilePicture}
+        email={user.email}
+        showEmailOrUser={false}
+      />
+      {(user.isOwner)&&(<div className="bg-white w-[90px] h-[30px] text-[12px] flex justify-center items-center rounded-[6px] border-[#E9EBF0]">دسترسی کامل</div>) }
+     {(!user.isOwner)&&<CammonDropdown type="fullaccess"/>}
+    
       </div>
     ));
   };
@@ -66,7 +63,7 @@ const ShareProject: React.FC<IShareProjectProbs> = ({
           {/* <Button
             type="submit"
             disabled={false}
-            className="rounded-l-[8px] w-[91px] h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
+            className="rounded-l-[8px] w-1/3 h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
             onClick={handleSend}
             title="ارسال"
           /> */}
@@ -82,10 +79,8 @@ const ShareProject: React.FC<IShareProjectProbs> = ({
         </div>
         <div id="user">
           <p className="text-gray-primary">اشتراک گذاشته شده با</p>
-          <div>
-            <ul className="flex flex-col gap-xs" id="user">
-              {renderUsers()}
-            </ul>
+          <div >
+            <ul className="flex flex-col gap-xs" id="user">{renderUsers()}</ul>
           </div>
         </div>
       </div>
@@ -96,11 +91,11 @@ const ShareProject: React.FC<IShareProjectProbs> = ({
       hasPaginationBulet={false}
       hasFooter={false}
       modalClassname="w-[470px] rounded-[12px] gap-xl p-[20px] "
-      modalTitle=" اشتراک گذاری ورک اسپیس"
+      modalTitle="به اشتراک گذاری تسک"
       totalPages={1}
       currentPage={1}
       mBody={child()}
     />
   );
 };
-export default ShareProject;
+export default ShareTask;
