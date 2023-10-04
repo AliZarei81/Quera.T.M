@@ -36,9 +36,9 @@ const User: React.FC<IProfileProbs> = ({
     } else {
       return (
         <div
-          className={` w-[100px] h-[100px] rounded-full flex items-center justify-center ${className}`}
+          className={` w-[36px] h-[36px]  rounded-full flex items-center justify-center ${className}`}
         >
-          <span className="text-body-xl font-normal text-yellow-primary ">
+          <span className="text-[14px] font-normal text-yellow-primary ">
             {initials}
           </span>
         </div>

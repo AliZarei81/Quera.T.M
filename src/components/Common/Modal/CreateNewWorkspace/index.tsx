@@ -3,13 +3,20 @@ import Modal from "..";
 import Input from "../../Input";
 import ColorPiker from "../../ColorPicker";
 import { ColorResult } from "@uiw/color-convert";
+import User from "../../User";
 
 interface ICreateNewWorkspaceProbs {
   handleCreate: () => void; //workspace create ;
   //colors :Array<string>
+  hasProfilePic:boolean;
+  userName:string;
+  userColor:string;
 }
 const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
   handleCreate /*,colors*/,
+  hasProfilePic,
+  userName,
+  userColor,
 }): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const handlePrevPage = () => {
@@ -85,7 +92,7 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
         );
       case 3:
         return (
-          <div className="text-[14px] w-full font-extrabold gap-s flex flex-col justify-start items-start">
+          <div className="text-[14px] w-full font-extrabold gap-s flex flex-col justify-start items-start border p-[16px] rounded-[8px] border-[#AAAAAA]">
             <div className=" w-full flex flex-row justify-between">
               <p>نام ورک اسپیس</p>
               <p>{workSpaceName}</p>
@@ -97,8 +104,9 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
                 className="w-[15px] h-[15px] rounded-[2px]"
               ></div>
             </div>
-            <div className=" w-full flex flex-row justify-between">
+            <div className=" w-full flex flex-row justify-between items-start">
               <p>اعضا</p>
+              <User  hasProfilePicture={hasProfilePic} isOwner={false} userName={userName} userNameShow={false} className={userColor} />
             </div>
           </div>
         );
@@ -139,6 +147,7 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
       onClick={handleClick}
       mBodyStyle={currentPage === 1 ? "justify-center" : "justify-start"}
       hasFooter={true}
+      
       
     />
   );
