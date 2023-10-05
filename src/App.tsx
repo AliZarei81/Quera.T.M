@@ -11,14 +11,20 @@ import ProfileForm from "./components/Profile/ProfileForm";
 import AccountForm from "./components/Profile/AccountForm";
 import SettingForm from "./components/Profile/SettingForm";
 import CammonDropdown from "./components/Common/CommonDropdown";
+import ListViewDropDown from "./components/Common/ListViewDropDown"
+import ListView from "./components/Common/ListView";
 
 function App() {
   return (
-       <div className="flex justify-between">
-       <CammonDropdown type="fullaccess"></CammonDropdown>
+       <div className="flex-col justify-between">
+       {/* <CammonDropdown type="fullaccess"></CammonDropdown>
        <CammonDropdown type="search between filters"></CammonDropdown>
        <CammonDropdown type="select"></CammonDropdown>
-       <CammonDropdown type="is and is not"></CammonDropdown>
+       <CammonDropdown type="is and is not"></CammonDropdown> */}
+       {/* <ListViewDropDown title="Pending" color="bg-light-pink"></ListViewDropDown>
+       <ListViewDropDown title="in Progress" color="bg-orange-primary"></ListViewDropDown>
+       <ListViewDropDown title="Done" color="bg-green-primary"></ListViewDropDown> */}
+       <ListView project="پروژه اول"></ListView>
        </div> 
   );
 }
