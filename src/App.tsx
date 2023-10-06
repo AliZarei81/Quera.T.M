@@ -14,7 +14,7 @@ import CammonDropdown from "./components/Common/CommonDropdown";
 
 function App() {
   return (
-       <div className="flex justify-between">
+       <div className="flex justify-between bg-gray-primary">
        <CammonDropdown type="fullaccess"></CammonDropdown>
        <CammonDropdown type="search between filters"></CammonDropdown>
        <CammonDropdown type="select"></CammonDropdown>

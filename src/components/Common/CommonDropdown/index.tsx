@@ -48,11 +48,11 @@ const CammonDropdown: React.FC<iDropDown> = ({type,projects}) => {
     
      
     return (
-        <div className='w-[117px] h-[30px]'>
+        <div className='w-[117px] h-[30px] '>
         {
         type === 'fullaccess' && 
         <div>
-            <div onClick={handleDropdownClick} className='flex  w-[117px] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
+            <div onClick={handleDropdownClick} className='flex bg-white w-[117px] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
                 <div className='font-iran-yekan text-[12px] w-[100%]'>{myString}</div>
                 <RiArrowDropDownLine className='w-[18px] h-[18px]'></RiArrowDropDownLine>
             </div>
@@ -91,7 +91,7 @@ const CammonDropdown: React.FC<iDropDown> = ({type,projects}) => {
 
         type === 'search between filters' &&
         <div className='w-[182px] h-[30px]'>
-            <div onClick={handleDropdownClick} className='flex  w-[182px] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
+            <div onClick={handleDropdownClick} className='flex bg-white   w-[182px] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
                 <div className='font-iran-yekan text-[12px] w-[100%]'>{myString}</div>
                 <RiArrowDropDownLine className='w-[18px] h-[18px]'></RiArrowDropDownLine>
             </div>
@@ -117,7 +117,7 @@ const CammonDropdown: React.FC<iDropDown> = ({type,projects}) => {
 
         type === 'select' &&
         <div className='w-[146px] h-[30px]'>
-            <div onClick={handleDropdownClick} className='flex  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
+            <div onClick={handleDropdownClick} className='flex bg-white  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
                 <div className='font-iran-yekan text-[12px] w-[100%] text-gray-primary'>{myString}</div>
                 <RiArrowDropDownLine className='w-[18px] h-[18px]'></RiArrowDropDownLine>
             </div>
@@ -143,7 +143,7 @@ const CammonDropdown: React.FC<iDropDown> = ({type,projects}) => {
 
         type === 'is and is not' &&
         <div className='w-[107px] h-[30px] '>
-            <div onClick={handleDropdownClick} className='flex  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
+            <div onClick={handleDropdownClick} className='flex bg-white  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
                 <div className='font-iran-yekan text-[12px] w-[100%]'>{myString}</div>
                 <RiArrowDropDownLine className='w-[18px] h-[18px]'></RiArrowDropDownLine>
             </div>
@@ -161,7 +161,7 @@ const CammonDropdown: React.FC<iDropDown> = ({type,projects}) => {
 
         type === 'Wich Project Access' &&
         <div className='w-[106px] h-[30px]'>
-            <div onClick={handleDropdownClick} className='flex  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
+            <div onClick={handleDropdownClick} className='flex bg-white  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center'>
                 <div className='font-iran-yekan text-[12px] w-[100%]'>{myString}</div>
                 <RiArrowDropDownLine className='w-[18px] h-[18px]'></RiArrowDropDownLine>
             </div>
