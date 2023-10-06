@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { IoIosArrowDropdown } from 'react-icons/io';
+import { BsFillFlagFill, BsFlag } from 'react-icons/bs';
+import { BsFlagFill } from 'react-icons/bs';
+import { BsTextParagraph } from 'react-icons/bs';
 
 interface iListViewDropDown {
     title: string;
@@ -32,7 +35,12 @@ const taskslist: iTask[] = [
 ,
 {   title: "این یک تیتر برای تسک است",
     deadline: "6 آبان",
-    priority: false,
+    priority: true,
+}
+,
+{   title: "این یک تیتر برای تسک است",
+    deadline: "6 آبان",
+    priority: true,
 }
 ]
 
@@ -43,8 +51,20 @@ const ListViewDropDown: React.FC<iListViewDropDown> = (
 ) => {
     const [isOpen, setIsOpen] = useState(false);
     const handleDropdownClick = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(!isOpen)
       };
+
+    const sortedTasks = [...taskslist].sort((a, b) => {
+        if (a.priority && !b.priority) {
+          return -1
+        } else if (!a.priority && b.priority) {
+          return 1
+        } else {
+          return 0
+        }
+      })
+
+    
 
     return (
     <div className='flex-col font-iran-yekan w-[1011px]'>
@@ -69,8 +89,9 @@ const ListViewDropDown: React.FC<iListViewDropDown> = (
             </div>
 
         { isOpen &&
-            taskslist.map((task,index) => (
+            sortedTasks.map((task,index) => (
                 <div key={index} className='w-[986px] h-[51px] flex items-center  justify-between text-[12px] mr-[25px] rounded-[4px] '>
+                   
                     <div className='flex items-center text-right font-normal gap-[7px]'>
                         <div className={`${color} w-s h-s rounded-[3px]`}></div>
                         <div>{task.title}</div>
@@ -79,11 +100,16 @@ const ListViewDropDown: React.FC<iListViewDropDown> = (
                     <div className='w-[473px] h-[100%] inline-flex justify-between items-center gap-[70px] text-right font-normal capitalize '>
                         <div className='w-[70px] h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] '>{task.members}</div>
                         <div className='w-[70px]  h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] '>{task.deadline}</div>
-                        <div className='w-[70px]  h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] '>{task.description}</div>
-                        <div className='w-[70px]  h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] '>{task.priority.toString()}
-                        
+                        <div className='w-[70px]  h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] '>
+                            {task.priority &&
+                            <BsFlagFill></BsFlagFill>
+                            ||
+                            <BsFlag></BsFlag>
+                            }
+                            
+                            </div>
+                        <div className='w-[70px]  h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] '> <BsTextParagraph></BsTextParagraph> </div>
                     </div>
-                </div>
     </div>
         ))
         
