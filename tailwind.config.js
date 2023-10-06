@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     colors: {
       'green-button': '#208D8E;',
-      'gray-input': '#F6F7F9', 
-      'gray-button': '#D3D3D3', 
+      'gray-input': '#F6F7F9',
+      'gray-button': '#D3D3D3',
       'black': '#000000',
       'white': '#FFFFFF',
       'gray-secondary': '#F1F3F5',
@@ -64,6 +64,8 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-clip-path')
+  ],
 }
 

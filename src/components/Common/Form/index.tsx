@@ -9,7 +9,7 @@ const Form: React.FC<IFormProps> = ({ children, onSubmit }) => {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col items-center justify-center w-full gap-m"
+      className="flex flex-col items-center justify-center w-ful h-full gap-m"
     >
       {children}
     </form>
