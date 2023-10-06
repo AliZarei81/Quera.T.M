@@ -73,7 +73,9 @@ const ListViewDropDown: React.FC<iListViewDropDown> = (
                 <IoIosArrowDropdown className='w-[20px] h-[20px]'> </IoIosArrowDropdown>
                     <div className={`${color} text-white w-[100%] h-[100%] pl-[6px] pr-[6px] pt-[4px] pb-[4px] rounded-[4px] justify-start items-start gap-[10px] inline-flex`}>
                     <div>{title}</div>
+                    
                 </div>
+                <div className='flex text-[12px] gap-[2px]'>{taskslist.length}<div> تسک </div></div>
             </div>
             <div className='w-[473px] h-[100%] inline-flex justify-between items-center gap-[70px] '>
                 {
