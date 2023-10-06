@@ -1,12 +1,12 @@
-import Button from "../../Common/Button";
-import SideBar from "../../Common/Sidebar";
 import { BsArrowRight } from "react-icons/bs";
 import { TbUserEdit, TbUserCheck } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import Button from "../../components/Common/Button";
+import SideBar from "../../components/Common/Sidebar";
 
-const ProfileLayout: React.FC = () => {
+const ProfileLayout: React.FC = (): React.JSX.Element => {
   const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
   return (
     <div className="flex">
