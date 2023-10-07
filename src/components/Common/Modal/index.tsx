@@ -42,7 +42,7 @@ const Modal: React.FC<IModalProbs> = ({
     >
       <div
         className={
-          " top-0 left-0 w-full h-full flex  flex-col items-center justify-between rounded-lg bg-gray-secondary gap-l  relative p-[20px] "
+          " top-0 left-0 w-full h-full flex  flex-col items-center justify-between rounded-lg bg-white gap-l  relative p-[20px] "
         }
       >
         {/* Header content goes here */}
@@ -67,7 +67,7 @@ const Modal: React.FC<IModalProbs> = ({
           )}
         </div>
         {/* Body content goes here  */}
-        <div className={`w-full flex justify-start ${mBodyStyle}`}>{mBody}</div>
+        <div className={`w-full flex justify-start bg-white ${mBodyStyle}`}>{mBody}</div>
         {/* Footer content goes here */}
         {hasFooter && (
           <div className="w-full flex justify-center px-[24px]">

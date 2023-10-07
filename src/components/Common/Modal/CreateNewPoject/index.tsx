@@ -10,7 +10,7 @@ const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({handleSubmit}): JSX.
         setProjectName(event.target.value);
       };
       console.log(projectName)
-  const child = <Input type="text" id="projectName" value={projectName} label={{text:'نام پروژه' , for:'projectName'}} onChange={handleProjectNameChange} className="w-[415px]" />;
+  const child = <Input type="text" id="projectName" value={projectName} label={{text:'نام پروژه' , for:'projectName'}} onChange={handleProjectNameChange} className="w-[415px] border border-gray-primary " />;
   
   
   

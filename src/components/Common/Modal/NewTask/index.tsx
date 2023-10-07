@@ -82,7 +82,7 @@ const NewTask: React.FC<INewTaskProbs> = ({
               <Button
                 disabled={!taskName}
                 title="ساختن تسک"
-                className=" w-[125px] h-[32px] bg-brand-primary text-white text-[12px] flex justify-center rounded-[4px] "
+                className=" w-[125px] h-[32px] bg-brand-primary text-white text-[12px] flex justify-center rounded-[4px] px-[7px] "
                 onClick={handleCreateTask}
               />
             </div>

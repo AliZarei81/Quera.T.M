@@ -68,7 +68,7 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
             value={workSpaceName}
             label={{ text: "نام ورک اسپیس", for: "workSpaceName" }}
             onChange={handleProjectNameChange}
-            className="w-[415px]"
+            className="w-[415px] border border-gray-primary"
           />
         );
       case 2:
@@ -120,7 +120,7 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
   };
 
   const handleClick = () => {
-    if (currentPage === 3) return handleCreate;
+    if (currentPage === 3) return handleCreate();
     return setCurrentPage((currentPage) => currentPage + 1);
   };
   const handleModalTitle = (): string => {
