@@ -1,41 +1,27 @@
 import { useState, MouseEvent, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 import Input from "../../../components/Common/Input";
 import Button from "../../../components/Common/Button";
 import Form from "../../../components/Common/Form";
-import { BiSearch, BiAlarm } from "react-icons/bi";
 import Header from "../../../components/Authentication/Header";
 import apiClients from "../../../services/api-clients";
 import { UserRegisterRequest } from "../../../types/request/userregister-request";
 import { UserRegisterResponse } from "../../../types/response/userregister-response";
-import { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
+import { FormikHelpers, useFormik } from "formik";
+import { registerSchema } from "../../../schemas/register.schema";
+
 const Register: React.FC = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   let navigate = useNavigate();
 
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const user: UserRegisterRequest = {
-      username: name,
-      email,
-      password,
-    };
+  const onSubmit = async (
+    values: UserRegisterRequest,
+    actions: FormikHelpers<UserRegisterRequest>
+  ) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    actions.resetForm();
     apiClients
-      .post<UserRegisterResponse>("/accounts/", user)
+      .post<UserRegisterResponse>("/accounts/", values)
       .then((res) => {
         navigate("/");
       })
@@ -43,6 +29,24 @@ const Register: React.FC = () => {
         const err = error as AxiosError;
       });
   };
+
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: registerSchema,
+    onSubmit,
+  });
 
   return (
     <div className="h-full">
@@ -52,31 +56,55 @@ const Register: React.FC = () => {
           <h3 className="w-[509px] h-[55px] text-[32px] font-black text-center">
             ثبت‌ نام در کوئرا تسک منیجر
           </h3>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Input
               type="text"
-              value={name}
-              id="fullName"
-              onChange={handleNameChange}
-              label={{ text: "نام کامل", for: "fullName" }}
-              className="ring-2 ring-gray-primary w-[592px]"
+              value={values.username}
+              id="username"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              label={{ text: "نام کاربری", for: "username" }}
+              className={`ring-2 ring-gray-primary w-[592px] ${
+                errors.username && touched.username ? "ring-red-primary" : ""
+              }`}
             />
+            {errors.username && touched.username && (
+              <p className="text-red-primary text-xs italic self-start -mt-s">
+                {errors.username}
+              </p>
+            )}
             <Input
               type="email"
-              value={email}
+              value={values.email}
               id="email"
-              onChange={handleEmailChange}
+              onChange={handleChange}
+              onBlur={handleBlur}
               label={{ text: "ایمیل", for: "email" }}
-              className="ring-2 ring-gray-primary w-[592px]"
+              className={`ring-2 ring-gray-primary w-[592px] ${
+                errors.email && touched.email ? "ring-red-primary" : ""
+              }`}
             />
+            {errors.email && touched.email && (
+              <p className="text-red-primary text-xs italic self-start -mt-s">
+                {errors.email}
+              </p>
+            )}
             <Input
               type="password"
-              value={password}
+              value={values.password}
               id="password"
-              onChange={handlePasswordChange}
+              onChange={handleChange}
+              onBlur={handleBlur}
               label={{ text: "رمز عبور", for: "password" }}
-              className="ring-2 ring-gray-primary w-[592px]"
+              className={`ring-2 ring-gray-primary w-[592px] ${
+                errors.password && touched.password ? "ring-red-primary" : ""
+              }`}
             />
+            {errors.password && touched.password && (
+              <p className="text-red-primary text-xs italic self-start -mt-s">
+                {errors.password}
+              </p>
+            )}
             <div className="self-start flex items-center gap-[5px] ">
               <input
                 type="checkbox"
@@ -86,7 +114,7 @@ const Register: React.FC = () => {
                 className="w-[20px] h-[20px]"
               />{" "}
               <label
-                className="  text-[16px] font-normal self-start"
+                className="text-[16px] font-normal self-start"
                 htmlFor="demoCheckbox"
               >
                 قوانین و مقررات را می‌پذیرم.
@@ -95,9 +123,8 @@ const Register: React.FC = () => {
 
             <Button
               type="submit"
-              disabled={!name || !email || !password}
+              disabled={isSubmitting}
               className="h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
-              onClick={handleSubmit}
               title="ثبت نام"
             />
           </Form>

@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, cloneElement } from "react";
+import { ChangeEvent, FocusEvent, ReactElement, cloneElement } from "react";
 import { IconContext } from "react-icons";
 
 interface ILabel {
@@ -12,6 +12,7 @@ interface IInputProps {
   id?: string;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   icon?: ReactElement;
   label?: ILabel;
   className?: string;
@@ -23,6 +24,7 @@ const Input: React.FC<IInputProps> = ({
   id,
   placeholder,
   onChange,
+  onBlur,
   icon,
   label,
   className,
@@ -53,6 +55,7 @@ const Input: React.FC<IInputProps> = ({
           id={id}
           placeholder={placeholder}
           onChange={onChange}
+          onBlur={onBlur}
           className={`h-[40px] rounded-md focus:outline-none ${
             icon ? "pr-xl" : "pr-xs"
           } ${className}`}
