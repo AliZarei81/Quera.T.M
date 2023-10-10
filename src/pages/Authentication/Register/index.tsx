@@ -4,10 +4,16 @@ import Button from "../../../components/Common/Button";
 import Form from "../../../components/Common/Form";
 import { BiSearch, BiAlarm } from "react-icons/bi";
 import Header from "../../../components/Authentication/Header";
+import apiClients from "../../../services/api-clients";
+import { UserRegisterRequest } from "../../../types/request/userregister-request";
+import { UserRegisterResponse } from "../../../types/response/userregister-response";
+import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 const Register: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  let navigate = useNavigate();
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -23,9 +29,19 @@ const Register: React.FC = () => {
 
   const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log("Name: ", name);
-    console.log("Email: ", email);
-    console.log("Password: ", password);
+    const user: UserRegisterRequest = {
+      username: name,
+      email,
+      password,
+    };
+    apiClients
+      .post<UserRegisterResponse>("/accounts/", user)
+      .then((res) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        const err = error as AxiosError;
+      });
   };
 
   return (
