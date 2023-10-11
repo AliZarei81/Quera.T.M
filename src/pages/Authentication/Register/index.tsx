@@ -1,6 +1,5 @@
-import { useState, MouseEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
+import { HttpStatusCode, isAxiosError } from "axios";
 import Input from "../../../components/Common/Input";
 import Button from "../../../components/Common/Button";
 import Form from "../../../components/Common/Form";
@@ -8,27 +7,12 @@ import Header from "../../../components/Authentication/Header";
 import apiClients from "../../../services/api-clients";
 import { UserRegisterRequest } from "../../../types/request/userregister-request";
 import { UserRegisterResponse } from "../../../types/response/userregister-response";
-import { FormikHelpers, useFormik } from "formik";
+import { useFormik } from "formik";
 import { registerSchema } from "../../../schemas/register.schema";
+import { UserRegisterErrorResponse } from "../../../types/response/error/userregister-error-response";
 
 const Register: React.FC = () => {
   let navigate = useNavigate();
-
-  const onSubmit = async (
-    values: UserRegisterRequest,
-    actions: FormikHelpers<UserRegisterRequest>
-  ) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    actions.resetForm();
-    apiClients
-      .post<UserRegisterResponse>("/accounts/", values)
-      .then((res) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        const err = error as AxiosError;
-      });
-  };
 
   const {
     values,
@@ -38,14 +22,35 @@ const Register: React.FC = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-  } = useFormik({
+    setErrors,
+  } = useFormik<UserRegisterRequest>({
     initialValues: {
       username: "",
       email: "",
       password: "",
     },
     validationSchema: registerSchema,
-    onSubmit,
+    onSubmit: async (values, actions) => {
+      try {
+        const response = await apiClients.post<UserRegisterResponse>(
+          "/accounts/",
+          values
+        );
+        actions.resetForm();
+        navigate("/");
+      } catch (error) {
+        if (isAxiosError<UserRegisterErrorResponse>(error)) {
+          if (error.response?.status === HttpStatusCode.BadRequest) {
+            const { username, email, password } = error.response.data;
+            setErrors({
+              username: username?.length ? username[0] : "",
+              email: email?.length ? email[0] : "",
+              password: password?.length ? password[0] : "",
+            });
+          }
+        }
+      }
+    },
   });
 
   return (

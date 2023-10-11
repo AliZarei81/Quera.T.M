@@ -1,26 +1,58 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useContext, ChangeEvent, FormEvent } from "react";
+import { HttpStatusCode, isAxiosError } from "axios";
 import { Form, Link } from "react-router-dom";
+import { useFormik } from "formik";
 import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import Header from "../../../components/Authentication/Header";
+import apiClients from "../../../services/api-clients";
+import AuthContext from "../../../context/AuthProvider";
+import { UserLoginRequest } from "../../../types/request/userlogin-request";
+import { loginSchema } from "../../../schemas/login.schema";
+import { UserLoginResponse } from "../../../types/response/userlogin-response";
+import { UserLoginErrorReponse } from "../../../types/response/error/userlogin-error-response";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const { auth, setAuth } = useContext(AuthContext);
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("Email: ", email);
-    console.log("Password: ", password);
-  };
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setErrors,
+  } = useFormik<UserLoginRequest>({
+    initialValues: {
+      username: "",
+      password: "",
+      detail: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit: async (values, actions) => {
+      try {
+        const user = { username: values.username, password: values.password };
+        const response = await apiClients.post<UserLoginResponse>(
+          "/accounts/login/",
+          user
+        );
+        const { access, refresh, user_id, username } = response.data;
+        setAuth({ access, refresh, user_id, username });
+        actions.resetForm();
+      } catch (error) {
+        if (isAxiosError<UserLoginErrorReponse>(error)) {
+          if (error.response?.status === HttpStatusCode.Unauthorized) {
+            const { detail } = error.response.data;
+            setErrors({
+              detail,
+            });
+          }
+        }
+      }
+    },
+  });
 
   return (
     <div className="h-full">
@@ -33,30 +65,51 @@ const Login: React.FC = () => {
 
           <Form onSubmit={handleSubmit}>
             <Input
-              type="email"
-              value={email}
-              id="email"
-              onChange={handleEmailChange}
-              label={{ text: "ایمیل", for: "email" }}
-              className="ring-2 ring-gray-primary w-[592px]"
+              type="text"
+              value={values.username}
+              id="username"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              label={{ text: "نام کاربری", for: "username" }}
+              className={`ring-2 ring-gray-primary w-[592px] ${
+                errors.username && touched.username ? "ring-red-primary" : ""
+              }`}
             />
+            {errors.username && touched.username && (
+              <p className="text-red-primary text-xs italic self-start">
+                {errors.username}
+              </p>
+            )}
             <Input
               type="password"
-              value={password}
+              value={values.password}
               id="password"
-              onChange={handlePasswordChange}
+              onChange={handleChange}
+              onBlur={handleBlur}
               label={{ text: "رمز عبور", for: "password" }}
-              className="ring-2 ring-gray-primary w-[592px]"
+              className={`ring-2 ring-gray-primary w-[592px] ${
+                errors.password && touched.password ? "ring-red-primary" : ""
+              }`}
             />
+            {errors.password && touched.password && (
+              <p className="text-red-primary text-xs italic self-start">
+                {errors.password}
+              </p>
+            )}
             <div className="self-start text-[13px] font-extrabold   text-brand-primary">
               <Link to="forgot">رمز عبور را فراموش کرده‌ای؟</Link>
             </div>
             <Button
               type="submit"
-              disabled={!email || !password}
+              disabled={isSubmitting}
               className="h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
               title="ورود"
             />
+            {errors.detail && (
+              <p className="text-red-primary text-xs italic self-start">
+                {errors.detail}
+              </p>
+            )}
             <div className=" text-[16px]  font-extrabold   flex items-center justify-center gap-[5px]">
               <p>ثبت نام نکرده ای؟</p>
               <Link className="text-brand-primary" to="register">
