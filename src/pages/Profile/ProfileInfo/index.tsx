@@ -1,38 +1,56 @@
-import { useState, MouseEvent, ChangeEvent } from "react";
-import Input from "../../Common/Input";
-import Button from "../../Common/Button";
-import Form from "../../Common/Form";
-import Profile from "../../Common/User";
-const ProfileForm: React.FC = () => {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
+import { useFormik } from "formik";
+import { HttpStatusCode, isAxiosError } from "axios";
+import Button from "../../../components/Common/Button";
+import Input from "../../../components/Common/Input";
+import Form from "../../../components/Common/Form";
+import User from "../../../components/Common/User";
 
-  const handleFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
-  };
-
-  const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPhoneNumber(event.target.value);
-  };
-
-  const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    console.log("FirstName: ", firstName);
-    console.log("LastName: ", lastName);
-    console.log("PhoneNumber: ", phoneNumber);
-  };
+const ProfileInfo: React.FC = () => {
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setErrors,
+  } = useFormik({
+    initialValues: {
+      firtName: "",
+      lastName: "",
+      phoneNumber: "",
+    },
+    // validationSchema: registerSchema,
+    onSubmit: async (values, actions) => {
+      // try {
+      //   const response = await apiClients.post<UserRegisterResponse>(
+      //     "/accounts/",
+      //     values
+      //   );
+      //   actions.resetForm();
+      //   navigate("/");
+      // } catch (error) {
+      //   if (isAxiosError<UserRegisterErrorResponse>(error)) {
+      //     if (error.response?.status === HttpStatusCode.BadRequest) {
+      //       const { username, email, password } = error.response.data;
+      //       setErrors({
+      //         username: username?.length ? username[0] : "",
+      //         email: email?.length ? email[0] : "",
+      //         password: password?.length ? password[0] : "",
+      //       });
+      //     }
+      //   }
+      // }
+    },
+  });
 
   return (
     <div className="flex flex-col items-start justify-center w-[640px] gap-[32px] p-[24px]  [background-color:#ffff]">
       <h3 className="text-[32px] font-black">اطلاعات فردی</h3>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <div className="flex gap-s w-[592px]">
-          <Profile
+          <User
             hasProfilePicture={false}
             isOwner={false}
             className="bg-yellow-secondary"
@@ -55,34 +73,36 @@ const ProfileForm: React.FC = () => {
         </div>
         <Input
           type="text"
-          value={firstName}
+          value={values.firtName}
           id="firstName"
-          onChange={handleFirstNameChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "نام", for: "firstName" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="text"
-          value={lastName}
+          value={values.lastName}
           id="lastName"
-          onChange={handleLastNameChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "نام خانوادگی", for: "lastName" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="text"
-          value={phoneNumber}
+          value={values.phoneNumber}
           id="phoneNumber"
-          onChange={handlePhoneNumberChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "شماره موبایل", for: "phoneNumber" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
 
         <Button
           type="submit"
-          disabled={!lastName || !firstName || !phoneNumber}
+          disabled={isSubmitting}
           className="h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
-          onClick={handleSubmit}
           title="ثبت تغییرات"
         />
       </Form>
@@ -90,4 +110,4 @@ const ProfileForm: React.FC = () => {
   );
 };
 
-export default ProfileForm;
+export default ProfileInfo;
