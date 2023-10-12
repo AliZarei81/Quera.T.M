@@ -1,16 +1,17 @@
 import { useState, useContext, ChangeEvent, FormEvent } from "react";
 import { HttpStatusCode, isAxiosError } from "axios";
-import { Form, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
+import Form from "../../../components/Common/Form";
 import Header from "../../../components/Authentication/Header";
 import apiClients from "../../../services/api-clients";
 import AuthContext from "../../../context/AuthProvider";
-import { UserLoginRequest } from "../../../types/request/userlogin-request";
+import { UserLoginRequest } from "../../../types/request/login.request.dto";
 import { loginSchema } from "../../../schemas/login.schema";
-import { UserLoginResponse } from "../../../types/response/userlogin-response";
-import { UserLoginErrorReponse } from "../../../types/response/error/userlogin-error-response";
+import { UserLoginResponse } from "../../../types/response/login.response.dto";
+import { UserLoginErrorReponse } from "../../../types/response/error/login.error.response.dto";
 
 const Login: React.FC = () => {
   const { auth, setAuth } = useContext(AuthContext);

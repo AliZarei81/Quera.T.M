@@ -5,11 +5,11 @@ import Button from "../../../components/Common/Button";
 import Form from "../../../components/Common/Form";
 import Header from "../../../components/Authentication/Header";
 import apiClients from "../../../services/api-clients";
-import { UserRegisterRequest } from "../../../types/request/userregister-request";
-import { UserRegisterResponse } from "../../../types/response/userregister-response";
+import { UserRegisterRequest } from "../../../types/request/register.request.dto";
+import { UserRegisterResponse } from "../../../types/response/register.response.dto";
 import { useFormik } from "formik";
 import { registerSchema } from "../../../schemas/register.schema";
-import { UserRegisterErrorResponse } from "../../../types/response/error/userregister-error-response";
+import { UserRegisterErrorResponse } from "../../../types/response/error/register.error.response.dto";
 
 const Register: React.FC = () => {
   let navigate = useNavigate();

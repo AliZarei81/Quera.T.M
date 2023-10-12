@@ -14,6 +14,7 @@ import Register from "./pages/Authentication/Register";
 import ForgetPassword from "./pages/Authentication/Forgot";
 import ResetPassword from "./pages/Authentication/Reset";
 import ProfileLayout from "./Layouts/Profile/ProfileLayout";
+import EmailRecieved from "./pages/Authentication/EmailRecieved";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,8 +22,11 @@ const router = createBrowserRouter(
       <Route path="/" element={<AuthenticationLayout />}>
         <Route index element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="forgot" element={<ForgetPassword />} />
-        <Route path="reset" element={<ResetPassword />} />
+        <Route path="forgot">
+          <Route index element={<ForgetPassword />} />
+          <Route path="email-received" element={<EmailRecieved />} />
+        </Route>
+        <Route path="Reset-password" element={<ResetPassword />} />
       </Route>
       <Route path="/profile" element={<ProfileLayout />}></Route>
     </Route>
