@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Column as ColumnType, Task } from "./TaskBoard";
 import { TaskItem } from "./TaskItem";
-import Button from "../Button";
 import { PiPlusSquareBold } from "react-icons/pi";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
+import Button from "../../../Common/Button";
 
 interface ColumnProps {
   column: ColumnType;
@@ -12,7 +12,7 @@ interface ColumnProps {
 
 export const Column: React.FC<ColumnProps> = ({ column }) => {
   const [tasks, setTasks] = useState<Task[]>(column.tasks);
-  
+
   const addTask = (title: string, description: string) => {
     const newTask: Task = {
       id: tasks.length + 1,
@@ -26,7 +26,7 @@ export const Column: React.FC<ColumnProps> = ({ column }) => {
     <div className=" flex flex-col items-center space-y-4 bg-gray-200 p-4 rounded gap-s">
       <h2 className=" group flex justify-between items-center text-2xl font-bold w-[250px] h-[44px] border-t-2 border-brand-primary shadow-md rounded-2xl pr-s">
         {column.title}
-       
+
         <div className="group-hover:visible invisible flex flex-row gap-xs pl-xs">
           <Button
             title=""

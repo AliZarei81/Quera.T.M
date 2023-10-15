@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Task } from "./TaskBoard";
 import { BsFlag } from "react-icons/bs";
 import { BsThreeDots } from "react-icons/bs";
-import { MdDone} from "react-icons/md";
-import Button from "../Button";
+import { MdDone } from "react-icons/md";
+import Button from "../../../Common/Button";
 interface TaskItemProps {
   task: Task;
 }
@@ -19,7 +19,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
       className="bg-white p-4 rounded-2xl shadow-lg  p-s gap-s w-[250px] "
       onClick={handleClick}
     >
-          {task.image && (
+      {task.image && (
         <div className="w-[218px] h-[134px]">
           <img src={task.image} alt="" className="rounded-[4px]" />
         </div>
@@ -44,9 +44,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
           پروژه
         </p>
       </div>
-      {isClicked && ( 
+      {isClicked && (
         <div className="mt-s pt-s w-[218px] border-t-[1px] border-gray-primary flex justify-between items-center">
-             <MdDone/>
+          <MdDone />
           <Button
             title=""
             disabled={false}
@@ -54,7 +54,6 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             icon={<BsThreeDots />}
             className="font-iran-yekan flex justify-end"
           ></Button>
-      
         </div>
       )}
     </div>

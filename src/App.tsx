@@ -21,6 +21,7 @@ import Setting from "./pages/Profile/setting";
 import WorkspaceLayout from "./Layouts/Workspace";
 import Main from "./pages/Workspace/MainPage/main";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
+import BoardView from "./pages/Workspace/MainPage/Board/BoardView";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,7 +43,7 @@ const router = createBrowserRouter(
       <Route path="workspace" element={<WorkspaceLayout />}>
         <Route index element={<Main />} />
         <Route path="board" element={<BoardLayout />}>
-          {/* <Route index element={<Main />} /> */}
+          <Route index element={<BoardView />} />
         </Route>
       </Route>
     </Route>

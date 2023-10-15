@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Column from "./Column";
-import Button from "../Button";
 import { AiOutlinePlus } from "react-icons/ai";
+import Button from "../../../Common/Button";
 
 export interface Task {
   id: number;
