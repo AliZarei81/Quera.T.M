@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import Modal from "..";
 import Input from "../../Input";
-interface ICreatNewProjectProbs{
-    handleSubmit:()=>void;
+interface ICreatNewProjectProbs {
+  handleSubmit: () => void;
 }
 const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({handleSubmit}): JSX.Element => {
     const[projectName,setProjectName]=useState<string>('')
@@ -22,7 +22,7 @@ const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({handleSubmit}): JSX.
       totalPages={1}
       modalTitle="ساختن پروژه جدید"
       hasPaginationBulet={false}
-      modalClassname="w-[500px] h-[272px] "
+      modalClassname="w-[500px] h-[272px]  "
       onClick={handleSubmit}
       hasFooter={true}
       mBodyStyle="justify-center"

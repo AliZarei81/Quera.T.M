@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/uuid": "^9.0.5",
     "@uiw/react-color-circle": "^1.4.2",
+    "jalali-moment": "^3.3.11",
     "axios": "^1.5.1",
     "formik": "^2.4.5",
     "react": "^18.2.0",
@@ -46,6 +46,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.52",
     "@types/react": "^18.2.21",
+    "@types/uuid": "^9.0.5",
     "@types/react-dom": "^18.2.7",
     "dotenv": "^16.3.1",
     "tailwind-clip-path": "^1.0.0",
