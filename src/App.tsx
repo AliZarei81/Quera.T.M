@@ -10,30 +10,34 @@ import ProfileLayout from "./components/Profile/Layout";
 import ProfileForm from "./components/Profile/ProfileForm";
 import AccountForm from "./components/Profile/AccountForm";
 import SettingForm from "./components/Profile/SettingForm";
+import Calendar from "./components/Common/Calendar";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route element={<Authentication />}>
-          <Route element={<AuthenticationLayout />}>
-            <Route index element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot" element={<ForgetPassword />} />
-            <Route path="/reset" element={<ResetPassword />} />
-          </Route>
-        </Route>
-      </Routes>
-      <Routes>
-        <Route element={<Profile />}>
-          <Route path="/profile" element={<ProfileLayout />}>
-            <Route index element={<ProfileForm />} />
-            <Route path="/profile/account" element={<AccountForm />} />
-            <Route path="/profile/settings" element={<SettingForm />} />
-          </Route>
-        </Route>
-      </Routes>
-    </Router>
+    // <Router>
+    //   <Routes>
+    //     <Route element={<Authentication />}>
+    //       <Route element={<AuthenticationLayout />}>
+    //         <Route index element={<Login />} />
+    //         <Route path="/register" element={<Register />} />
+    //         <Route path="/forgot" element={<ForgetPassword />} />
+    //         <Route path="/reset" element={<ResetPassword />} />
+    //       </Route>
+    //     </Route>
+    //   </Routes>
+    //   <Routes>
+    //     <Route element={<Profile />}>
+    //       <Route path="/profile" element={<ProfileLayout />}>
+    //         <Route index element={<ProfileForm />} />
+    //         <Route path="/profile/account" element={<AccountForm />} />
+    //         <Route path="/profile/settings" element={<SettingForm />} />
+    //       </Route>
+    //     </Route>
+    //   </Routes>
+    // </Router>
+    <div>
+      <Calendar />
+    </div>
   );
 }
 
