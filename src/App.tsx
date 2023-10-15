@@ -22,6 +22,8 @@ import WorkspaceLayout from "./Layouts/Workspace";
 import Main from "./pages/Workspace/MainPage/main";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 import BoardView from "./pages/Workspace/MainPage/Board/BoardView";
+import ListView from "./components/Workspace/Board/ListView";
+import ListViewPage from "./pages/Workspace/MainPage/Board/ListView";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +46,7 @@ const router = createBrowserRouter(
         <Route index element={<Main />} />
         <Route path="board" element={<BoardLayout />}>
           <Route index element={<BoardView />} />
+          <Route path="list" element={<ListViewPage />} />
         </Route>
       </Route>
     </Route>
