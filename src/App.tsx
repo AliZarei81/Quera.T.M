@@ -16,6 +16,10 @@ import ResetPassword from "./pages/Authentication/Reset";
 import ProfileLayout from "./Layouts/Profile/ProfileLayout";
 import EmailRecieved from "./pages/Authentication/EmailRecieved";
 import ProfileInfo from "./pages/Profile/ProfileInfo";
+import Account from "./pages/Profile/Account";
+import Setting from "./pages/Profile/setting";
+import WorkspaceLayout from "./Layouts/Workspace";
+import Main from "./pages/Workspace/Main/main";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +35,11 @@ const router = createBrowserRouter(
       </Route>
       <Route path="profile" element={<ProfileLayout />}>
         <Route index element={<ProfileInfo />} />
+        <Route path="account" element={<Account />} />
+        <Route path="setting" element={<Setting />} />
+      </Route>
+      <Route path="workspace" element={<WorkspaceLayout />}>
+        <Route index element={<Main />} />
       </Route>
     </Route>
   )
