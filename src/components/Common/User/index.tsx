@@ -6,6 +6,8 @@ interface IProfileProbs {
   isOwner: boolean;
   userNameShow?: boolean;
   className?: string;
+  email?:string;
+  showEmailOrUser?:boolean;//user:true  email:false
 }
 
 const User: React.FC<IProfileProbs> = ({
@@ -15,6 +17,8 @@ const User: React.FC<IProfileProbs> = ({
   isOwner = false,
   className,
   userNameShow = true,
+  email,
+  showEmailOrUser= true
 }): JSX.Element => {
   // Extract initials from the user's name
 
@@ -36,9 +40,9 @@ const User: React.FC<IProfileProbs> = ({
     } else {
       return (
         <div
-          className={` w-[100px] h-[100px] rounded-full flex items-center justify-center ${className}`}
+          className={` w-[36px] h-[36px]  rounded-full flex items-center justify-center ${className}`}
         >
-          <span className="text-body-xl font-normal text-yellow-primary ">
+          <span className="text-[14px] font-normal text-yellow-primary ">
             {initials}
           </span>
         </div>
@@ -48,6 +52,7 @@ const User: React.FC<IProfileProbs> = ({
   //Funcion to set username
   const user = () => {
     if (isOwner) return "من";
+    if(!showEmailOrUser) return email;
     else return userName;
   };
   return (
