@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Button from "../Button";
-import Link from "../Link";
+import Button from "../../Common/Button";
+import Link from "../../Common/Link";
 import { PiPlusSquareBold } from "react-icons/pi";
 
 interface Project {
@@ -16,10 +16,7 @@ const NewprojectBtn: React.FC<{}> = () => {
   const handleClick = () => {
     const title = prompt("Enter the title for the link:");
     if (title) {
-      setProjects(prevProjects => [
-        ...prevProjects,
-        { title, url: "" },
-      ]);
+      setProjects((prevProjects) => [...prevProjects, { title, url: "" }]);
     }
   };
 
@@ -37,7 +34,11 @@ const NewprojectBtn: React.FC<{}> = () => {
 
       {projects.map((project, index) => (
         <div className="w-[200px] h-[80px] pt-[55px]" key={index}>
-          <Link href={project.url} className="font-iran-yekan text-white text-[16px] font-extrabold w-[200px] h-[80px] bg-gradient-to-r from-[#40C05780] to-[#40C057] shadow-lg rounded-[16px]" title={project.title} />
+          <Link
+            href={project.url}
+            className="font-iran-yekan text-white text-[16px] font-extrabold w-[200px] h-[80px] bg-gradient-to-r from-[#40C05780] to-[#40C057] shadow-lg rounded-[16px]"
+            title={project.title}
+          />
         </div>
       ))}
     </div>

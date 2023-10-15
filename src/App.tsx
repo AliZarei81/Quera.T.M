@@ -19,7 +19,7 @@ import ProfileInfo from "./pages/Profile/ProfileInfo";
 import Account from "./pages/Profile/Account";
 import Setting from "./pages/Profile/setting";
 import WorkspaceLayout from "./Layouts/Workspace";
-import Main from "./pages/Workspace/Main/main";
+import Main from "./pages/Workspace/MainPage/main";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
