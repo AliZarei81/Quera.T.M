@@ -4,10 +4,16 @@ import Input from "../Input";
 import { BiSearch } from "react-icons/bi";
 
 interface iDropDown {
-  type: "fullaccess" | "is and is not" | "search between filters" | "select";
+  type:
+    | "fullaccess"
+    | "is and is not"
+    | "search between filters"
+    | "select"
+    | "Wich Project Access";
+  projects?: string[];
 }
 
-const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
+const CammonDropdown: React.FC<iDropDown> = ({ type, projects }) => {
   const [isOpen, setIsOpen] = useState(false);
   let defaultValue = "";
 
@@ -23,6 +29,9 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
       break;
     case "is and is not":
       defaultValue = "است";
+      break;
+    case "Wich Project Access":
+      defaultValue = "همه پروژه ها";
       break;
   }
 
@@ -42,21 +51,23 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
   };
 
   return (
-    <div className="w-full h-[30px]">
+    <div className="w-[117px] h-[30px] ">
       {(type === "fullaccess" && (
         <div>
           <div
             onClick={handleDropdownClick}
-            className="flex h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
+            className="flex bg-white w-[117px] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
           >
-            <div className="font-iran-yekan text-[12px] ">{myString}</div>
-            <RiArrowDropDownLine className=" h-[18px]"></RiArrowDropDownLine>
+            <div className="font-iran-yekan text-[12px] w-[100%]">
+              {myString}
+            </div>
+            <RiArrowDropDownLine className="w-[18px] h-[18px]"></RiArrowDropDownLine>
           </div>
           {isOpen && (
-            <div className="flex-col bg-white space-y-s  rounded-[8px] p-[16px] ">
+            <div className="flex-col bg-white space-y-s w-[220px]  rounded-[8px] p-[16px] ">
               <div onClick={onItemClick("دسترسی کامل")} className="">
                 <div>دسترسی کامل</div>
-                <div className="text-[12px] text-right capitalize  font-normal break-words	to-black">
+                <div className="text-[12px] text-right capitalize w-[100%] font-normal break-words	to-black">
                   توانایی ساختن تسک در این پروژه، ویرایش تنظیمات پروژه و حذف
                   پروژه
                 </div>
@@ -66,7 +77,7 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
 
               <div onClick={onItemClick("دسترسی ویرایش")} className="">
                 <div>دسترسی ویرایش</div>
-                <div className="text-[12px] text-right capitalize  font-normal break-words	to-black">
+                <div className="text-[12px] text-right capitalize w-[100%] font-normal break-words	to-black">
                   توانایی ویرایش تسک در این پروژه و ویرایش تنظیمات پروژه.
                   نمی‌تواند پروژه را حذف یا تسک جدید بسازد.
                 </div>
@@ -76,7 +87,7 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
 
               <div onClick={onItemClick("دسترسی کامنت")}>
                 <div>دسترسی کامنت</div>
-                <div className="text-[12px] text-right capitalize  font-normal break-words	to-black">
+                <div className="text-[12px] text-right capitalize w-[100%] font-normal break-words	to-black">
                   توانایی کامنت گذاشتن دارد. می‌تواند ستون تسک‌ها را تغییر دهد
                   اما توانایی ویرایش تنظیمات پروژه را ندارد.
                 </div>
@@ -86,7 +97,7 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
 
               <div onClick={onItemClick("فقط دسترسی مشاهده")}>
                 <div>فقط دسترسی مشاهده</div>
-                <div className="text-[12px] text-right capitalize  font-normal break-words	to-black">
+                <div className="text-[12px] text-right capitalize w-[100%] font-normal break-words	to-black">
                   توانایی گذاشتن کامنت یا ویرایش تسک‌ها را ندارد.
                 </div>
               </div>
@@ -95,23 +106,25 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
         </div>
       )) ||
         (type === "search between filters" && (
-          <div className=" h-[30px]">
+          <div className="w-[182px] h-[30px]">
             <div
               onClick={handleDropdownClick}
-              className="flex   h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
+              className="flex bg-white   w-[182px] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
             >
-              <div className="font-iran-yekan text-[12px] ">{myString}</div>
-              <RiArrowDropDownLine className=" h-[18px]"></RiArrowDropDownLine>
+              <div className="font-iran-yekan text-[12px] w-[100%]">
+                {myString}
+              </div>
+              <RiArrowDropDownLine className="w-[18px] h-[18px]"></RiArrowDropDownLine>
             </div>
             {isOpen && (
-              <div className="flex-col  bg-white rounded-[8px] space-y-s">
-                <div className=" border-b-[0.5px] border-lightgray">
+              <div className="flex-col w-[182px] bg-white rounded-[8px] space-y-s">
+                <div className="w-[182px]  border-b-[0.5px] border-lightgray">
                   <Input
-                    className=" text-[12px] "
+                    className="w-[182px] text-[12px] "
                     type="text"
                     placeholder="جست و جو بین فیلترها"
                     value=""
-                    icon={<BiSearch className="h-[20px]"></BiSearch>}
+                    icon={<BiSearch className="h-[20px] w-[20px]"></BiSearch>}
                   ></Input>
                 </div>
 
@@ -146,49 +159,49 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
           </div>
         )) ||
         (type === "select" && (
-          <div className=" h-[30px]">
+          <div className="w-[146px] h-[30px]">
             <div
               onClick={handleDropdownClick}
-              className="flex   h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
+              className="flex bg-white  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
             >
-              <div className="font-iran-yekan text-[12px]  text-gray-primary">
+              <div className="font-iran-yekan text-[12px] w-[100%] text-gray-primary">
                 {myString}
               </div>
-              <RiArrowDropDownLine className=" h-[18px]"></RiArrowDropDownLine>
+              <RiArrowDropDownLine className="w-[18px] h-[18px]"></RiArrowDropDownLine>
             </div>
             {isOpen && (
-              <div className="flex-col  bg-white justify-center rounded-[8px]  font-iran-yekan text-[12px] space-y-s">
+              <div className="flex-col w-[100%] bg-white justify-center rounded-[8px]  font-iran-yekan text-[12px] space-y-s">
                 <div className="h-[29px] border-b-[0.5px] border-lightgray ">
                   <Input
-                    className=" h-[29px] text-[12px] border-b-[0.5px] border-lightgray"
+                    className="w-[100%] h-[29px] text-[12px] border-b-[0.5px] border-lightgray"
                     type="text"
                     placeholder="جستوجو  "
                     value=""
-                    icon={<BiSearch className="h-[20px] "></BiSearch>}
+                    icon={<BiSearch className="h-[20px] w-[20px]"></BiSearch>}
                   ></Input>
                 </div>
 
-                <div className="flex-col text-[12px] space-y-s  justify-center items-center">
-                  <div className="flex items-center  h-[24px] pr-xs">
+                <div className="flex-col text-[12px] space-y-s w-[100%] justify-center items-center">
+                  <div className="flex items-center w-[130px] h-[24px] pr-xs">
                     <div
                       onClick={onItemClick("درس")}
-                      className="cursor-pointer rounded-[14px] bg-blue-secondary pl-xs pr-[8px]  h-[2spx] text-blue-primary"
+                      className="cursor-pointer rounded-[14px] bg-blue-secondary pl-xs pr-[8px] w-[41px] h-[2spx] text-blue-primary"
                     >
                       درس
                     </div>
                   </div>
-                  <div className="flex items-center  h-[24px] pr-xs">
+                  <div className="flex items-center w-[130px] h-[24px] pr-xs">
                     <div
                       onClick={onItemClick("کار")}
-                      className="cursor-pointer  rounded-[14px] bg-violet-secondary pl-[8px] pr-[8px]  h-[2spx] text-violet-primary"
+                      className="cursor-pointer  rounded-[14px] bg-violet-secondary pl-[8px] pr-[8px] w-[31px] h-[2spx] text-violet-primary"
                     >
                       کار
                     </div>
                   </div>
-                  <div className="flex items-center  h-[24px] pr-xs">
+                  <div className="flex items-center w-[130px] h-[24px] pr-xs">
                     <div
                       onClick={onItemClick("پروژه")}
-                      className="cursor-pointer  rounded-[14px] bg-cyan-secondary pl-[8px] pr-[8px]  h-[2spx] text-cyan-primary"
+                      className="cursor-pointer  rounded-[14px] bg-cyan-secondary pl-[8px] pr-[8px] w-[41px] h-[2spx] text-cyan-primary"
                     >
                       پروژه
                     </div>
@@ -199,16 +212,18 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
           </div>
         )) ||
         (type === "is and is not" && (
-          <div className=" h-[30px] ">
+          <div className="w-[107px] h-[30px] ">
             <div
               onClick={handleDropdownClick}
-              className="flex   h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
+              className="flex bg-white  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
             >
-              <div className="font-iran-yekan text-[12px] ">{myString}</div>
-              <RiArrowDropDownLine className=" h-[18px]"></RiArrowDropDownLine>
+              <div className="font-iran-yekan text-[12px] w-[100%]">
+                {myString}
+              </div>
+              <RiArrowDropDownLine className="w-[18px] h-[18px]"></RiArrowDropDownLine>
             </div>
             {isOpen && (
-              <div className="flex-col  justify-center bg-white rounded-[8px] pt-[8px] pr-[8px] pl-[8px]  font-iran-yekan text-[12px] space-y-s">
+              <div className="flex-col w-[100%] justify-center bg-white rounded-[8px] pt-[8px] pr-[8px] pl-[8px]  font-iran-yekan text-[12px] space-y-s">
                 <div onClick={onItemClick("است")} className="cursor-pointer">
                   است
                 </div>
@@ -218,9 +233,41 @@ const CommonDropdown: React.FC<iDropDown> = ({ type }) => {
               </div>
             )}
           </div>
+        )) ||
+        (type === "Wich Project Access" && (
+          <div className="w-[106px] h-[30px]">
+            <div
+              onClick={handleDropdownClick}
+              className="flex bg-white  w-[100%] h-[30px] border-[1px] border-gray-border justify-between rounded-[6px] pr-[8px] pl-[8px] pb-[4px] pt-[5px] items-center"
+            >
+              <div className="font-iran-yekan text-[12px] w-[100%]">
+                {myString}
+              </div>
+              <RiArrowDropDownLine className="w-[18px] h-[18px]"></RiArrowDropDownLine>
+            </div>
+            {isOpen && (
+              <div className="flex-col w-[100%] justify-center bg-white rounded-[8px] pt-[8px] pr-[8px] pl-[8px]  font-iran-yekan text-[12px] space-y-s">
+                <div
+                  onClick={onItemClick("همه پروژه ها")}
+                  className="cursor-pointer"
+                >
+                  همه پروژه ها
+                </div>
+                {projects?.map((project, index) => (
+                  <div
+                    key={index}
+                    onClick={onItemClick(project)}
+                    className="cursor-pointer"
+                  >
+                    {project}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
     </div>
   );
 };
 
-export default CommonDropdown;
+export default CammonDropdown;
