@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import Dropdown from "../../components/Workspace/DropDown";
+import MainPageSideBar from "../../components/Workspace/MainPageSideBar";
 
 const WorkspaceLayout = () => {
   return (
     <div className="flex">
-      <Dropdown />
+      <MainPageSideBar />
       <Outlet />
     </div>
   );

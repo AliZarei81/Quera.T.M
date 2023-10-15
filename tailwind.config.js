@@ -6,6 +6,10 @@ module.exports = {
   darkMode: "class",
   theme: {
     colors: {
+      'hr-gray':'#F4F4F4',
+      'lightgray': '#E8EAED',
+      'black-text': '#3D3D3D',
+      'gray-border': '#E9EBF0',
       'green-button': '#208D8E;',
       'gray-input': '#F6F7F9',
       'gray-button': '#D3D3D3',

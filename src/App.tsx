@@ -20,6 +20,7 @@ import Account from "./pages/Profile/Account";
 import Setting from "./pages/Profile/setting";
 import WorkspaceLayout from "./Layouts/Workspace";
 import Main from "./pages/Workspace/MainPage/main";
+import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +41,9 @@ const router = createBrowserRouter(
       </Route>
       <Route path="workspace" element={<WorkspaceLayout />}>
         <Route index element={<Main />} />
+        <Route path="board" element={<BoardLayout />}>
+          {/* <Route index element={<Main />} /> */}
+        </Route>
       </Route>
     </Route>
   )
