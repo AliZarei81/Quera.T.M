@@ -1,7 +1,7 @@
-import Workspace from "../../../components/Workspace/main";
+import Main from "../../../components/Workspace/main";
 
-const Main = () => {
-  return <Workspace>test</Workspace>;
+const MainPage = () => {
+  return <Main />;
 };
 
-export default Main;
+export default MainPage;

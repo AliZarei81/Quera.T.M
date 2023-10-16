@@ -2,18 +2,30 @@ import { ChangeEvent, useState } from "react";
 import Modal from "..";
 import Input from "../../Input";
 interface ICreatNewProjectProbs {
+  isVisible: boolean;
+  onClose: () => void;
   handleSubmit: () => void;
 }
-const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({handleSubmit}): JSX.Element => {
-    const[projectName,setProjectName]=useState<string>('')
-    const handleProjectNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setProjectName(event.target.value);
-      };
-      console.log(projectName)
-  const child = <Input type="text" id="projectName" value={projectName} label={{text:'نام پروژه' , for:'projectName'}} onChange={handleProjectNameChange} className="w-[415px] border border-gray-primary " />;
-  
-  
-  
+const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({
+  isVisible,
+  onClose,
+  handleSubmit,
+}): JSX.Element => {
+  const [projectName, setProjectName] = useState<string>("");
+  const handleProjectNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setProjectName(event.target.value);
+  };
+  const child = (
+    <Input
+      type="text"
+      id="projectName"
+      value={projectName}
+      label={{ text: "نام پروژه", for: "projectName" }}
+      onChange={handleProjectNameChange}
+      className="w-[415px] border border-gray-primary "
+    />
+  );
+
   return (
     <Modal
       buttonTitle="ادامه"
@@ -26,6 +38,8 @@ const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({handleSubmit}): JSX.
       onClick={handleSubmit}
       hasFooter={true}
       mBodyStyle="justify-center"
+      isVisible={isVisible}
+      onClose={onClose}
     />
   );
 };

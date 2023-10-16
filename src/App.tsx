@@ -19,12 +19,11 @@ import ProfileInfo from "./pages/Profile/ProfileInfo";
 import Account from "./pages/Profile/Account";
 import Setting from "./pages/Profile/setting";
 import WorkspaceLayout from "./Layouts/Workspace";
-import Main from "./pages/Workspace/MainPage/main";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 import BoardView from "./pages/Workspace/MainPage/Board/BoardView";
-import ListView from "./components/Workspace/Board/ListView";
 import ListViewPage from "./pages/Workspace/MainPage/Board/ListView";
 import CalendarView from "./pages/Workspace/MainPage/Board/CalendarView";
+import MainPage from "./pages/Workspace/MainPage/main";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,7 +43,7 @@ const router = createBrowserRouter(
         <Route path="setting" element={<Setting />} />
       </Route>
       <Route path="workspace" element={<WorkspaceLayout />}>
-        <Route index element={<Main />} />
+        <Route index element={<MainPage />} />
         <Route path="board" element={<BoardLayout />}>
           <Route index element={<BoardView />} />
           <Route path="list" element={<ListViewPage />} />

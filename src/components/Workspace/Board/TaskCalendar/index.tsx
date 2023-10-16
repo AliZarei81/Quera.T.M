@@ -81,8 +81,8 @@ const TaskCalendar: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="grid grid-cols-7 gap-4 mt-4">
+    <div className="flex flex-col items-center justify-center w-full">
+      <div className="grid grid-cols-7 gap-4 mt-4 w-full">
         {/* Render week names in the first row */}
         {weekDays.map((day, index) => (
           <div
@@ -97,7 +97,7 @@ const TaskCalendar: React.FC = () => {
         {daysArray.map((date) => (
           <div
             key={date.format("jYYYY-jMM-jDD")}
-            className="w-[146px] h-[156px] border border-[#AAAAAA]  flex flex-col items-center justify-center p-[10px] relative cursor-pointer"
+            className="w-full h-[156px] border border-[#AAAAAA]  flex flex-col items-center justify-center p-[10px] relative cursor-pointer"
             onClick={() => handleDateClick(date.format("jYYYY/jMM/jDD"))}
           >
             <div className="text-xl font-semibold absolute bottom-[5px] left-[10px]">
