@@ -11,6 +11,7 @@ import ProfileForm from "./components/Profile/ProfileForm";
 import AccountForm from "./components/Profile/AccountForm";
 import SettingForm from "./components/Profile/SettingForm";
 import Calendar from "./components/Common/Calendar";
+import CreateTask from "./components/Common/CreateTask";
 
 function App() {
   return (
@@ -36,7 +37,9 @@ function App() {
     //   </Routes>
     // </Router>
     <div>
-      <Calendar />
+      {/* <Calendar /> */}
+      <CreateTask isOpen={true} handleClose={()=>console.log('closed')} />
+
     </div>
   );
 }

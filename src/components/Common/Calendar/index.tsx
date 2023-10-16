@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import jalaliMoment from "jalali-moment";
 import ChangeDate from "../ChangeDate";
 import { BsCalendar4Event } from "react-icons/bs";
-
-const Calendar: React.FC = () => {
+interface ICalendarProbs {
+  onClose: () => void;
+}
+const Calendar: React.FC<ICalendarProbs> = ({ onClose }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [todayName, setTodayName] = useState("");
   const [timeAfter1Hour, setTimeAfter1Hour] = useState("");
@@ -20,12 +22,12 @@ const Calendar: React.FC = () => {
   );
   const [endPoint, setEndPoint] = useState<jalaliMoment.Moment | null>(null);
   useEffect(() => {
-    const today = jalaliMoment().locale("fa"); 
+    const today = jalaliMoment().locale("fa");
     const month = today.format("jMMMM");
-    setTodayName(today.format("dddd")); 
+    setTodayName(today.format("dddd"));
 
     const oneHourLater = today.add(1, "hour");
-    setTimeAfter1Hour(oneHourLater.format("HH:mm")); 
+    setTimeAfter1Hour(oneHourLater.format("HH:mm"));
 
     const tomorrow = today.add(1, "day");
     setTomorrowName(tomorrow.format("dddd"));
@@ -52,7 +54,7 @@ const Calendar: React.FC = () => {
     } else if (!endPoint) {
       setEndPoint(selectedDate);
     } else {
-    // Reset the selection if both start and end dates are already selected
+      // Reset the selection if both start and end dates are already selected
       setStartPoint(selectedDate);
       setEndPoint(null);
     }
@@ -73,15 +75,19 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div className={`${isOpen ? "block" : "hidden"} w-[850px] rounded-[20px] pt-[15px] shadow`}>
+    <div
+      className={`${
+        isOpen ? "block bg-white" : "hidden"
+      } absolute top-[60px] left-[125px] w-[850px] rounded-[20px] pt-[15px] shadow-2xl`}
+    >
       <div className="flex justify-between text-[24px] py-[20px] px-[10px] ">
         <div className="flex justify-start  gap-[8px] ">
-          <BsCalendar4Event className="text-[32px] text-[#BDBDBD]"/>
-          <p >زمان شروع</p>
+          <BsCalendar4Event className="text-[32px] text-[#BDBDBD]" />
+          <p>زمان شروع</p>
           <p>{startPoint ? startPoint.format("jYYYY/jM/jD") : ""}</p>
         </div>
         <div className="flex justify-start w-[438px] gap-[8px]">
-          <BsCalendar4Event className="text-[32px] text-[#BDBDBD]"/>
+          <BsCalendar4Event className="text-[32px] text-[#BDBDBD]" />
           <p>زمان پایان</p>
           <p>{endPoint ? endPoint.format("jYYYY/jM/jD") : ""}</p>
         </div>
@@ -118,7 +124,7 @@ const Calendar: React.FC = () => {
           </div>
           <div className="flex justify-between">
             <p>چهار هفته ی دیگر</p>
-            <p  className="text-gray-primary"> {fourWeeksLaterName}</p>
+            <p className="text-gray-primary"> {fourWeeksLaterName}</p>
           </div>
         </div>
         <div className="w-[600px] p-[16px] relative">
@@ -165,7 +171,7 @@ const Calendar: React.FC = () => {
                         endPoint &&
                         day > startPoint.jDate() &&
                         day < endPoint.jDate()
-                      ? "bg-cyan-secondary" 
+                      ? "bg-cyan-secondary"
                       : "border-none"
                   }`}
                 >
@@ -176,7 +182,7 @@ const Calendar: React.FC = () => {
 
             <button
               disabled={false}
-              onClick={() => setIsOpen(false)}
+              onClick={onClose}
               className="w-[125px] h-[32px] bg-brand-primary text-white rounded-[4px] absolute bottom-[16px] left-[16px]"
             >
               بستن
