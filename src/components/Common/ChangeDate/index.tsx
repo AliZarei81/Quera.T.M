@@ -1,32 +1,44 @@
 import React from "react";
 import Button from "../Button";
+import jalaliMoment from "jalali-moment";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-
-const ChangeDate: React.FC = () => {
+interface IChangeDateProbs {
+  onTodayClick: () => void;
+  onNextMonthClick: () => void;
+  onPrevMonthClick: () => void;
+  displayedMonth: jalaliMoment.Moment;
+}
+const ChangeDate: React.FC<IChangeDateProbs> = ({
+  displayedMonth,
+  onNextMonthClick,
+  onPrevMonthClick,
+  onTodayClick,
+}) => {
+  const formattedMonthYear = displayedMonth.locale("fa").format("jMMMM jYYYY");
   return (
-    <div className="gap-xs flex">
-      <Button
-        type="button"
-        className="body-xs self-start rounded-md border-gray-secondary hover:bg-gray-secondary border-2 border-solid p-xs justify-center"
-        title="امروز"
-        disabled={false}
-      />
-      <div className="flex items-center gap-xs">
+    <div className="w-[200px]  h-[24] gap-xs flex">
+      <div
+        className="w-[30px] h-[21px] font-iran-yekan body-xs self-start cursor-pointer"
+        onClick={onTodayClick}
+      >
+        امروز
+      </div>
+      <div className="w-[30px] h-[24px] flex">
         <Button
-          type="button"
           title=""
           disabled={false}
-          onClick={() => 0}
+          onClick={onPrevMonthClick}
           icon={<BsChevronRight />}
         />
         <Button
-          type="button"
           title=""
           disabled={false}
-          onClick={() => 0}
+          onClick={onNextMonthClick}
           icon={<BsChevronLeft />}
         />
-        <p className="body-xs">اردیبهشت ۱۴۰۲</p>
+      </div>
+      <div className="w-[150px] h-[21px] body-xs font-iran-yekan self-start flex">
+        {formattedMonthYear}
       </div>
     </div>
   );

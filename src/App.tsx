@@ -24,6 +24,7 @@ import ListViewPage from "./pages/Workspace/Board/ListView";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 import MainPage from "./pages/Workspace/MainPage/main";
 import CalendarView from "./pages/Workspace/Board/CalendarView";
+import CreateTask from "./components/Common/CreateTask";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
 
 function App() {
   return <RouterProvider router={router} />;
+  return <CreateTask isOpen={true} handleClose={() => console.log("close")} />;
 }
 
 export default App;
