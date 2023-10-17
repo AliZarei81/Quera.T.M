@@ -4,6 +4,8 @@ import { PiPlusSquareBold } from "react-icons/pi";
 import apiClients from "../../../services/api-clients";
 import { GetWorkspacesResponse } from "../../../types/response/getworkspaces.response.dto";
 import CreateNewProject from "../../Common/Modal/CreateNewPoject";
+import { AddProjectRequest } from "../../../types/request/addproject.request.dto";
+import { AddProjectReponse } from "../../../types/response/addproject.response.dto";
 
 interface Project {
   id: number;
@@ -39,8 +41,28 @@ const getWorkspaceWithProjects = async (): Promise<Workspace[] | undefined> => {
   }
 };
 
+const addProjectToAWorkspace = async (
+  workspaceID: number,
+  projectName: string
+): Promise<AddProjectReponse | undefined> => {
+  try {
+    const project: AddProjectRequest = {
+      name: projectName,
+    };
+    const res = await apiClients.post<AddProjectReponse>(
+      `/workspaces/${workspaceID}/projects/`,
+      project
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const Main: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [project, setProject] = useState("");
+  const [workspaceID, setWorkspaceID] = useState<number>(-1);
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
 
   useEffect(() => {
@@ -51,10 +73,30 @@ const Main: React.FC = () => {
     });
   }, []);
 
+  const addNewProject = async () => {
+    const createdProject = await addProjectToAWorkspace(workspaceID, project);
+    if (createdProject) {
+      setWorkspaces((prevWorkspaces) => {
+        return prevWorkspaces.map((workspace) => {
+          if (workspace.id === workspaceID) {
+            return {
+              ...workspace,
+              projects: [...workspace.projects, createdProject],
+            };
+          }
+          return workspace;
+        });
+      });
+      setWorkspaceID(-1);
+      setProject("");
+      setIsVisible(false);
+    }
+  };
+
   return (
     <>
       <div className="h-screen w-full my-xl mr-xl">
-        <div className="h-screen flex flex-col justify-stretch gap-m">
+        <div className="h-screen flex flex-col justify-stretch gap-m scroll-auto">
           {workspaces.map((workspace) => {
             return (
               <div className="flex flex-col gap-m" key={workspace.id}>
@@ -65,8 +107,11 @@ const Main: React.FC = () => {
                   <Button
                     title="ساختن پروژه جدید"
                     icon={<PiPlusSquareBold size={24} />}
-                    className="w-2/12 px-xs py-m text-body-s text-red-primary border-red-primary border-2 rounded-2xl justify-center"
-                    onClick={() => setIsVisible(true)}
+                    className="w-[200px] px-xs py-m text-body-s text-red-primary border-red-primary border-2 rounded-2xl justify-center"
+                    onClick={() => {
+                      setWorkspaceID(workspace.id);
+                      setIsVisible(true);
+                    }}
                   />
                   {workspace.projects.length > 0 &&
                     workspace.projects.map((project) => {
@@ -74,7 +119,8 @@ const Main: React.FC = () => {
                         <Button
                           key={project.id}
                           title={project.name}
-                          className={`w-2/12 justify-center text-body-m font-extrabold shadow-[0px_3px_4px_0px_rgba(0, 0, 0, 0.20)] text-white rounded-2xl bg-[${workspace.color}] `}
+                          className={`w-[200px] justify-center text-body-m font-extrabold shadow-[0px_3px_4px_0px_rgba(0, 0, 0, 0.20)] text-white rounded-2xl`}
+                          bgColor={workspace.color}
                         />
                       );
                     })}
@@ -88,7 +134,11 @@ const Main: React.FC = () => {
       <CreateNewProject
         isVisible={isVisible}
         onClose={() => setIsVisible(false)}
-        handleSubmit={() => console.log("test")}
+        project={project}
+        handleProjectNameChange={(event) => {
+          setProject(event.target.value);
+        }}
+        handleSubmit={addNewProject}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import TaskBoard from "../../../../../components/Workspace/Board/TaskManeger/TaskBoard";
+import TaskBoard from "../../../../components/Workspace/Board/TaskManeger/TaskBoard";
 
 const BoardView = () => {
   return <TaskBoard></TaskBoard>;

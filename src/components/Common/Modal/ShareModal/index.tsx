@@ -5,6 +5,7 @@ import Input from "../../Input";
 import CopyLinkButton from "../../CopyLinkButton";
 import User from "../../User";
 import CommonDropdown from "../../CommonDropdown";
+import Button from "../../Button";
 interface IUser {
   userName: string;
   userProfilePicture?: string;
@@ -20,6 +21,8 @@ interface IShareModalProbs {
   privateLink: string;
   users: IUser[];
   projects?: string[];
+  isVisible: boolean;
+  onClose: () => void;
   // userAccess: IUser;
 }
 const ShareModal: React.FC<IShareModalProbs> = ({
@@ -27,6 +30,8 @@ const ShareModal: React.FC<IShareModalProbs> = ({
   users,
   type,
   projects,
+  isVisible,
+  onClose,
   // userAccess,
 }): JSX.Element => {
   const [email, setEmail] = useState<string>("");
@@ -71,7 +76,7 @@ const ShareModal: React.FC<IShareModalProbs> = ({
               <CommonDropdown type="fullaccess" />
               {type === "workSpace" && (
                 <CommonDropdown
-                  type="fullaccess"
+                  type="Wich Project Access"
                   // projects={projects}
                 />
               )}
@@ -92,19 +97,19 @@ const ShareModal: React.FC<IShareModalProbs> = ({
             onChange={handleEmailChange}
             className="w-full bg-[#F0F1F3] pl-[100px]"
           />
-          {/* <Button
+          <Button
             type="submit"
             disabled={false}
-            className="rounded-l-[8px] w-1/3 h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
+            className="rounded-l-[8px] w-1/6 h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
             onClick={handleSend}
             title="ارسال"
-          /> */}
-          <button
+          />
+          {/* <button
             onClick={handleSend}
             className="rounded-l-[8px] w-[91px] h-[40px] bg-brand-primary text-white text-[14px] absolute top-[0] left-[0px] px-[30px] "
           >
             ارسال
-          </button>
+          </button> */}
         </div>
         <div>
           <CopyLinkButton linkToCopy={privateLink} />
@@ -124,11 +129,12 @@ const ShareModal: React.FC<IShareModalProbs> = ({
     <Modal
       hasPaginationBulet={false}
       hasFooter={false}
-      modalClassname="w-[600px] rounded-[12px] gap-xl p-[20px]   "
       modalTitle={renderTitle()}
       totalPages={1}
       currentPage={1}
       mBody={child()}
+      isVisible={isVisible}
+      onClose={onClose}
     />
   );
 };

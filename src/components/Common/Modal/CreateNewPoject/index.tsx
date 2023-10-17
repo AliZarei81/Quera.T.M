@@ -3,23 +3,23 @@ import Modal from "..";
 import Input from "../../Input";
 interface ICreatNewProjectProbs {
   isVisible: boolean;
+  project: string;
+  handleProjectNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onClose: () => void;
   handleSubmit: () => void;
 }
 const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({
   isVisible,
+  project,
+  handleProjectNameChange,
   onClose,
   handleSubmit,
 }): JSX.Element => {
-  const [projectName, setProjectName] = useState<string>("");
-  const handleProjectNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setProjectName(event.target.value);
-  };
   const child = (
     <Input
       type="text"
       id="projectName"
-      value={projectName}
+      value={project}
       label={{ text: "نام پروژه", for: "projectName" }}
       onChange={handleProjectNameChange}
       className="w-[415px] border border-gray-primary "
@@ -34,7 +34,6 @@ const CreateNewProject: React.FC<ICreatNewProjectProbs> = ({
       totalPages={1}
       modalTitle="ساختن پروژه جدید"
       hasPaginationBulet={false}
-      modalClassname="w-[500px] h-[272px]  "
       onClick={handleSubmit}
       hasFooter={true}
       mBodyStyle="justify-center"

@@ -19,11 +19,11 @@ import ProfileInfo from "./pages/Profile/ProfileInfo";
 import Account from "./pages/Profile/Account";
 import Setting from "./pages/Profile/setting";
 import WorkspaceLayout from "./Layouts/Workspace";
+import BoardView from "./pages/Workspace/Board/BoardView";
+import ListViewPage from "./pages/Workspace/Board/ListView";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
-import BoardView from "./pages/Workspace/MainPage/Board/BoardView";
-import ListViewPage from "./pages/Workspace/MainPage/Board/ListView";
-import CalendarView from "./pages/Workspace/MainPage/Board/CalendarView";
 import MainPage from "./pages/Workspace/MainPage/main";
+import CalendarView from "./pages/Workspace/Board/CalendarView";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

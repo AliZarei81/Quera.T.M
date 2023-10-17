@@ -1,49 +1,14 @@
 import React, { useState } from "react";
 import Button from "../../../Common/Button";
-import Link from "../../../Common/Link";
 import { FiShare2 } from "react-icons/fi";
 import { BsCalendar4Week } from "react-icons/bs";
 import { BsKanban } from "react-icons/bs";
 import { LuListChecks } from "react-icons/lu";
 import ShareModal from "../../../Common/Modal/ShareModal";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
-  const users = [
-    {
-      userName: "za h",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: true,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-  ];
   const [activeLink, setActiveLink] = React.useState<string | null>(null);
-  const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
 
   return (
     <>
@@ -57,16 +22,17 @@ const Navbar: React.FC = () => {
             {activeLink === "list" && (
               <div className="absolute bottom-[-18px] left-0 w-full border-b-2 border-[rgba(32,141,142,1)] "></div>
             )}
-            <Link
-              title="نمایش لیستی"
-              className={`no-underline gap-[5px] h-[16px] ${
-                activeLink === "list"
-                  ? "text-[rgba(32,141,142,1)]"
-                  : "text-black"
-              } hover:text-[rgba(32,141,142,1)]`}
-              href="#"
-              icon={<LuListChecks />}
-            ></Link>
+            <Link to="/workspace/board/list">
+              <Button
+                title="نمایش لیستی"
+                className={`no-underline gap-[5px] h-[16px] ${
+                  activeLink === "list"
+                    ? "text-[rgba(32,141,142,1)]"
+                    : "text-black"
+                } hover:text-[rgba(32,141,142,1)]`}
+                icon={<LuListChecks />}
+              />
+            </Link>
           </div>
           <div
             className={`flex items-center justify-center self-center gap-[5px] px-[20px]  border-l-2  border-gray-primary text-[16px] font-medium cursor-pointer relative`}
@@ -75,16 +41,17 @@ const Navbar: React.FC = () => {
             {activeLink === "column" && (
               <div className="absolute bottom-[-18px] left-0 w-full border-b-2 border-[rgba(32,141,142,1)]"></div>
             )}
-            <Link
-              title="نمایش ستونی"
-              className={`no-underline gap-[5px] h-[16px] ${
-                activeLink === "column"
-                  ? "text-[rgba(32,141,142,1)]"
-                  : "text-black"
-              } hover:text-[rgba(32,141,142,1)]`}
-              href="#"
-              icon={<BsKanban />}
-            ></Link>
+            <Link to="/workspace/board">
+              <Button
+                title="نمایش ستونی"
+                className={`no-underline gap-[5px] h-[16px] ${
+                  activeLink === "column"
+                    ? "text-[rgba(32,141,142,1)]"
+                    : "text-black"
+                } hover:text-[rgba(32,141,142,1)]`}
+                icon={<BsKanban />}
+              />
+            </Link>
           </div>
           <div
             className={`flex items-center justify-center self-center px-[20px] border-l-2 border-gray-primary text-[16px] font-medium cursor-pointer relative`}
@@ -93,16 +60,17 @@ const Navbar: React.FC = () => {
             {activeLink === "calendar" && (
               <div className="absolute bottom-[-18px] left-0 w-full border-b-2 border-[rgba(32,141,142,1)]"></div>
             )}
-            <Link
-              title="تقویم"
-              className={`no-underline gap-[5px] h-[16px] ${
-                activeLink === "calendar"
-                  ? "text-[rgba(32,141,142,1)]"
-                  : "text-black"
-              } hover:text-[rgba(32,141,142,1)]`}
-              href="#"
-              icon={<BsCalendar4Week />}
-            ></Link>
+            <Link to="/workspace/board/calendar">
+              <Button
+                title="تقویم"
+                className={`no-underline gap-[5px] h-[16px] ${
+                  activeLink === "calendar"
+                    ? "text-[rgba(32,141,142,1)]"
+                    : "text-black"
+                } hover:text-[rgba(32,141,142,1)]`}
+                icon={<BsCalendar4Week />}
+              />
+            </Link>
           </div>
         </div>
 
@@ -113,17 +81,16 @@ const Navbar: React.FC = () => {
             title="اشتراک‌ گذاری"
             disabled={false}
             icon={<FiShare2 />}
-            onClick={() => setShareModalIsOpen(true)}
           />
         </div>
       </div>
-      {shareModalIsOpen && (
+      {/* {shareModalIsOpen && (
         <ShareModal
           privateLink="https://google.com"
           type="project"
           users={users}
         />
-      )}
+      )} */}
     </>
   );
 };

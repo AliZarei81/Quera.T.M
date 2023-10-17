@@ -7,6 +7,7 @@ interface IButtonProps {
   onClick?(e: MouseEvent<HTMLButtonElement>): void;
   title?: string;
   icon?: ReactElement;
+  bgColor?: string;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -16,6 +17,7 @@ const Button: React.FC<IButtonProps> = ({
   onClick,
   title,
   icon,
+  bgColor,
 }): JSX.Element => {
   return (
     <button
@@ -23,6 +25,7 @@ const Button: React.FC<IButtonProps> = ({
       className={`flex items-center gap-xs ${className}  `}
       disabled={disabled}
       onClick={onClick}
+      style={{ backgroundColor: bgColor }}
     >
       <IconContext.Provider value={{}}>
         {icon && cloneElement(icon)}

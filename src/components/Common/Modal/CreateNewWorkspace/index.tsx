@@ -12,6 +12,8 @@ interface ICreateNewWorkspaceProbs {
   userName: string;
   userColor: string;
   picture?: string;
+  isVisible: boolean;
+  onClose: () => void;
 }
 const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
   handleCreate /*,colors*/,
@@ -19,6 +21,8 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
   userName,
   userColor,
   picture,
+  isVisible,
+  onClose,
 }): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const handlePrevPage = () => {
@@ -74,13 +78,16 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
       case 2:
         return (
           <div className=" gap-s flex flex-row-reverse justify-start">
-            <div className=" gap-s flex flex-row-reverse justify-start">
-              <ColorPiker
-                color={selectedColor}
-                onChange={handleColorChange} // Callback function when the color changes
-                colors={colors}
-                title="رنگ"
-              />
+            <div className=" gap-s flex flex-row-reverse justify-start pl-m">
+              <div className="flex flex-col gap-s ">
+                <h2>رنگ ورک اسپیس</h2>
+                <ColorPiker
+                  color={selectedColor}
+                  onChange={handleColorChange} // Callback function when the color changes
+                  colors={colors}
+                  title="رنگ"
+                />
+              </div>
             </div>
             <div
               className="w-[70px] h-[70px] flex justify-center items-center text-[24px] font-extrabold rounded-[8px]"
@@ -152,10 +159,11 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
       totalPages={3}
       modalTitle={handleModalTitle()}
       hasPaginationBulet={true}
-      modalClassname="w-[500px] h-[272px] "
       onClick={handleClick}
       mBodyStyle={currentPage === 1 ? "justify-center" : "justify-start"}
       hasFooter={true}
+      isVisible={isVisible}
+      onClose={onClose}
     />
   );
 };

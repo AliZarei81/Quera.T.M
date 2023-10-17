@@ -1,4 +1,4 @@
-import TaskCalendar from "../../../../../components/Workspace/Board/TaskCalendar";
+import TaskCalendar from "../../../../components/Workspace/Board/TaskCalendar";
 
 const CalendarView = () => {
   return <TaskCalendar />;

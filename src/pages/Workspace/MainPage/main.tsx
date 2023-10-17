@@ -1,4 +1,4 @@
-import Main from "../../../components/Workspace/main";
+import Main from "../../../components/Workspace/Main";
 
 const MainPage = () => {
   return <Main />;
