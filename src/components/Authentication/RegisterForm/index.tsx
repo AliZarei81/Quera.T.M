@@ -22,7 +22,7 @@ const RegisterForm = () => {
     handleBlur,
     handleSubmit,
     setErrors,
-  } = useFormik<UserRegisterRequest>({
+  } = useFormik({
     initialValues: {
       username: "",
       email: "",
@@ -126,7 +126,7 @@ const RegisterForm = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
+            className="h-12 w-full px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
             title="ثبت نام"
           />
         </Form>

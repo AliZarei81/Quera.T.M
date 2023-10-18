@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { TiAttachment } from "react-icons/ti";
+import Button from "../Button";
 interface IFileUpload {
   label: string;
+  filetypes: string;
 }
 
-const FileUpload: React.FC<IFileUpload> = ({ label }): JSX.Element => {
+const FileUpload: React.FC<IFileUpload> = ({ label,filetypes }): JSX.Element => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const fileInputRef = React.createRef<HTMLInputElement>();
@@ -27,21 +29,22 @@ const FileUpload: React.FC<IFileUpload> = ({ label }): JSX.Element => {
       <label className="block text-gray-600 font-semibold mb-2">{label}</label>
       <input
         type="file"
-        accept=".jpg, .jpeg, .png, .pdf"
+        accept={filetypes}
         ref={fileInputRef}
         style={{ display: "none" }}
         onChange={handleFileChange}
       />
-      <button
-        className="p-[8px] rounded bg-white text-brand-primary gap-[4px] cursor-pointer border rounded-[4px] text-[16px] border-brand-primary flex text-center"
+      <Button
+        className="p-[8px] bg-white text-brand-primary gap-[4px] cursor-pointer border rounded-[4px] text-[16px] border-brand-primary flex text-center"
         onClick={handleCustomButtonClick}
-      >
-        <TiAttachment className="text-[24px]"/>
-        {selectedFile
+        title={selectedFile
           ? `Selected File: ${selectedFile.name}`
-          : "آپلود فایل"}{" "}
-        {/* Change the text here */}
-      </button>
+          : "آپلود فایل"}
+          icon={<TiAttachment className="text-[24px]"/>}
+      />
+        
+        
+      
     </div>
   );
 };

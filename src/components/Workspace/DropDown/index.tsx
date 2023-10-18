@@ -6,6 +6,8 @@ import { LuPlusSquare } from "react-icons/lu";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
+import WorkSpaceColumnMore from "../WorkSpaceColumnMore";
+import ProjectColumnMore from "../ProjectColumnMore";
 
 interface Iitems {
   color: string;
@@ -138,9 +140,7 @@ const Dropdown: React.FC = () => {
                     {item.title}
                   </div>
                 </div>
-                {hoveredIndex === index && (
-                  <BiDotsHorizontalRounded className="m-[4px]" />
-                )}
+                {hoveredIndex === index && <WorkSpaceColumnMore />}
               </div>
 
               {(expandedItems.includes(index) && item.projects && (
@@ -157,9 +157,7 @@ const Dropdown: React.FC = () => {
                       >
                         <div className="mr-[30px]">{project}</div>
                         {hoveredIndex2 === projectIndex &&
-                          index === hoveredIndex3 && (
-                            <BiDotsHorizontalRounded className="m-[4px]" />
-                          )}
+                          index === hoveredIndex3 && <ProjectColumnMore />}
                       </div>
                     ))}
                   <Button

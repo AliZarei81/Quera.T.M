@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Column from "./Column";
 import { AiOutlinePlus } from "react-icons/ai";
 import Button from "../../../Common/Button";
 import { LuPlusSquare } from "react-icons/lu";
+import CreateTask from "../../../Common/CreateTask";
+import CreateNewBoard from "../../../Common/Modal/CreateNewBoard";
+import { title } from "process";
 
 export interface Task {
   id: number;
@@ -18,15 +21,20 @@ export interface Column {
 }
 
 export const TaskBoard: React.FC = () => {
+  const [newTaskModal, setNewTaskModal] = useState(false);
   const [columns, setColumns] = useState<Column[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [board, setBoard] = useState("");
 
-  const addColumn = (title: string) => {
+  const addColumn = () => {
     const newColumn: Column = {
       id: columns.length + 1,
-      title,
+      title: board,
       tasks: [],
     };
     setColumns([...columns, newColumn]);
+    setBoard("");
+    setIsVisible(false);
   };
 
   return (
@@ -35,7 +43,7 @@ export const TaskBoard: React.FC = () => {
         <div className="flex-shrink-0 items-center w-[250px] h-[44px] shadow-md rounded-2xl pr-s mx-s">
           <Button
             title="ساختن برد جدید"
-            onClick={() => addColumn(prompt("Enter column title") || "")}
+            onClick={() => setIsVisible(true)}
             disabled={false}
             type="button"
             icon={<AiOutlinePlus />}
@@ -45,14 +53,32 @@ export const TaskBoard: React.FC = () => {
 
         <div className="flex space-x-4 gap-x-m">
           {columns.map((column) => (
-            <Column key={column.id} column={column} />
+            <Column
+              key={column.id}
+              column={column}
+              handleAddTask={() => setNewTaskModal(true)}
+            />
           ))}
         </div>
       </div>
       <Button
         title="تسک جدید"
         icon={<LuPlusSquare className="text-white" size={24} />}
+        onClick={() => setNewTaskModal(true)}
         className="absolute bottom-l left-xl text-body-s text-white bg-brand-primary rounded-md py-s px-m"
+      />
+      <CreateTask
+        isOpen={newTaskModal}
+        handleClose={() => setNewTaskModal(false)}
+      />
+      <CreateNewBoard
+        isVisible={isVisible}
+        onClose={() => setIsVisible(false)}
+        board={board}
+        handleBoardNameChange={(event) => {
+          setBoard(event.target.value);
+        }}
+        handleSubmit={addColumn}
       />
     </>
   );

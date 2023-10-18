@@ -3,14 +3,15 @@ import { Column as ColumnType, Task } from "./TaskBoard";
 import { TaskItem } from "./TaskItem";
 import { PiPlusSquareBold } from "react-icons/pi";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsThreeDots } from "react-icons/bs";
 import Button from "../../../Common/Button";
+import BoardColumnMore from "../../BoardColumnMore";
 
 interface ColumnProps {
   column: ColumnType;
+  handleAddTask: () => void;
 }
 
-export const Column: React.FC<ColumnProps> = ({ column }) => {
+export const Column: React.FC<ColumnProps> = ({ column, handleAddTask }) => {
   const [tasks, setTasks] = useState<Task[]>(column.tasks);
 
   const addTask = (title: string, description: string) => {
@@ -28,27 +29,15 @@ export const Column: React.FC<ColumnProps> = ({ column }) => {
         {column.title}
 
         <div className="group-hover:visible invisible flex flex-row gap-xs pl-xs">
-          <Button
-            title=""
-            disabled={false}
-            type="button"
-            icon={<BsThreeDots />}
-            className="font-iran-yekan flex justify-center "
-          ></Button>
-
+          <BoardColumnMore />
           <Button
             title=""
             disabled={false}
             type="button"
             icon={<AiOutlinePlus />}
-            onClick={() =>
-              addTask(
-                prompt("Enter task title") || "",
-                prompt("Enter task description") || ""
-              )
-            }
+            onClick={handleAddTask}
             className="font-iran-yekan flex justify-center "
-          ></Button>
+          />
         </div>
       </h2>
 
@@ -61,12 +50,7 @@ export const Column: React.FC<ColumnProps> = ({ column }) => {
         disabled={false}
         type="button"
         icon={<PiPlusSquareBold />}
-        onClick={() =>
-          addTask(
-            prompt("Enter task title") || "",
-            prompt("Enter task description") || ""
-          )
-        }
+        onClick={handleAddTask}
         className="font-iran-yekan flex justify-center text-brand-primary border-2 px-4 p-[8px , 12px , 8px , 12px] rounded-lg w-[250px] h-[40px] hover:bg-[#dedede] "
       ></Button>
     </div>

@@ -9,6 +9,42 @@ import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [activeLink, setActiveLink] = React.useState<string | null>(null);
+  const [shareModalIsOpen, setShareModalIsOpen] = useState<boolean>(false);
+
+  const users = [
+    {
+      userName: "za h",
+      userProfilePicture: "string",
+      hasProfilePicture: false,
+      isOwner: true,
+      userColor: "bg-[#F27474]",
+      email: "za@g.com",
+    },
+    {
+      userName: "pe a",
+      userProfilePicture: "string",
+      hasProfilePicture: false,
+      isOwner: false,
+      userColor: "bg-[#F27474]",
+      email: "za@g.com",
+    },
+    {
+      userName: "pe a",
+      userProfilePicture: "string",
+      hasProfilePicture: false,
+      isOwner: false,
+      userColor: "bg-[#F27474]",
+      email: "za@g.com",
+    },
+    {
+      userName: "pe a",
+      userProfilePicture: "string",
+      hasProfilePicture: false,
+      isOwner: false,
+      userColor: "bg-[#F27474]",
+      email: "za@g.com",
+    },
+  ];
 
   return (
     <>
@@ -80,17 +116,18 @@ const Navbar: React.FC = () => {
             className="p-2 text-black bg-white rounded-full border-none cursor-pointer font-medium text-[16px] "
             title="اشتراک‌ گذاری"
             disabled={false}
+            onClick={() => setShareModalIsOpen(true)}
             icon={<FiShare2 />}
           />
         </div>
       </div>
-      {/* {shareModalIsOpen && (
-        <ShareModal
-          privateLink="https://google.com"
-          type="project"
-          users={users}
-        />
-      )} */}
+      <ShareModal
+        isVisible={shareModalIsOpen}
+        onClose={() => setShareModalIsOpen(false)}
+        privateLink="https://google.com"
+        type="project"
+        users={users}
+      />
     </>
   );
 };

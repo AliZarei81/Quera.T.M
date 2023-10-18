@@ -5,6 +5,14 @@ import {
   Route,
 } from "react-router-dom";
 
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
+
 // layouts
 import AuthenticationLayout from "./Layouts/Authentication/AuthenticationLayout";
 
@@ -22,9 +30,10 @@ import WorkspaceLayout from "./Layouts/Workspace";
 import BoardView from "./pages/Workspace/Board/BoardView";
 import ListViewPage from "./pages/Workspace/Board/ListView";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
-import MainPage from "./pages/Workspace/MainPage/main";
+import MainPage from "./pages/Workspace/MainPage";
 import CalendarView from "./pages/Workspace/Board/CalendarView";
-import CreateTask from "./components/Common/CreateTask";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,8 +65,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
-  return <CreateTask isOpen={true} handleClose={() => console.log("close")} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

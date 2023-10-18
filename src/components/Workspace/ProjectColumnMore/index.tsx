@@ -7,7 +7,7 @@ import PopoverButton from "../../Common/PopoverButton";
 import { useState } from "react";
 import ShareModal from "../../Common/Modal/ShareModal";
 
-const WorkSpaceColumnMore = () => {
+const ProjectColumnMore = () => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState<boolean>(false);
   const users = [
     {
@@ -43,6 +43,7 @@ const WorkSpaceColumnMore = () => {
       email: "za@g.com",
     },
   ];
+
   return (
     <>
       <PopoverButton>
@@ -50,20 +51,14 @@ const WorkSpaceColumnMore = () => {
           <Button
             type="button"
             disabled={false}
-            title="ساختن پروژه جدید"
+            title="ساختن تسک جدید"
             icon={<IoIosAdd />}
           />
           <Button
             type="button"
             disabled={false}
-            title="ویرایش نام ورک اسپیس"
+            title="ویرایش نام پروژه"
             icon={<FiEdit />}
-          />
-          <Button
-            type="button"
-            disabled={false}
-            title="ویرایش رنگ"
-            icon={<MdOutlineColorLens />}
           />
           <Button
             type="button"
@@ -80,11 +75,11 @@ const WorkSpaceColumnMore = () => {
           />
           <Button
             type="button"
-            onClick={() => setShareModalIsOpen(true)}
             disabled={false}
             title="اشتراک گذاری"
             icon={<FiShare2 />}
             className="py-xs px-s gap-8 text-center bg-brand-primary text-gray-secondary rounded-md"
+            onClick={() => setShareModalIsOpen(true)}
           />
         </div>
       </PopoverButton>
@@ -92,11 +87,11 @@ const WorkSpaceColumnMore = () => {
         isVisible={shareModalIsOpen}
         onClose={() => setShareModalIsOpen(false)}
         privateLink="https://google.com"
-        type="workSpace"
+        type="project"
         users={users}
       />
     </>
   );
 };
 
-export default WorkSpaceColumnMore;
+export default ProjectColumnMore;

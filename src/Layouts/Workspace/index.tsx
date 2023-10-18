@@ -3,7 +3,7 @@ import MainPageSideBar from "../../components/Workspace/MainPageSideBar";
 
 const WorkspaceLayout = () => {
   return (
-    <div className="flex">
+    <div className="flex relative">
       <MainPageSideBar />
       <Outlet />
     </div>
