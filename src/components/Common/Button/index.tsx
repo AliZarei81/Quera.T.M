@@ -2,21 +2,13 @@ import { MouseEvent, ReactElement, ReactNode, cloneElement } from "react";
 import { IconContext } from "react-icons";
 interface IButtonProps {
   type?: "button" | "submit" | "reset";
-  disabled: boolean;
+  disabled?: boolean;
   className?: string;
   onClick?(e: MouseEvent<HTMLButtonElement>): void;
-  title: string;
+  title?: string;
   icon?: ReactElement;
+  bgColor?: string;
 }
-
-// import { FaHeart } from "react-icons/fa";
-// give icon as a property to the Button component =>
-// <Button
-// title="ثبت نام"
-// icon={<FaHeart />}
-// disabled={false}
-// className=" bg-brand-primary cursor-pointer w-[95px] h-[40px] p-[6px] rounded-[10px] border-none gap-[10px] text-gray-secondary font-iran-yekan  "
-// />
 
 const Button: React.FC<IButtonProps> = ({
   type = "button",
@@ -25,13 +17,15 @@ const Button: React.FC<IButtonProps> = ({
   onClick,
   title,
   icon,
+  bgColor,
 }): JSX.Element => {
   return (
     <button
       type={type}
-      className={`w-full flex items-center gap-xs ${className}  `}
+      className={`flex items-center gap-xs ${className}  `}
       disabled={disabled}
       onClick={onClick}
+      style={{ backgroundColor: bgColor }}
     >
       <IconContext.Provider value={{}}>
         {icon && cloneElement(icon)}

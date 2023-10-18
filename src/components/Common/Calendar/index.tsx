@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import jalaliMoment from "jalali-moment";
 import ChangeDate from "../ChangeDate";
 import { BsCalendar4Event } from "react-icons/bs";
+import moment from "jalali-moment";
+import Button from "../Button";
 interface ICalendarProbs {
   onClose: () => void;
 }
@@ -16,11 +18,52 @@ const Calendar: React.FC<ICalendarProbs> = ({ onClose }) => {
   const [twoWeeksLaterName, setTwoWeeksLaterName] = useState("");
   const [fourWeeksLaterName, setFourWeeksLaterName] = useState("");
   const [displayedMonth, setDisplayedMonth] = useState(jalaliMoment());
-  //state for selected days
-  const [startPoint, setStartPoint] = useState<jalaliMoment.Moment | null>(
-    null
+  const [startPoint, setStartPoint] = useState<jalaliMoment.Moment | undefined>(
+    undefined
   );
-  const [endPoint, setEndPoint] = useState<jalaliMoment.Moment | null>(null);
+  const [endPoint, setEndPoint] = useState<jalaliMoment.Moment | undefined>(
+    undefined
+  );
+  const [daysArray, setDaysArray] = useState<moment.Moment[]>([]);
+
+  const weekDays: string[] = [
+    "شنبه",
+    "یکشنبه",
+    "دوشنبه",
+    "سه شنبه",
+    "چهارشنبه",
+    "پنجشنبه",
+    "جمعه",
+  ];
+
+  useEffect(() => {
+    const firstDayOfMonth: moment.Moment = displayedMonth.startOf("jMonth");
+    const daysInMonth: number = displayedMonth.daysInMonth();
+
+    const prevMonthDays: number = firstDayOfMonth.day() + 1;
+
+    const totalDays: number = Math.min(daysInMonth + prevMonthDays);
+
+    const _daysArray: moment.Moment[] = Array.from(
+      { length: totalDays },
+      (_, index) => {
+        if (index < prevMonthDays) {
+          return firstDayOfMonth
+            .clone()
+            .subtract(prevMonthDays - index, "days");
+        } else if (index < prevMonthDays + daysInMonth) {
+          return firstDayOfMonth.clone().add(index - prevMonthDays, "days");
+        } else {
+          return firstDayOfMonth
+            .clone()
+            .add(index - prevMonthDays - daysInMonth, "days");
+        }
+      }
+    );
+
+    setDaysArray(_daysArray);
+  }, [displayedMonth]); // Wheneve month changes, array of days should be updated.
+
   useEffect(() => {
     const today = jalaliMoment().locale("fa");
     const month = today.format("jMMMM");
@@ -49,16 +92,25 @@ const Calendar: React.FC<ICalendarProbs> = ({ onClose }) => {
   }, []);
   // Handle clicking on a day to select start and end points
   const handleDateClick = (selectedDate: jalaliMoment.Moment) => {
-    if (!startPoint) {
+    if (startPoint === undefined) {
       setStartPoint(selectedDate);
+      setEndPoint(undefined); // Reset the endpoint if it was previously set
     } else if (!endPoint) {
-      setEndPoint(selectedDate);
+      // Check if the selected date is after the start point
+      if (selectedDate.isAfter(startPoint, "day")) {
+        setEndPoint(selectedDate);
+      } else {
+        // If the selected date is before the start point, reset both
+        setStartPoint(selectedDate);
+        setEndPoint(undefined);
+      }
     } else {
       // Reset the selection if both start and end dates are already selected
       setStartPoint(selectedDate);
-      setEndPoint(null);
+      setEndPoint(undefined);
     }
   };
+
   // Handle clicking on "امروز"
   const handleTodayClick = () => {
     setDisplayedMonth(jalaliMoment()); // Set to the current month
@@ -66,7 +118,7 @@ const Calendar: React.FC<ICalendarProbs> = ({ onClose }) => {
 
   // Handle clicking on the next month
   const handleNextMonthClick = () => {
-    setDisplayedMonth(displayedMonth.clone().add(1, "month")); // Go to the next month
+    setDisplayedMonth((prevData) => prevData.clone().add(1, "month")); // Go to the next month
   };
 
   // Handle clicking on the previous month
@@ -137,61 +189,55 @@ const Calendar: React.FC<ICalendarProbs> = ({ onClose }) => {
             />
           </div>
           <div className="grid grid-cols-7 gap-[4px]">
-            {[
-              "شنبه",
-              "یکشنبه",
-              "دوشنبه",
-              "سه شنبه",
-              "چهارشنبه",
-              "پنجشنبه",
-              "جمعه",
-            ].map((day, index) => (
-              <div key={index} className="text-center text-gray-600">
+            {weekDays.map((day, index) => (
+              <div key={`week-day-${index}`} className="text-center">
                 {day}
               </div>
             ))}
-            {Array.from(
-              { length: displayedMonth.jDaysInMonth() },
-              (_, i) => i + 1
-            ).map((day) => (
-              <div
-                key={day}
-                className={`flex justify-center items-center text-center relative cursor-pointer`}
-                onClick={() =>
-                  handleDateClick(displayedMonth.clone().jDate(day))
-                }
-              >
-                <div
-                  className={`w-[32px] h-[32px]  flex items-center justify-center mx-auto ${
-                    day === startPoint?.jDate()
-                      ? "bg-cyan-primary"
-                      : day === endPoint?.jDate()
-                      ? "bg-cyan-primary"
-                      : startPoint &&
-                        endPoint &&
-                        day > startPoint.jDate() &&
-                        day < endPoint.jDate()
-                      ? "bg-cyan-secondary"
-                      : "border-none"
-                  }`}
-                >
-                  {day}
-                </div>
-              </div>
-            ))}
 
-            <button
+            {daysArray.map((date) => {
+              return (
+                <div
+                  key={date.format("jYYYY-jMM-jDD")}
+                  className={`flex justify-center items-center text-center relative cursor-pointer ${
+                    date.isSame(jalaliMoment(), "day") ? "" : ""
+                  }`}
+                  onClick={() => handleDateClick(date)}
+                >
+                  <div
+                    className={`w-32 h-32 flex items-center justify-center mx-auto ${
+                      date.isSame(jalaliMoment(), "day")
+                        ? "bg-white border rounded-full"
+                        : ""
+                    } ${
+                      date.isSame(startPoint, "day")
+                        ? "bg-cyan-primary"
+                        : date.isSame(endPoint, "day")
+                        ? "bg-cyan-primary"
+                        : startPoint &&
+                          endPoint &&
+                          date.isBetween(startPoint, endPoint, "day")
+                        ? "bg-cyan-secondary"
+                        : ""
+                    }`}
+                  >
+                    {date.format("jD")}
+                  </div>
+                </div>
+              );
+            })}
+
+            <Button
               disabled={false}
               onClick={onClose}
-              className="w-[125px] h-[32px] bg-brand-primary text-white rounded-[4px] absolute bottom-[16px] left-[16px]"
-            >
-              بستن
-            </button>
+              className="w-[125px] h-[32px] flex justify-center items-center bg-brand-primary text-white rounded-[4px] absolute bottom-[16px] left-[16px]"
+              title="بستن"
+            />
+            
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default Calendar;

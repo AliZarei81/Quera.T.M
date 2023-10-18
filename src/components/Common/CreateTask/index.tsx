@@ -7,7 +7,7 @@ import FileUpload from "../FileUpload";
 import Flag from "../Flag";
 import Input from "../Input";
 import Calendar from "../Calendar";
-import CammonDropdown from "../CommonDropdown";
+import Button from "../Button";
 
 interface ICreateTaskProps {
   isOpen: boolean;
@@ -72,9 +72,9 @@ const CreateTask: React.FC <ICreateTaskProps>= ({isOpen,handleClose}): JSX.Eleme
           <SimpleDropDown
             options={projects}
             selectedOption={selectedProject}
-            style="w-[170px] " // Set a consistent width for the dropdown
+            style="w-[170px] " 
             placeholder="پروژه اول"
-            onSelect={handleProjectChange} // Pass the onSelect callback
+            onSelect={handleProjectChange} 
           />
           <p>برای</p>
           <div className="w-[34px] h-[34px] rounded-full border border-dashed border-gray-primary flex justify-center items-center text-gray-primary">
@@ -90,8 +90,8 @@ const CreateTask: React.FC <ICreateTaskProps>= ({isOpen,handleClose}): JSX.Eleme
           />
         </div>
         <div>
-          <FileUpload label="افزودن پیوست" />
-          <FileUpload label="افزودن کاور" />
+          <FileUpload filetypes=".jpg, .jpeg, .png, .pdf" label="افزودن پیوست" />
+          <FileUpload filetypes=".jpg, .jpeg, .png" label="افزودن کاور" />
         </div>
         <div className="flex justify-between">
           <div className="flex gap-m">
@@ -113,12 +113,13 @@ const CreateTask: React.FC <ICreateTaskProps>= ({isOpen,handleClose}): JSX.Eleme
             </div>
           </div>
           <div>
-            <button
-              className="bg-brand-primary text-white px-[7px] py-[4px] rounded-[4px]"
+            <Button
+              className="bg-brand-primary flex justify-center text-white px-[7px] py-[4px] rounded-[4px]"
               onClick={handleCreate}
-            >
-              ساختن تسک
-            </button>
+              title="ساختن تسک"
+            />
+              
+            
           </div>
         </div>
       </div>

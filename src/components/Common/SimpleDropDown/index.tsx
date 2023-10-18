@@ -27,7 +27,7 @@ const SimpleDropDown: React.FC<SimpleDropDownProps> = ({
   };
 
   return (
-    <div className={`${style}`}>
+    <div className={style}>
      
       <select
         id="projectSelect"

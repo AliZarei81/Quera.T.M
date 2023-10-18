@@ -13,6 +13,7 @@ import SettingForm from "./components/Profile/SettingForm";
 import Calendar from "./components/Common/Calendar";
 import CreateTask from "./components/Common/CreateTask";
 
+
 function App() {
   return (
     // <Router>
@@ -37,9 +38,8 @@ function App() {
     //   </Routes>
     // </Router>
     <div>
-      {/* <Calendar /> */}
+      {/* <Calendar onClose={()=>""} /> */}
       <CreateTask isOpen={true} handleClose={()=>console.log('closed')} />
-
     </div>
   );
 }

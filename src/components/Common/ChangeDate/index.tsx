@@ -9,7 +9,7 @@ interface IChangeDateProbs{
   displayedMonth:jalaliMoment.Moment;
 }
 const ChangeDate: React.FC<IChangeDateProbs> = ({displayedMonth,onNextMonthClick,onPrevMonthClick,onTodayClick}) => {
-  const formattedMonthYear = displayedMonth.format('jMMMM jYYYY');
+  const formattedMonthYear = displayedMonth.locale('fa').format('jMMMM jYYYY');
   return (
     <div className='w-[200px]  h-[24] gap-xs flex'>
       <div className='w-[30px] h-[21px] font-iran-yekan body-xs self-start cursor-pointer' onClick={onTodayClick}>امروز</div>
