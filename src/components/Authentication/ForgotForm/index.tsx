@@ -4,12 +4,9 @@ import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
 import Header from "../../../components/Authentication/Header";
-import { UserForgotPasswordRequest } from "../../../types/request/forgotpassword.request.dto";
 import { forgotSchema } from "../../../schemas/forgot.schema";
 import apiClients from "../../../services/api-clients";
-import { UserForgotPasswordResponse } from "../../../types/response/forgotpassword.response.dto";
 import { useNavigate } from "react-router-dom";
-import { UserForgotPasswordErrorResponse } from "../../../types/response/error/forgotpassword.error.response.dto";
 
 const ForgotForm = () => {
   let navigate = useNavigate();
@@ -22,29 +19,29 @@ const ForgotForm = () => {
     handleBlur,
     handleSubmit,
     setErrors,
-  } = useFormik<UserForgotPasswordRequest>({
+  } = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: forgotSchema,
     onSubmit: async (values, actions) => {
-      try {
-        const response = await apiClients.post<UserForgotPasswordResponse>(
-          "/accounts/reset-password/",
-          values
-        );
-        actions.resetForm();
-        navigate("/forgot/email-received");
-      } catch (error) {
-        if (isAxiosError<UserForgotPasswordErrorResponse>(error)) {
-          if (error.response?.status === HttpStatusCode.BadRequest) {
-            const { email } = error.response.data;
-            setErrors({
-              email: email?.length ? email[0] : "",
-            });
-          }
-        }
-      }
+      // try {
+      //   const response = await apiClients.post<UserForgotPasswordResponse>(
+      //     "/accounts/reset-password/",
+      //     values
+      //   );
+      //   actions.resetForm();
+      //   navigate("/forgot/email-received");
+      // } catch (error) {
+      //   if (isAxiosError<UserForgotPasswordErrorResponse>(error)) {
+      //     if (error.response?.status === HttpStatusCode.BadRequest) {
+      //       const { email } = error.response.data;
+      //       setErrors({
+      //         email: email?.length ? email[0] : "",
+      //       });
+      //     }
+      //   }
+      // }
     },
   });
 

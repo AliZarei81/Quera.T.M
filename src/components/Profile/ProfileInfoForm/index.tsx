@@ -5,13 +5,8 @@ import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
 import User from "../../../components/Common/User";
 import { useContext, useEffect } from "react";
-import { StoreContext } from "../../../context/store";
 
 const ProfileInfoForm = () => {
-  const { state, dispatch } = useContext(StoreContext);
-  useEffect(() => {
-    console.log("state", state);
-  }, []);
   const {
     values,
     errors,
@@ -52,9 +47,9 @@ const ProfileInfoForm = () => {
   });
 
   return (
-    <div className="flex flex-col items-start justify-center w-[640px] gap-[32px] p-[24px]  [background-color:#ffff]">
-      <h3 className="text-[32px] font-black">اطلاعات فردی</h3>
+    <div className="flex w-1/3 p-m [background-color:#ffff]">
       <Form onSubmit={handleSubmit}>
+        <h3 className="text-body-xl font-black self-start">اطلاعات فردی</h3>
         <div className="flex gap-s w-[592px]">
           <User
             hasProfilePicture={false}
@@ -108,7 +103,7 @@ const ProfileInfoForm = () => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
+          className="w-full justify-center h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
           title="ثبت تغییرات"
         />
       </Form>

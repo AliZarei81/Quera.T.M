@@ -5,7 +5,6 @@ import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
 import Header from "../../../components/Authentication/Header";
-import { UserResetPasswordRequest } from "../../../types/request/resetpassword.request.dto";
 import { resetPasswordSchema } from "../../../schemas/resetpassword.schema";
 import apiClients from "../../../services/api-clients";
 
@@ -26,29 +25,28 @@ const ResetForm = () => {
     },
     validationSchema: resetPasswordSchema,
     onSubmit: async (values, actions) => {
-      try {
-        const requestData: UserResetPasswordRequest = {
-          token: searchParams.get("token")!,
-          password: values.password,
-          password1: values.password,
-        };
-        const response = await apiClients.patch(
-          "/accounts/reset-password/set-password/",
-          requestData
-        );
-        console.log(response);
-
-        actions.resetForm();
-      } catch (error) {
-        // if (isAxiosError<UserLoginErrorReponse>(error)) {
-        //   if (error.response?.status === HttpStatusCode.Unauthorized) {
-        //     const { detail } = error.response.data;
-        //     setErrors({
-        //       detail,
-        //     });
-        //   }
-        // }
-      }
+      // try {
+      //   const requestData: UserResetPasswordRequest = {
+      //     token: searchParams.get("token")!,
+      //     password: values.password,
+      //     password1: values.password,
+      //   };
+      //   const response = await apiClients.patch(
+      //     "/accounts/reset-password/set-password/",
+      //     requestData
+      //   );
+      //   console.log(response);
+      //   actions.resetForm();
+      // } catch (error) {
+      //   // if (isAxiosError<UserLoginErrorReponse>(error)) {
+      //   //   if (error.response?.status === HttpStatusCode.Unauthorized) {
+      //   //     const { detail } = error.response.data;
+      //   //     setErrors({
+      //   //       detail,
+      //   //     });
+      //   //   }
+      //   // }
+      // }
     },
   });
 

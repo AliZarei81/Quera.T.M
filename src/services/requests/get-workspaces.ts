@@ -1,7 +1,7 @@
 import apiClients from "../api-clients";
 import { EndPoints } from "../endpoints";
 
-interface GetWorkspaceResponse {
+export interface GetWorkspaceResponse {
   id: number;
   name: string;
   color: string;

@@ -15,10 +15,10 @@ const SettingForm: React.FC = () => {
   };
 
   return (
-    <div className="w-fit flex flex-col items-start justify-center gap-m mr-xl">
-      <h3 className="text-body-xl font-black text-center">تنظیمات</h3>
+    <div className="flex w-1/3 p-m [background-color:#ffff]">
       <Form onSubmit={handleSubmit}>
-        <div className="flex flex-col  gap-xs">
+        <h3 className="text-body-xl font-black self-start">تنظیمات</h3>
+        <div className="flex flex-col gap-xs">
           <p>انتخاب تم</p>
           <ColorPiker
             colors={[
@@ -48,7 +48,7 @@ const SettingForm: React.FC = () => {
           <Button
             type="submit"
             disabled={false}
-            className="h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer justify-center"
+            className="w-full h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold  bg-brand-primary text-gray-secondary rounded cursor-pointer justify-center"
             title="ثبت تغییرات"
           />
         </div>

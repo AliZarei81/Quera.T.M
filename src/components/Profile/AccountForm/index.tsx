@@ -2,93 +2,101 @@ import { useState, MouseEvent, ChangeEvent } from "react";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
 import Form from "../../Common/Form";
+import { useFormik } from "formik";
 const AccountForm: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [username, setUserName] = useState<string>("");
-  const [oldPassword, setOldPassword] = useState<string>("");
-  const [newPassword, setNewPassword] = useState<string>("");
-  const [repeatNewPassword, setRepeatNewPassword] = useState<string>("");
-
-  const handleUserNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
-  };
-
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handleOldPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setOldPassword(event.target.value);
-  };
-
-  const handleNewPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(event.target.value);
-  };
-
-  const handleRepeatNewPasswordChange = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    setRepeatNewPassword(event.target.value);
-  };
-
-  const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    console.log("Username: ", username);
-    console.log("Email: ", email);
-    console.log("oldPassword: ", oldPassword);
-    console.log("newPassword: ", newPassword);
-  };
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    resetForm,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      username: "",
+      oldPassword: "",
+      newPassword: "",
+      repeatNewPassword: "",
+    },
+    // validationSchema: loginSchema,
+    onSubmit: (values) => {
+      // loginMutation.mutate(values, {
+      //   onSuccess(payload) {
+      //     toast.success("شما با موفقيت وارد شديد");
+      //     resetForm();
+      //     dispatch(AuthenticateUser(payload));
+      //     navigate("/workspace");
+      //   },
+      //   onError(error) {
+      //     let errorMsg: string = "وارد شدن شما با خطا روبه رو شد";
+      //     if (isAxiosError<UserLoginErrorReponse>(error)) {
+      //       const data = error.response?.data;
+      //       errorMsg = data?.detail ? data.detail : errorMsg;
+      //     }
+      //     toast.error(errorMsg);
+      //     resetForm();
+      //   },
+      // });
+    },
+  });
 
   return (
-    <div className="flex flex-col items-start justify-center w-[640px] gap-[32px] p-[24px]  [background-color:#ffff]">
-      <h3 className="text-[32px] font-black">اطلاعات حساب</h3>
-      <Form>
+    <div className="flex w-1/3 p-m [background-color:#ffff]">
+      <Form onSubmit={handleSubmit}>
+        <h3 className="text-body-xl font-black self-start">اطلاعات حساب</h3>
         <Input
           type="email"
-          value={email}
+          value={values.email}
           id="email"
-          onChange={handleEmailChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "ایمیل", for: "email" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="text"
-          value={username}
+          value={values.username}
           id="userName"
-          onChange={handleUserNameChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "نام کاربری", for: "userName" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="password"
-          value={oldPassword}
+          value={values.oldPassword}
           id="oldPassword"
-          onChange={handleOldPasswordChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "رمز عبور فعلی", for: "oldPassword" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="password"
-          value={newPassword}
+          value={values.newPassword}
           id="newPassword"
-          onChange={handleNewPasswordChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "رمز عبور جدید", for: "newPassword" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
         <Input
           type="password"
-          value={repeatNewPassword}
+          value={values.repeatNewPassword}
           id="repeatNewPassword"
-          onChange={handleRepeatNewPasswordChange}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label={{ text: "تکرار رمز عبور جدید", for: "repeatNewPassword" }}
           className="ring-2 ring-gray-primary w-[592px]"
         />
 
         <Button
           type="submit"
-          disabled={!username || !email || !oldPassword}
-          className="h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
-          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className="w-full justify-center h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
           title="ثبت تغییرات"
         />
       </Form>

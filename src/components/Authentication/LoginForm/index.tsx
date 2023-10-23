@@ -7,15 +7,15 @@ import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
 import { loginSchema } from "../../../schemas/login.schema";
-import { UserLoginErrorReponse } from "../../../types/response/error/login.error.response.dto";
 import { useLoginMutation } from "../../../hooks/mutations/login-user.mutation";
+import { UserLoginErrorReponse } from "../../../services/requests/login-user";
 import { useContext } from "react";
-import { StoreContext, UserActionTypes } from "../../../context/store";
-import apiClients from "../../../services/api-clients";
+import { AppContext } from "../../../context/store";
+import { AuthenticateUser } from "../../../context/user/user.action";
 
 const LoginForm = () => {
+  const { dispatch } = useContext(AppContext);
   const loginMutation = useLoginMutation();
-  const { state, dispatch } = useContext(StoreContext);
   let navigate = useNavigate();
 
   const {
@@ -37,12 +37,8 @@ const LoginForm = () => {
       loginMutation.mutate(values, {
         onSuccess(payload) {
           toast.success("شما با موفقيت وارد شديد");
-          dispatch({
-            payload,
-            type: UserActionTypes.USER_LOGGED_IN,
-          });
           resetForm();
-          apiClients.defaults.headers.common.Authorization = `Bearer ${payload.access}`;
+          dispatch(AuthenticateUser(payload));
           navigate("/workspace");
         },
         onError(error) {

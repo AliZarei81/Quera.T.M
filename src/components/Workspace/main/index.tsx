@@ -3,12 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import Button from "../../Common/Button";
 import { PiPlusSquareBold } from "react-icons/pi";
 import apiClients from "../../../services/api-clients";
-import { GetWorkspacesResponse } from "../../../types/response/getworkspaces.response.dto";
-import CreateNewProject from "../../Common/Modal/CreateNewPoject";
-import { AddProjectRequest } from "../../../types/request/addproject.request.dto";
-import { AddProjectReponse } from "../../../types/response/addproject.response.dto";
-import { useGetWorkspaces } from "../../../hooks/queries/get-workspaces.query";
-
+import { GetWorkspaceResponse } from "../../../services/requests/get-workspaces";
 interface Project {
   id: number;
   name: string;
@@ -23,11 +18,11 @@ interface Workspace {
 
 const getWorkspaceWithProjects = async (): Promise<Workspace[] | undefined> => {
   try {
-    const res = await apiClients.get<GetWorkspacesResponse[]>("/workspaces/");
+    const res = await apiClients.get<GetWorkspaceResponse[]>("/workspaces/");
     const workspaces: Workspace[] = [];
     for (let index = 0; index < res.data.length; index++) {
       const workspace = res.data[index];
-      const response = await apiClients.get<GetWorkspacesResponse[]>(
+      const response = await apiClients.get<GetWorkspaceResponse[]>(
         `/workspaces/${workspace.id}/projects/`
       );
       workspaces.push({
@@ -45,7 +40,7 @@ const getWorkspaceWithProjects = async (): Promise<Workspace[] | undefined> => {
 
 const Main: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const data = useOutletContext<GetWorkspacesResponse[]>();
+  const data = useOutletContext<GetWorkspaceResponse[]>();
   console.log("data", data);
 
   // const [project, setProject] = useState("");

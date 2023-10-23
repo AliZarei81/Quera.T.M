@@ -1,10 +1,9 @@
 import { useQuery } from "react-query"
-import { getWorkspaces } from "../../services/requests/get-workspaces"
+import { GetWorkspaceResponse, getWorkspaces } from "../../services/requests/get-workspaces"
 import { Keys } from "../keys";
-import { GetWorkspacesResponse } from "../../types/response/getworkspaces.response.dto";
 
 export const useGetWorkspaces = () => {
-  return useQuery<any, any, GetWorkspacesResponse[]>(
+  return useQuery<any, any, GetWorkspaceResponse[]>(
     Keys.GetWorkspaces,
     getWorkspaces
   );

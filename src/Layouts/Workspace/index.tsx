@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
 import MainPageSideBar from "../../components/Workspace/MainPageSideBar";
 import { useGetWorkspaces } from "../../hooks/queries/get-workspaces.query";
-import { useEffect, useState } from "react";
-import { GetWorkspacesResponse } from "../../types/response/getworkspaces.response.dto";
 
 const WorkspaceLayout = () => {
   // const [workspaces, setWorkspaces] = useState<GetWorkspacesResponse[]>([]);

@@ -30,7 +30,8 @@ import ListViewPage from "./pages/Workspace/Board/ListView";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 import MainPage from "./pages/Workspace/MainPage";
 import CalendarView from "./pages/Workspace/Board/CalendarView";
-import Store from "./context/store";
+import { AppContextProvider } from "./context/store";
+import PrivateRoute from "./routes/PrivateRoute";
 
 const queryClient = new QueryClient();
 
@@ -46,12 +47,26 @@ const router = createBrowserRouter(
         </Route>
         <Route path="Reset-password" element={<ResetPassword />} />
       </Route>
-      <Route path="profile" element={<ProfileLayout />}>
+      <Route
+        path="profile"
+        element={
+          <PrivateRoute>
+            <ProfileLayout />
+          </PrivateRoute>
+        }
+      >
         <Route index element={<ProfileInfo />} />
         <Route path="account" element={<Account />} />
         <Route path="setting" element={<Setting />} />
       </Route>
-      <Route path="workspace" element={<WorkspaceLayout />}>
+      <Route
+        path="workspace"
+        element={
+          <PrivateRoute>
+            <WorkspaceLayout />
+          </PrivateRoute>
+        }
+      >
         <Route index element={<MainPage />} />
         <Route path="board" element={<BoardLayout />}>
           <Route index element={<BoardView />} />
@@ -66,11 +81,11 @@ const router = createBrowserRouter(
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Store>
+      <AppContextProvider>
         <RouterProvider router={router} />
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster />
-      </Store>
+      </AppContextProvider>
     </QueryClientProvider>
   );
 }

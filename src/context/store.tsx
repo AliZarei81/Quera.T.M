@@ -1,91 +1,100 @@
-import { PropsWithChildren, createContext, useReducer } from "react";
+// Implement Context With Flux Design Pattern
 
-interface User {
-  refresh: string;
-  access: string;
-  user_id: number;
-  username: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  phone_number?: any;
-  thumbnail: string;
-}
+import { createContext, useEffect, useReducer } from "react";
+import {
+  IAppContext,
+  IAppContextState,
+  IContextAction,
+} from "./types/context.type";
+import { UserReducer } from "./user/user.reducer";
+import { LogoutUser, ReJoinUser } from "./user/user.action";
+import apiClients from "../services/api-clients";
+import { useRefreshToken } from "../hooks/mutations/useRefreshToken";
 
-interface IStoreContext {
-  state: User;
-  dispatch: any;
-}
-
-const initialState: User = {
-  access: "",
-  email: "",
-  first_name: "",
-  last_name: "",
-  refresh: "",
-  thumbnail: "",
-  user_id: 0,
-  username: "",
-  phone_number: "",
+const initialState: IAppContextState = {
+  user: {
+    username: "",
+    email: "",
+    access: "",
+    first_name: "",
+    last_name: "",
+    refresh: "",
+    thumbnail: "",
+    user_id: 0,
+    phone_number: "",
+  },
 };
 
-export interface ContextAction<T, K> {
-  type: T;
-  payload?: K;
-}
+const combineReducer = (
+  { user }: IAppContextState,
+  action: IContextAction<any, any>
+) => ({
+  user: UserReducer(user, action),
+});
 
-export enum UserActionTypes {
-  USER_LOGGED_IN = "USER_LOGGED_IN",
-  USER_LOGGED_OUT = "USER_LOGGED_OUT",
-}
-
-const reducer = (state: User, action: ContextAction<UserActionTypes, User>) => {
-  switch (action.type) {
-    case UserActionTypes.USER_LOGGED_IN:
-      console.log("action", action.payload);
-
-      return {
-        access: action?.payload?.access || "",
-        email: action?.payload?.email || "",
-        first_name: action?.payload?.email || "",
-        last_name: action?.payload?.last_name || "",
-        refresh: action?.payload?.refresh || "",
-        thumbnail: action?.payload?.thumbnail || "",
-        user_id: action?.payload?.user_id || 0,
-        username: action?.payload?.username || "",
-        phone_number: action?.payload?.phone_number || "",
-      };
-    case UserActionTypes.USER_LOGGED_OUT:
-      return {
-        access: "",
-        email: "",
-        first_name: "",
-        last_name: "",
-        refresh: "",
-        thumbnail: "",
-        user_id: 0,
-        username: "",
-        phone_number: "",
-      };
-    default:
-      return state;
-  }
-};
-
-interface IStoreProps extends PropsWithChildren {}
-
-export const StoreContext = createContext<IStoreContext>({
+export const AppContext = createContext<IAppContext>({
   state: initialState,
   dispatch: () => null,
 });
 
-const Store: React.FC<IStoreProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <StoreContext.Provider value={{ state, dispatch }}>
-      {children}
-    </StoreContext.Provider>
-  );
+const thunkMiddleware = (dispatch: any) => (action: any) => {
+  if (typeof action === "function") {
+    return action(dispatch);
+  }
+  return dispatch(action);
 };
 
-export default Store;
+interface IAppContextProviderProps extends React.PropsWithChildren {}
+export const AppContextProvider: React.FC<IAppContextProviderProps> = ({
+  children,
+}): JSX.Element => {
+  const [state, dispatch] = useReducer(combineReducer, initialState);
+  const dispatchWithMiddleware = thunkMiddleware(dispatch);
+  const refreshTokenMutation = useRefreshToken();
+
+  // register interceptors => state => context !!!!!
+
+  apiClients.interceptors.response.use(
+    (resp) => resp,
+    (error) => {
+      if (error?.response?.status === 401) {
+        const refresh = localStorage.getItem("refreshToken");
+        // access token man dg valid nist => ya nadadm accesstoken , ya expire
+        // call refresh token => seda beznm
+        if (refresh) {
+          refreshTokenMutation.mutate(
+            {
+              refresh,
+            },
+            {
+              onSuccess: (res) => {
+                localStorage.setItem("accessToken", res.access);
+                dispatchWithMiddleware(ReJoinUser());
+              },
+              onError: () => {
+                dispatchWithMiddleware(LogoutUser());
+              },
+            }
+          );
+        } else {
+          dispatchWithMiddleware(LogoutUser());
+        }
+      }
+    }
+  );
+
+  useEffect(() => {
+    dispatchWithMiddleware(ReJoinUser());
+  }, []);
+
+  return (
+    <AppContext.Provider
+      value={{
+        state,
+        dispatch: dispatchWithMiddleware,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
