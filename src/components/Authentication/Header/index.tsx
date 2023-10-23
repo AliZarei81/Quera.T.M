@@ -19,13 +19,13 @@ const Header: React.FC<IHeaderProps> = ({
         <h1 className="text-body-xl font-bold bg-gradient-to-r from-[#118c80] to-[#4ab7d8]  bg-clip-text [-webkit-text-fill-color:transparent]">
           کوئرا تسک منیجر
         </h1>
-        <div className="flex justify-between gap-s">
+        <div className="flex items-center justify-between gap-s">
           <p className="text-body-s self-center">{text}</p>
           <Link to={to}>
             <Button
               title={title}
               disabled={false}
-              className=" bg-brand-primary cursor-pointer rounded-md text-gray-secondary justify-center px-s py-xs"
+              className="w-[95px] bg-brand-primary cursor-pointer rounded-md text-gray-secondary justify-center px-s py-xs"
             />
           </Link>
         </div>
