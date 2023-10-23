@@ -1,63 +1,67 @@
-import { useContext } from "react";
-import { HttpStatusCode, isAxiosError } from "axios";
+import { isAxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
-import apiClients from "../../../services/api-clients";
-import AuthContext from "../../../context/AuthProvider";
-import { UserLoginRequest } from "../../../types/request/login.request.dto";
 import { loginSchema } from "../../../schemas/login.schema";
-import { UserLoginResponse } from "../../../types/response/login.response.dto";
 import { UserLoginErrorReponse } from "../../../types/response/error/login.error.response.dto";
+import { useLoginMutation } from "../../../hooks/mutations/login-user.mutation";
+import { useContext } from "react";
+import { StoreContext, UserActionTypes } from "../../../context/store";
+import apiClients from "../../../services/api-clients";
 
 const LoginForm = () => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const loginMutation = useLoginMutation();
+  const { state, dispatch } = useContext(StoreContext);
+  let navigate = useNavigate();
 
   const {
     values,
     errors,
     touched,
     isSubmitting,
+    resetForm,
     handleChange,
     handleBlur,
     handleSubmit,
-    setErrors,
-  } = useFormik<UserLoginRequest>({
+  } = useFormik({
     initialValues: {
       username: "",
       password: "",
-      detail: "",
     },
     validationSchema: loginSchema,
-    onSubmit: async (values, actions) => {
-      try {
-        const user = { username: values.username, password: values.password };
-        const response = await apiClients.post<UserLoginResponse>(
-          "/accounts/login/",
-          user
-        );
-        const { access, refresh, user_id, username } = response.data;
-        setAuth({ access, refresh, user_id, username });
-        actions.resetForm();
-      } catch (error) {
-        if (isAxiosError<UserLoginErrorReponse>(error)) {
-          if (error.response?.status === HttpStatusCode.Unauthorized) {
-            const { detail } = error.response.data;
-            setErrors({
-              detail,
-            });
+    onSubmit: (values) => {
+      loginMutation.mutate(values, {
+        onSuccess(payload) {
+          toast.success("شما با موفقيت وارد شديد");
+          dispatch({
+            payload,
+            type: UserActionTypes.USER_LOGGED_IN,
+          });
+          resetForm();
+          apiClients.defaults.headers.common.Authorization = `Bearer ${payload.access}`;
+          navigate("/workspace");
+        },
+        onError(error) {
+          let errorMsg: string = "وارد شدن شما با خطا روبه رو شد";
+          if (isAxiosError<UserLoginErrorReponse>(error)) {
+            const data = error.response?.data;
+            errorMsg = data?.detail ? data.detail : errorMsg;
           }
-        }
-      }
+          toast.error(errorMsg);
+          resetForm();
+        },
+      });
     },
   });
 
   return (
     <div className="h-full flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center w-[700px] gap-[32px] p-[24px]  bg-white shadow-2xl rounded-b-2xl">
-        <h3 className="w-[509px] h-[55px] text-[32px] font-black text-center">
+      <div className="flex flex-col items-center justify-center gap-xl p-l w-3/6 bg-white shadow-2xl rounded-b-2xl">
+        <h3 className="text-body-xl font-black text-center">
           به کوئرا تسک منیجر خوش برگشتی :)
         </h3>
 
@@ -69,7 +73,7 @@ const LoginForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             label={{ text: "نام کاربری", for: "username" }}
-            className={`ring-2 ring-gray-primary w-[592px] ${
+            className={`ring-2 ring-gray-primary ${
               errors.username && touched.username ? "ring-red-primary" : ""
             }`}
           />
@@ -94,21 +98,16 @@ const LoginForm = () => {
               {errors.password}
             </p>
           )}
-          <div className="self-start text-[13px] font-extrabold   text-brand-primary">
+          <div className="self-start text-body-xs font-extrabold   text-brand-primary">
             <Link to="forgot">رمز عبور را فراموش کرده‌ای؟</Link>
           </div>
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
+            className="h-12 w-full px-3 py-3 p-s gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
             title="ورود"
           />
-          {errors.detail && (
-            <p className="text-red-primary text-xs italic self-start">
-              {errors.detail}
-            </p>
-          )}
-          <div className=" text-[16px]  font-extrabold   flex items-center justify-center gap-[5px]">
+          <div className=" text-body-xs  font-extrabold   flex items-center justify-center gap-[5px]">
             <p>ثبت نام نکرده ای؟</p>
             <Link className="text-brand-primary" to="register">
               ثبت نام

@@ -1,8 +1,5 @@
-import {
-  useMutation,
-  useQueryClient
-} from 'react-query';
-import { useApi } from "../../hooks/useApi";
+import apiClients from "../api-clients";
+import { EndPoints } from "../endpoints";
 
 export interface UserRegisterRequest {
   username: string;
@@ -16,18 +13,11 @@ export interface UserRegisterResponse {
   email: string;
 }
 
-const registerUser = (body: UserRegisterRequest) => {
-  const { data, isLoading, error } = useApi<UserRegisterResponse>("/accounts/", { method: "POST", data: body });
-
-  const queryClient = useQueryClient()
-
-
-  // Mutations
-  // const mutation = useMutation(postTodo, {
-  //   onSuccess: () => {
-  //     // Invalidate and refetch
-  //     queryClient.invalidateQueries('todos')
-  //   },
-  // })
-
+export interface UserRegisterErrorResponse {
+  username?: string[];
+  email?: string[];
+  password?: string[];
 }
+
+export const registerUser = (data: UserRegisterRequest): Promise<UserRegisterResponse> =>
+  apiClients.post(EndPoints.Register, data).then((res) => res.data);

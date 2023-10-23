@@ -30,16 +30,16 @@ const Input: React.FC<IInputProps> = ({
   className,
 }) => {
   return (
-    <div className="flex flex-col gap-xs">
+    <div className="flex flex-col gap-xs w-full">
       {label && (
         <label
-          className="self-start text-[14px] font-thin"
+          className="self-start text-body-xs font-thin"
           htmlFor={label?.for}
         >
           {label?.text}
         </label>
       )}
-      <div className="relative flex items-center">
+      <div className="relative flex items-center w-full">
         <IconContext.Provider
           value={{
             size: "25",
@@ -56,7 +56,7 @@ const Input: React.FC<IInputProps> = ({
           placeholder={placeholder}
           onChange={onChange}
           onBlur={onBlur}
-          className={`h-[40px] rounded-md focus:outline-none ${
+          className={`h-[40px] w-full rounded-md focus:outline-none ${
             icon ? "pr-xl" : "pr-xs"
           } ${className}`}
         />

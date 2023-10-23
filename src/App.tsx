@@ -5,13 +5,11 @@ import {
   Route,
 } from "react-router-dom";
 
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { Toaster } from "react-hot-toast";
+
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import { ReactQueryDevtools } from "react-query/devtools";
 
 // layouts
 import AuthenticationLayout from "./Layouts/Authentication/AuthenticationLayout";
@@ -32,6 +30,7 @@ import ListViewPage from "./pages/Workspace/Board/ListView";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 import MainPage from "./pages/Workspace/MainPage";
 import CalendarView from "./pages/Workspace/Board/CalendarView";
+import Store from "./context/store";
 
 const queryClient = new QueryClient();
 
@@ -67,7 +66,11 @@ const router = createBrowserRouter(
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <Store>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Toaster />
+      </Store>
     </QueryClientProvider>
   );
 }

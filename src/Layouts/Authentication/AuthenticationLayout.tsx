@@ -7,7 +7,7 @@ const AuthenticationLayout: React.FC = (): React.JSX.Element => {
       <div className="w-3/4 my-xl mx-auto h-screen">
         <Outlet />
       </div>
-      <div className="linear__gradient -z-30"></div>
+      <div className="linear__gradient"></div>
     </div>
   );
 };

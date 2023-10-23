@@ -1,27 +1,28 @@
 import { useNavigate } from "react-router-dom";
-import { HttpStatusCode, isAxiosError } from "axios";
+import toast from "react-hot-toast";
 import Input from "../../../components/Common/Input";
 import Button from "../../../components/Common/Button";
 import Form from "../../../components/Common/Form";
-import apiClients from "../../../services/api-clients";
-import { UserRegisterRequest } from "../../../types/request/register.request.dto";
-import { UserRegisterResponse } from "../../../types/response/register.response.dto";
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
 import { registerSchema } from "../../../schemas/register.schema";
-import { UserRegisterErrorResponse } from "../../../types/response/error/register.error.response.dto";
+import { useRegisterMutation } from "../../../hooks/mutations/register-user.mutation";
+import { isAxiosError } from "axios";
+import { UserRegisterErrorResponse } from "../../../services/requests/register-user";
+import { useContext } from "react";
+import { StoreContext } from "../../../context/store";
 
 const RegisterForm = () => {
+  const registerMutation = useRegisterMutation();
   let navigate = useNavigate();
-
   const {
     values,
     errors,
     touched,
     isSubmitting,
+    resetForm,
     handleChange,
     handleBlur,
     handleSubmit,
-    setErrors,
   } = useFormik({
     initialValues: {
       username: "",
@@ -29,33 +30,34 @@ const RegisterForm = () => {
       password: "",
     },
     validationSchema: registerSchema,
-    onSubmit: async (values, actions) => {
-      try {
-        const response = await apiClients.post<UserRegisterResponse>(
-          "/accounts/",
-          values
-        );
-        actions.resetForm();
-        navigate("/");
-      } catch (error) {
-        if (isAxiosError<UserRegisterErrorResponse>(error)) {
-          if (error.response?.status === HttpStatusCode.BadRequest) {
-            const { username, email, password } = error.response.data;
-            setErrors({
-              username: username?.length ? username[0] : "",
-              email: email?.length ? email[0] : "",
-              password: password?.length ? password[0] : "",
-            });
+    onSubmit: (values) => {
+      registerMutation.mutate(values, {
+        onSuccess(payload) {
+          toast.success("ثبت نام شما با موفقیت انجام شد");
+          resetForm();
+          navigate("/");
+        },
+        onError(error) {
+          let errorMsg: string = "ثبت نام شما با خطا مواجه شد";
+          if (isAxiosError<UserRegisterErrorResponse>(error)) {
+            const data = error.response?.data;
+            errorMsg = data?.email
+              ? data.email[0]
+              : data?.username
+              ? data.username[0]
+              : errorMsg;
           }
-        }
-      }
+          toast.error(errorMsg);
+          resetForm();
+        },
+      });
     },
   });
 
   return (
     <div className="h-full flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center w-[700px] gap-[32px] p-[24px]  bg-white shadow-2xl rounded-b-2xl">
-        <h3 className="w-[509px] h-[55px] text-[32px] font-black text-center">
+      <div className="flex flex-col items-center justify-center gap-xl p-l w-3/6 bg-white shadow-2xl rounded-b-2xl">
+        <h3 className="text-body-xl font-black text-center">
           ثبت‌ نام در کوئرا تسک منیجر
         </h3>
         <Form onSubmit={handleSubmit}>
@@ -66,7 +68,7 @@ const RegisterForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             label={{ text: "نام کاربری", for: "username" }}
-            className={`ring-2 ring-gray-primary w-[592px] ${
+            className={`ring-2 ring-gray-primary ${
               errors.username && touched.username ? "ring-red-primary" : ""
             }`}
           />
@@ -82,7 +84,7 @@ const RegisterForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             label={{ text: "ایمیل", for: "email" }}
-            className={`ring-2 ring-gray-primary w-[592px] ${
+            className={`ring-2 ring-gray-primary  ${
               errors.email && touched.email ? "ring-red-primary" : ""
             }`}
           />
@@ -98,7 +100,7 @@ const RegisterForm = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             label={{ text: "رمز عبور", for: "password" }}
-            className={`ring-2 ring-gray-primary w-[592px] ${
+            className={`ring-2 ring-gray-primary  ${
               errors.password && touched.password ? "ring-red-primary" : ""
             }`}
           />
@@ -107,7 +109,7 @@ const RegisterForm = () => {
               {errors.password}
             </p>
           )}
-          <div className="self-start flex items-center gap-[5px] ">
+          <div className="self-start flex items-center gap-xs ">
             <input
               type="checkbox"
               id="demoCheckbox"
@@ -116,7 +118,7 @@ const RegisterForm = () => {
               className="w-[20px] h-[20px]"
             />{" "}
             <label
-              className="text-[16px] font-normal self-start"
+              className="text-body-m font-normal self-start"
               htmlFor="demoCheckbox"
             >
               قوانین و مقررات را می‌پذیرم.
@@ -126,7 +128,7 @@ const RegisterForm = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="h-12 w-full px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
+            className="h-12 w-full px-3 py-3 p-s gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
             title="ثبت نام"
           />
         </Form>

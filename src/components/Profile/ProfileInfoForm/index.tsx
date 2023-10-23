@@ -4,8 +4,14 @@ import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
 import User from "../../../components/Common/User";
+import { useContext, useEffect } from "react";
+import { StoreContext } from "../../../context/store";
 
 const ProfileInfoForm = () => {
+  const { state, dispatch } = useContext(StoreContext);
+  useEffect(() => {
+    console.log("state", state);
+  }, []);
   const {
     values,
     errors,
