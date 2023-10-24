@@ -3,5 +3,7 @@ export enum EndPoints {
   Login = "/accounts/login/",
   GetWorkspaces = "/workspaces",
   GetProjects = "/projects",
-  GetBoards = "/boards/"
+  GetBoards = "/boards/",
+  GetTasks = "/tasks/",
+  GetAssignee = "/assignee/"
 }
