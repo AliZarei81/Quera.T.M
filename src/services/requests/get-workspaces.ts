@@ -9,4 +9,4 @@ export interface GetWorkspaceResponse {
 
 
 export const getWorkspaces = (): Promise<GetWorkspaceResponse[]> =>
-  apiClients.get(EndPoints.GetWorkspaces).then(res => res.data)
+  apiClients.get("/workspaces").then(res => res.data)

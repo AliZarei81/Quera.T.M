@@ -10,7 +10,7 @@ export const UserReducer = (
       return {
         access: action?.payload?.access || '',
         email: action?.payload?.email || '',
-        first_name: action?.payload?.email || '',
+        first_name: action?.payload?.first_name || '',
         last_name: action?.payload?.last_name || '',
         refresh: action?.payload?.refresh || '',
         thumbnail: action?.payload?.thumbnail || '',

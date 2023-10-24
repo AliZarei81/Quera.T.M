@@ -8,8 +8,8 @@ import {
 } from "./types/context.type";
 import { UserReducer } from "./user/user.reducer";
 import { LogoutUser, ReJoinUser } from "./user/user.action";
-import apiClients from "../services/api-clients";
-import { useRefreshToken } from "../hooks/mutations/useRefreshToken";
+import apiClients from "../../services/api-clients";
+import { useRefreshToken } from "../../hooks/mutations/useRefreshToken";
 
 const initialState: IAppContextState = {
   user: {

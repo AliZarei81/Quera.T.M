@@ -1,5 +1,4 @@
 import apiClients from "../api-clients";
-import { EndPoints } from "../endpoints";
 
 export interface GetBoardsResponse {
   id: number;
@@ -13,4 +12,4 @@ export interface GetBoardsResponse {
 
 
 export const getBoards = (workspaceid: number, projectid: number): Promise<GetBoardsResponse[]> =>
-  apiClients.get(`${EndPoints.GetWorkspaces}/${workspaceid}${EndPoints.GetProjects}/${projectid}${EndPoints.GetBoards}`).then(res => res.data)
+  apiClients.get(`/workspaces/${workspaceid}/project/${projectid}/boards`).then(res => res.data)

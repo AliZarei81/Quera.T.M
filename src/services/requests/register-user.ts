@@ -20,4 +20,4 @@ export interface UserRegisterErrorResponse {
 }
 
 export const registerUser = (data: UserRegisterRequest): Promise<UserRegisterResponse> =>
-  apiClients.post(EndPoints.Register, data).then((res) => res.data);
+  apiClients.post("/accounts/", data).then((res) => res.data);

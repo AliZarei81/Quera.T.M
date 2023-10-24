@@ -43,7 +43,7 @@ const Modal: React.FC<IModalProbs> = ({
   if (!isVisible) return null;
   return (
     <div
-      className="z-30 w-full h-full absolute inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex flex-col gap-xl justify-center items-center"
+      className="top-[0px] z-30 w-full h-full absolute inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex flex-col gap-xl justify-center items-center"
       id="wrapper"
       //@ts-ignore
       onClick={handleClose}
@@ -72,11 +72,11 @@ const Modal: React.FC<IModalProbs> = ({
         </div>
         {/* Footer content goes here */}
         {hasFooter && (
-          <div className="w-full flex justify-center px-[24px]">
+          <div className="w-full flex justify-center">
             <Button
               type="button"
               disabled={false}
-              className={` flex justify-center items-start w-[415px] h-[40px] rounded-md  text-[14px] text-gray-secondary bg-brand-primary font-extrabold ${buttonClassName}`}
+              className={`h-12 w-full flex items-start px-3 rounded-md py-3 p-s gap-8 text-lg text-center justify-center  text-[14px] text-gray-secondary bg-brand-primary font-extrabold ${buttonClassName}`}
               onClick={onClick}
               title={buttonTitle}
             ></Button>

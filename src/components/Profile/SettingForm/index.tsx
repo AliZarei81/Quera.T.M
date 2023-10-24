@@ -1,22 +1,15 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useContext } from "react";
 import Button from "../../Common/Button";
 import Form from "../../Common/Form";
 import Switch from "../../Common/Switch";
 import ColorPiker from "../../Common/ColorPicker";
+import { SettingContext } from "../../../context/settingStore/SettingStore";
 const SettingForm: React.FC = () => {
-  const [hex, setHex] = useState("#208D8E");
-  const [enabled, setEnabled] = useState(false);
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("theme: ", hex);
-    console.log("darkmode: ", enabled);
-    // console.log("oldPassword: ", oldPassword);
-    // console.log("newPassword: ", newPassword);
-  };
+  const { context, setContext } = useContext(SettingContext);
 
   return (
     <div className="flex w-1/3 p-m [background-color:#ffff]">
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <h3 className="text-body-xl font-black self-start">تنظیمات</h3>
         <div className="flex flex-col gap-xs">
           <p>انتخاب تم</p>
@@ -36,21 +29,33 @@ const SettingForm: React.FC = () => {
               "#FAB005",
               "#FD7E14",
             ]}
-            color={hex}
+            color={context?.theme}
             onChange={(color) => {
-              setHex(color.hex);
+              const settings = {
+                theme: color.hex,
+                darkModeEnabled: context?.darkModeEnabled,
+              };
+              localStorage.setItem("settings", JSON.stringify(settings));
+              setContext(settings);
             }}
           />
           <Switch
-            checked={enabled}
-            onChange={(e) => setEnabled(e.target.checked)}
+            checked={context?.darkModeEnabled!}
+            onChange={(e) => {
+              const settings = {
+                darkModeEnabled: e.target.checked,
+                theme: context?.theme,
+              };
+              localStorage.setItem("settings", JSON.stringify(settings));
+              setContext(settings);
+            }}
           />
-          <Button
+          {/* <Button
             type="submit"
             disabled={false}
             className="w-full h-12 px-3 py-3 mt-l p-[10px] gap-8 text-lg font-bold  bg-brand-primary text-gray-secondary rounded cursor-pointer justify-center"
             title="ثبت تغییرات"
-          />
+          /> */}
         </div>
       </Form>
     </div>

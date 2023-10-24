@@ -3,17 +3,20 @@ import toast from "react-hot-toast";
 import Input from "../../../components/Common/Input";
 import Button from "../../../components/Common/Button";
 import Form from "../../../components/Common/Form";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { registerSchema } from "../../../schemas/register.schema";
 import { useRegisterMutation } from "../../../hooks/mutations/register-user.mutation";
 import { isAxiosError } from "axios";
 import { UserRegisterErrorResponse } from "../../../services/requests/register-user";
-import { useState } from "react";
+import React from "react";
 
-const RegisterForm = () => {
+interface IRegisterForm {
+  setTermsIsOpen: any;
+}
+
+const RegisterForm: React.FC<IRegisterForm> = ({ setTermsIsOpen }) => {
   const registerMutation = useRegisterMutation();
-  let navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState(true);
+  const navigate = useNavigate();
   const {
     values,
     errors,
@@ -121,7 +124,7 @@ const RegisterForm = () => {
               <label className="text-body-m font-normal self-start">
                 <a
                   className="underline underline-offset-8 cursor-pointer"
-                  onClick={() => setIsVisible(true)}
+                  onClick={() => setTermsIsOpen(true)}
                 >
                   قوانین و مقررات
                 </a>{" "}

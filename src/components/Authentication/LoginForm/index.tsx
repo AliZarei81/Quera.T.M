@@ -10,8 +10,8 @@ import { loginSchema } from "../../../schemas/login.schema";
 import { useLoginMutation } from "../../../hooks/mutations/login-user.mutation";
 import { UserLoginErrorReponse } from "../../../services/requests/login-user";
 import { useContext } from "react";
-import { AppContext } from "../../../context/store";
-import { AuthenticateUser } from "../../../context/user/user.action";
+import { AppContext } from "../../../context/userStore/store";
+import { AuthenticateUser } from "../../../context/userStore/user/user.action";
 
 const LoginForm = () => {
   const { dispatch } = useContext(AppContext);

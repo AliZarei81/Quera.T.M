@@ -1,14 +1,16 @@
 import { useFormik } from "formik";
-import { HttpStatusCode, isAxiosError } from "axios";
+import toast from "react-hot-toast";
 import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
-import Header from "../../../components/Authentication/Header";
 import { forgotSchema } from "../../../schemas/forgot.schema";
-import apiClients from "../../../services/api-clients";
 import { useNavigate } from "react-router-dom";
+import { useForgotPasswordMutation } from "../../../hooks/mutations/forgot-password.mutation";
+import { ForgotUserPassworErrorResponse } from "../../../services/requests/forgot-password";
+import { isAxiosError } from "axios";
 
 const ForgotForm = () => {
+  const forgotPasswordMutation = useForgotPasswordMutation();
   let navigate = useNavigate();
   const {
     values,
@@ -18,37 +20,40 @@ const ForgotForm = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-    setErrors,
+    resetForm,
   } = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: forgotSchema,
-    onSubmit: async (values, actions) => {
-      // try {
-      //   const response = await apiClients.post<UserForgotPasswordResponse>(
-      //     "/accounts/reset-password/",
-      //     values
-      //   );
-      //   actions.resetForm();
-      //   navigate("/forgot/email-received");
-      // } catch (error) {
-      //   if (isAxiosError<UserForgotPasswordErrorResponse>(error)) {
-      //     if (error.response?.status === HttpStatusCode.BadRequest) {
-      //       const { email } = error.response.data;
-      //       setErrors({
-      //         email: email?.length ? email[0] : "",
-      //       });
-      //     }
-      //   }
-      // }
+    onSubmit: (values) => {
+      forgotPasswordMutation.mutate(values, {
+        onSuccess(payload) {
+          toast.success("ایمیل بازیابی برای شما ارسال شد");
+          resetForm();
+          navigate("/forgot/email-received");
+        },
+        onError(error) {
+          let errorMsg: string = "ارسال ایمیل با خطا مواجه شد";
+          if (isAxiosError<ForgotUserPassworErrorResponse>(error)) {
+            const data = error.response?.data;
+            errorMsg = data?.email
+              ? data.email[0]
+              : data?.detail
+              ? data.detail[0]
+              : errorMsg;
+          }
+          toast.error(errorMsg);
+          resetForm();
+        },
+      });
     },
   });
 
   return (
     <div className="h-full flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center w-[700px] gap-[32px] p-[24px]  [background-color:#ffff] shadow-2xl rounded-b-2xl">
-        <h3 className=" w-[237px] h-[55px] text-[32px] font-black text-center">
+      <div className="flex flex-col items-center justify-center gap-xl p-l w-3/6 bg-white shadow-2xl rounded-b-2xl">
+        <h3 className=" text-body-xl font-black text-center">
           فراموشی رمز عبور
         </h3>
         <Form onSubmit={handleSubmit}>
@@ -71,7 +76,7 @@ const ForgotForm = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className=" w-148 h-12 px-3 py-3 p-[10px] gap-8 text-lg font-bold text-center bg-brand-primary text-gray-secondary rounded cursor-pointer justify-center"
+            className="h-12 w-full px-3 py-3 p-s gap-8 text-lg font-bold text-center justify-center bg-brand-primary text-gray-secondary rounded cursor-pointer"
             title="دریافت ایمیل بازیابی رمز عبور"
           />
         </Form>

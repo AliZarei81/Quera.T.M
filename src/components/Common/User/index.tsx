@@ -8,6 +8,9 @@ interface IProfileProbs {
   className?: string;
   email?: string;
   showEmailOrUser?: boolean; //user:true  email:false
+  height?: number;
+  width?: number;
+  textSize?: number;
 }
 
 const User: React.FC<IProfileProbs> = ({
@@ -19,13 +22,16 @@ const User: React.FC<IProfileProbs> = ({
   userNameShow = true,
   email,
   showEmailOrUser = true,
+  height = 36,
+  width = 36,
+  textSize = 14,
 }): JSX.Element => {
   // Extract initials from the user's name
 
   const initials = userName
     .split(" ")
     .map((namePart) => namePart.charAt(0))
-    .join("");
+    .join(" ");
   // Function to load the profile picture or show initials
 
   const renderProfilePicture = () => {
@@ -34,15 +40,15 @@ const User: React.FC<IProfileProbs> = ({
         <img
           src={userProfilePicture}
           alt=""
-          className="w-[36px] h-[37px] rounded-full  "
+          className={`w-[${width}px] h-[${height}px] rounded-full`}
         />
       );
     } else {
       return (
         <div
-          className={` w-[36px] h-[36px]  rounded-full flex items-center justify-center bg-[${className}] }`}
+          className={` w-[${width}px] h-[${height}px] rounded-full flex items-center justify-center bg-[${className}] }`}
         >
-          <span className="text-[14px] font-normal text-white ">
+          <span className={`text-[${textSize}px]  text-white font-semibold`}>
             {initials}
           </span>
         </div>
@@ -57,7 +63,7 @@ const User: React.FC<IProfileProbs> = ({
   };
   return (
     <div className="flex justify-start  gap-xs items-center">
-      <div className=" h-[37px] gap-xs justify-start items-center flex">
+      <div className="gap-xs justify-start items-center flex">
         {renderProfilePicture()}
         {userNameShow && <h1 className="flex ">{user()}</h1>}
       </div>

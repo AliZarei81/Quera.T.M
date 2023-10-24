@@ -3,7 +3,6 @@ import { ReactElement } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { LuPlusSquare } from "react-icons/lu";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
 import WorkSpaceColumnMore from "../WorkSpaceColumnMore";
@@ -17,6 +16,7 @@ interface Iitems {
 }
 
 const Dropdown: React.FC = () => {
+  const [search, setSearch] = useState("");
   const items: Iitems[] = [
     {
       color: "bg-green-primary",
@@ -88,36 +88,33 @@ const Dropdown: React.FC = () => {
   };
 
   return (
-    <div className="w-[274px]">
+    <div className="w-[340px] pl-s pr-l">
       <div
         onClick={handleDropdownClick}
-        className="w-[274px] h-[25px]  rounded-[4px] flex justify-between ltr "
+        className="w-[274px] h-[25px] rounded-[4px] flex justify-between ltr "
       >
-        <div className="font-iran-yekan text-[16px] block">ورک‌اسپیس‌ها</div>
+        <div className="text-[16px] block">ورک‌اسپیس‌ها</div>
         <RiArrowDropDownLine className="w-[24px] h-[24px] " />
       </div>
 
       {isOpen && (
-        <div className=" flex flex-col gap-[16px] mt-[16px]">
-          <div className="">
-            <Input
-              icon={<BiSearch></BiSearch>}
-              type="text"
-              value=""
-              placeholder="جستجو کنید"
-              className="bg-gray-input w-[100%] h-[24px] rounded-4[px]"
-            />
-          </div>
+        <div className="flex flex-col gap-[16px] mt-[16px]">
+          <Input
+            icon={<BiSearch></BiSearch>}
+            type="text"
+            value={search}
+            placeholder="جستجو کنید"
+            className="bg-gray-input w-[100%] h-[24px] rounded-4[px]"
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-          <div className="flex flex-col gap-[13px]">
-            <Button
-              type="button"
-              disabled={false}
-              className=" h-[32px] p-[10px]  bg-gray-button font-iran-yekan text-[12px] gap-[4px] rounded-[6px] "
-              title="ساختن اسپیس جدید"
-              icon={<LuPlusSquare />}
-            />
-          </div>
+          <Button
+            type="button"
+            disabled={false}
+            className="justify-center h-[40px] p-[10px] bg-gray-button text-body-[12px] gap-[4px] rounded-[6px] "
+            title="ساختن اسپیس جدید"
+            icon={<LuPlusSquare size={25} />}
+          />
 
           {items.map((item, index) => (
             <div
@@ -136,9 +133,7 @@ const Dropdown: React.FC = () => {
                   <div
                     className={`w-[20px] h-[20px] rounded-[4px] ${item.color}`}
                   ></div>
-                  <div className="font-iran-yekan text-[16px]">
-                    {item.title}
-                  </div>
+                  <div className="text-[16px]">{item.title}</div>
                 </div>
                 {hoveredIndex === index && <WorkSpaceColumnMore />}
               </div>

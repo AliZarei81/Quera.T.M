@@ -30,8 +30,9 @@ import ListViewPage from "./pages/Workspace/Board/ListView";
 import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 import MainPage from "./pages/Workspace/MainPage";
 import CalendarView from "./pages/Workspace/Board/CalendarView";
-import { AppContextProvider } from "./context/store";
+import { AppContextProvider } from "./context/userStore/store";
 import PrivateRoute from "./routes/PrivateRoute";
+import { SettingContextProvider } from "./context/settingStore/SettingStore";
 
 const queryClient = new QueryClient();
 
@@ -81,11 +82,13 @@ const router = createBrowserRouter(
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContextProvider>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-        <Toaster />
-      </AppContextProvider>
+      <SettingContextProvider>
+        <AppContextProvider>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster />
+        </AppContextProvider>
+      </SettingContextProvider>
     </QueryClientProvider>
   );
 }

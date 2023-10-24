@@ -10,4 +10,4 @@ export interface GetRefreshTokenResponse {
 }
 
 export const getRefreshToken = (data: GetRefreshTokenRequest): Promise<GetRefreshTokenResponse> =>
-  apiClients.post(EndPoints.Refresh, data).then(res => res.data);
+  apiClients.post("/accounts/refresh/", data).then(res => res.data);

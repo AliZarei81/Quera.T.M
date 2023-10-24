@@ -23,4 +23,4 @@ export interface UserLoginErrorReponse {
 }
 
 export const loginUser = (data: UserLoginRequest): Promise<UserLoginResponse> =>
-  apiClients.post(EndPoints.Login, data).then((res) => res.data);
+  apiClients.post("/accounts/login/", data).then((res) => res.data);
