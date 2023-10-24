@@ -13,4 +13,4 @@ export interface GetBoardsResponse {
 
 
 export const getBoards = (workspaceid: number, projectid: number): Promise<GetBoardsResponse[]> =>
-  apiClients.get(`${EndPoints.GetWorkspaces}/${workspaceid}${EndPoints.GetProjects}/${projectid}${EndPoints.GetBoards}`).then(res => res.data)
+ apiClients.get(`${EndPoints.GetWorkspaces}/${workspaceid}${EndPoints.GetProjects}/${projectid}${EndPoints.GetBoards}`).then(res => res.data)
