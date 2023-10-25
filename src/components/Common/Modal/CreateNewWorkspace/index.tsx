@@ -138,10 +138,14 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
           queryClient.invalidateQueries({ queryKey: [Keys.GetWorkspaces] });
           setSelectedColor("#7D828C");
           setWorkSpaceName("");
+          setCurrentPage(1);
           onClose();
         },
         onError() {
           toast.error("ساخت ورک اسپیس با خطا مواجه شد");
+          setSelectedColor("#7D828C");
+          setWorkSpaceName("");
+          setCurrentPage(1);
           onClose();
         },
       }

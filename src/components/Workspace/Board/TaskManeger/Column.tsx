@@ -25,7 +25,10 @@ export const Column: React.FC<ColumnProps> = ({ column, handleAddTask }) => {
 
   return (
     <div className=" flex flex-col items-center space-y-4 bg-gray-200 p-4 rounded gap-s">
-      <h2 className=" group flex justify-between items-center text-2xl font-bold w-[250px] h-[44px] border-t-2 border-brand-primary shadow-md rounded-2xl pr-s">
+      <h2
+        className=" group flex justify-between items-center text-2xl font-bold w-[250px] h-[44px] border-t-2 shadow-md rounded-2xl pr-s"
+        style={{ borderColor: column.color }}
+      >
         {column.title}
 
         <div className="group-hover:visible invisible flex flex-row gap-xs pl-xs">

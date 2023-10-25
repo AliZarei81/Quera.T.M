@@ -8,23 +8,31 @@ import Flag from "../Flag";
 import Input from "../Input";
 import Calendar from "../Calendar";
 import Button from "../Button";
+import { useCreateTaskMutation } from "../../../hooks/mutations/creat-task.mutation";
 
 interface ICreateTaskProps {
+  workspaceid: number;
+  projectid: number;
+  boardid: number;
   isOpen: boolean;
   handleClose: () => void;
 }
 
 const CreateTask: React.FC<ICreateTaskProps> = ({
+  workspaceid,
+  projectid,
+  boardid,
   isOpen,
   handleClose,
 }): JSX.Element => {
-  const taskColor = "black";
   const [taskTitle, setTaskTitle] = useState("");
   const [selectedProject, setSelectedProject] = useState<string>(""); // State for the selected project
   const projects = ["Project 1", "Project 2", "Project 3"]; // Replace with your project list
   const [description, setDescription] = useState("");
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isTagOpen, setIsTagOpen] = useState(false);
+  const createTaskMutation = useCreateTaskMutation();
+  const taskColor = "black";
 
   const handleTaskTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTaskTitle(event.target.value);
@@ -45,7 +53,17 @@ const CreateTask: React.FC<ICreateTaskProps> = ({
     setIsTagOpen(!isCalendarOpen);
   };
   ///CreateTask
-  const handleCreate = () => {};
+  // const handleCreate = () => {
+  //   createTaskMutation.mutate({
+  //     name: taskTitle,
+  //     description: description,
+  //     order: 1,
+  //     priority: 1,
+  //     workspaceid,
+  //     projectid,
+  //     boardid,
+  //   });
+  // };
   return (
     <div
       className={`w-full h-full fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center ${
@@ -128,7 +146,7 @@ const CreateTask: React.FC<ICreateTaskProps> = ({
             <div>
               <Button
                 className="bg-brand-primary flex justify-center text-white px-[7px] py-[4px] rounded-[4px]"
-                onClick={handleCreate}
+                // onClick={handleCreate}
                 title="ساختن تسک"
               />
             </div>

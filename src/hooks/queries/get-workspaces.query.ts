@@ -7,4 +7,4 @@ export const useGetWorkspaces = () => {
     Keys.GetWorkspaces,
     getWorkspaces
   );
-}
+};

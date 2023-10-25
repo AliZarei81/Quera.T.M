@@ -14,6 +14,10 @@ export enum Keys {
   GetProject = "getProject",
   CreateProject = "createProject",
   GetBoards = "getBoards",
+  GetBoard = "getBoard",
+  CreateBoard = "createBoard",
   GetMembers = "getmembers",
+  GetTasks = "getTasks",
+  CreateTask = "createTask",
+  GetAssignees = "getAssignee"
 }
-

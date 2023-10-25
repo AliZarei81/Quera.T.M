@@ -5,7 +5,8 @@ import Button from "../../../Common/Button";
 import { LuPlusSquare } from "react-icons/lu";
 import CreateTask from "../../../Common/CreateTask";
 import CreateNewBoard from "../../../Common/Modal/CreateNewBoard";
-import { title } from "process";
+import { useGetBoards } from "../../../../hooks/queries/get-boards.query";
+import { useParams } from "react-router-dom";
 
 export interface Task {
   id: number;
@@ -17,25 +18,17 @@ export interface Task {
 export interface Column {
   id: number;
   title: string;
+  color: string;
   tasks: Task[];
 }
 
 export const TaskBoard: React.FC = () => {
   const [newTaskModal, setNewTaskModal] = useState(false);
-  const [columns, setColumns] = useState<Column[]>([]);
   const [isVisible, setIsVisible] = useState(false);
-  const [board, setBoard] = useState("");
-
-  const addColumn = () => {
-    const newColumn: Column = {
-      id: columns.length + 1,
-      title: board,
-      tasks: [],
-    };
-    setColumns([...columns, newColumn]);
-    setBoard("");
-    setIsVisible(false);
-  };
+  const { workspaceid, projectid } = useParams();
+  const workspaceidNumber = workspaceid ? Number(workspaceid) : 0;
+  const projectidNumber = projectid ? Number(projectid) : 0;
+  const { data: boards } = useGetBoards(workspaceidNumber, projectidNumber);
 
   return (
     <>
@@ -52,10 +45,15 @@ export const TaskBoard: React.FC = () => {
         </div>
 
         <div className="flex space-x-4 gap-x-m">
-          {columns.map((column) => (
+          {boards?.map((board) => (
             <Column
-              key={column.id}
-              column={column}
+              key={board.id}
+              column={{
+                id: board.id,
+                title: board.name,
+                color: board.color,
+                tasks: [],
+              }}
               handleAddTask={() => setNewTaskModal(true)}
             />
           ))}
@@ -68,17 +66,18 @@ export const TaskBoard: React.FC = () => {
         className="absolute bottom-l left-xl text-body-s text-white bg-brand-primary rounded-md py-s px-m"
       />
       <CreateTask
+        workspaceid={workspaceidNumber}
+        projectid={projectidNumber}
+        boardid={1}
         isOpen={newTaskModal}
         handleClose={() => setNewTaskModal(false)}
       />
       <CreateNewBoard
+        projectid={projectidNumber}
+        workspaceid={workspaceidNumber}
+        order={1}
         isVisible={isVisible}
         onClose={() => setIsVisible(false)}
-        board={board}
-        handleBoardNameChange={(event) => {
-          setBoard(event.target.value);
-        }}
-        handleSubmit={addColumn}
       />
     </>
   );
