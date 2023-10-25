@@ -5,10 +5,23 @@ import { BsCalendar4Week } from "react-icons/bs";
 import { BsKanban } from "react-icons/bs";
 import { LuListChecks } from "react-icons/lu";
 import ShareModal from "../../../Common/Modal/ShareModal";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const Navbar: React.FC = () => {
-  const [activeLink, setActiveLink] = React.useState<string | null>(null);
+interface INavbarProps {
+  heading: string;
+  workspaceid: number;
+  projectid: number;
+}
+
+const Navbar: React.FC<INavbarProps> = ({
+  workspaceid,
+  projectid,
+  heading,
+}): React.JSX.Element => {
+  const location = useLocation();
+  const [activeLink, setActiveLink] = React.useState<string | null>(
+    location.pathname
+  );
   const [shareModalIsOpen, setShareModalIsOpen] = useState<boolean>(false);
 
   const users = [
@@ -50,15 +63,15 @@ const Navbar: React.FC = () => {
     <>
       <div className="w-full flex items-center justify-between py-[10px] border-b-2 border-gray-primary">
         <div className="flex items-center justify-evenly self-center">
-          <h3 className="text-[20px] font-extrabold pl-[10px]">پروژه اول</h3>
+          <h3 className="text-[20px] font-extrabold pl-[10px]">{heading}</h3>
           <div
             className={`flex items-center justify-center self-center gap-[5px] px-[20px]  border-l-2 border-r-2 border-gray-primary text-[16px] font-medium cursor-pointer relative`}
             onClick={() => setActiveLink("list")}
           >
-            {activeLink === "list" && (
+            {activeLink?.includes("list") && (
               <div className="absolute bottom-[-18px] left-0 w-full border-b-2 border-[rgba(32,141,142,1)] "></div>
             )}
-            <Link to="/workspace/board/list">
+            <Link to={`/workspace/${workspaceid}/project/${projectid}/list`}>
               <Button
                 title="نمایش لیستی"
                 className={`no-underline gap-[5px] h-[16px] ${
@@ -72,12 +85,13 @@ const Navbar: React.FC = () => {
           </div>
           <div
             className={`flex items-center justify-center self-center gap-[5px] px-[20px]  border-l-2  border-gray-primary text-[16px] font-medium cursor-pointer relative`}
-            onClick={() => setActiveLink("column")}
+            onClick={() => setActiveLink("")}
           >
-            {activeLink === "column" && (
-              <div className="absolute bottom-[-18px] left-0 w-full border-b-2 border-[rgba(32,141,142,1)]"></div>
-            )}
-            <Link to="/workspace/board">
+            {!activeLink?.includes("list") &&
+              !activeLink?.includes("calendar") && (
+                <div className="absolute bottom-[-18px] left-0 w-full border-b-2 border-[rgba(32,141,142,1)]"></div>
+              )}
+            <Link to={`/workspace/${workspaceid}/project/${projectid}`}>
               <Button
                 title="نمایش ستونی"
                 className={`no-underline gap-[5px] h-[16px] ${
@@ -93,10 +107,12 @@ const Navbar: React.FC = () => {
             className={`flex items-center justify-center self-center px-[20px] border-l-2 border-gray-primary text-[16px] font-medium cursor-pointer relative`}
             onClick={() => setActiveLink("calendar")}
           >
-            {activeLink === "calendar" && (
+            {activeLink?.includes("calendar") && (
               <div className="absolute bottom-[-18px] left-0 w-full border-b-2 border-[rgba(32,141,142,1)]"></div>
             )}
-            <Link to="/workspace/board/calendar">
+            <Link
+              to={`/workspace/${workspaceid}/project/${projectid}/calendar`}
+            >
               <Button
                 title="تقویم"
                 className={`no-underline gap-[5px] h-[16px] ${

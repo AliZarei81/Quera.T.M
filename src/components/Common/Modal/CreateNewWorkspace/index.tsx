@@ -1,28 +1,27 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
+import toast from "react-hot-toast";
 import Modal from "..";
 import Input from "../../Input";
 import ColorPiker from "../../ColorPicker";
 import { ColorResult } from "@uiw/color-convert";
 import User from "../../User";
+import { useCreateWorkspaceMutation } from "../../../../hooks/mutations/create-workspace.mutation";
+import { AppContext } from "../../../../context/userStore/store";
+import { useQueryClient } from "react-query";
+import { Keys } from "../../../../hooks/keys";
 
 interface ICreateNewWorkspaceProbs {
-  //colors :Array<string>
-  hasProfilePic: boolean;
-  userName: string;
-  userColor: string;
-  picture?: string;
   isVisible: boolean;
   onClose: () => void;
 }
 const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
-  hasProfilePic,
-  userName,
-  userColor,
-  picture,
   isVisible,
   onClose,
 }): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const createWorkspaceMutation = useCreateWorkspaceMutation();
+  const { state } = useContext(AppContext);
+  const queryClient = useQueryClient();
   const handlePrevPage = () => {
     setCurrentPage((currentPage) => currentPage - 1);
   };
@@ -114,12 +113,11 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
             <div className=" w-full flex flex-row justify-between items-start">
               <p>اعضا</p>
               <User
-                hasProfilePicture={hasProfilePic}
-                userProfilePicture={picture}
+                hasProfilePicture={false}
+                userProfilePicture={""}
                 isOwner={false}
-                userName={userName}
+                userName={state.user.first_name + " " + state.user.last_name}
                 userNameShow={false}
-                className={userColor}
               />
             </div>
           </div>
@@ -131,7 +129,24 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
     return "ادامه";
   };
 
-  const handleCreate = () => {};
+  const handleCreate = () => {
+    createWorkspaceMutation.mutate(
+      { name: workSpaceName, color: selectedColor },
+      {
+        onSuccess() {
+          toast.success("ورک اسپیس با موفقیت ساخته شد");
+          queryClient.invalidateQueries({ queryKey: [Keys.GetWorkspaces] });
+          setSelectedColor("#7D828C");
+          setWorkSpaceName("");
+          onClose();
+        },
+        onError() {
+          toast.error("ساخت ورک اسپیس با خطا مواجه شد");
+          onClose();
+        },
+      }
+    );
+  };
 
   const handleClick = () => {
     if (currentPage === 3) return handleCreate();

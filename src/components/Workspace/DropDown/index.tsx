@@ -5,8 +5,6 @@ import { BiSearch } from "react-icons/bi";
 import { LuPlusSquare } from "react-icons/lu";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
-import WorkSpaceColumnMore from "../WorkSpaceColumnMore";
-import ProjectColumnMore from "../ProjectColumnMore";
 import { useQuery } from "react-query";
 import { Keys } from "../../../hooks/keys";
 import { GetWorkspaceResponse } from "../../../services/requests/get-workspaces";
@@ -77,9 +75,6 @@ const Dropdown: React.FC = () => {
       <CreateNewWorkspace
         isVisible={createWorkspaceModalIsOpen}
         onClose={() => setCreateWorkspaceModalIsOpen(false)}
-        userName=""
-        userColor=""
-        hasProfilePic={false}
       />
     </>
   );

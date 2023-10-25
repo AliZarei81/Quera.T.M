@@ -7,4 +7,4 @@ export interface GetProjectsResponse {
 
 
 export const getProjects = (workspaceid: number): Promise<GetProjectsResponse[]> =>
-  apiClients.get(`/workspaces/${workspaceid}/projects/`).then(res => res.data)
+  apiClients.get<GetProjectsResponse[]>(`/workspaces/${workspaceid}/projects/`).then(res => res.data.sort((a, b) => a.id - b.id))

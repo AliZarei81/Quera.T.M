@@ -10,7 +10,7 @@ const Filterstatus: React.FC<IFilterStatusProps> = ({ setVisible }) => {
   return (
     <>
       <div className="w-[238px] h-[29px] flex gap-s">
-        <div className="w-[67px] h-[24px] gap-xs flex font-iran-yekan text-body-xs self-start">
+        <div className="w-[67px] h-[24px] gap-xs flex text-body-xs self-start">
           <Button
             type="button"
             title="فیلترها"

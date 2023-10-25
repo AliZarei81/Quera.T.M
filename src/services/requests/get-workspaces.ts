@@ -1,5 +1,4 @@
 import apiClients from "../api-clients";
-import { EndPoints } from "../endpoints";
 
 export interface GetWorkspaceResponse {
   id: number;
@@ -9,4 +8,4 @@ export interface GetWorkspaceResponse {
 
 
 export const getWorkspaces = (): Promise<GetWorkspaceResponse[]> =>
-  apiClients.get("/workspaces").then(res => res.data)
+  apiClients.get<GetWorkspaceResponse[]>("/workspaces/").then(res => res.data.sort((a, b) => a.id - b.id))

@@ -12,4 +12,4 @@ export interface GetBoardsResponse {
 
 
 export const getBoards = (workspaceid: number, projectid: number): Promise<GetBoardsResponse[]> =>
-  apiClients.get(`/workspaces/${workspaceid}/project/${projectid}/boards`).then(res => res.data)
+  apiClients.get<GetBoardsResponse[]>(`/workspaces/${workspaceid}/project/${projectid}/boards`).then(res => res.data.sort((a, b) => a.id - b.id))

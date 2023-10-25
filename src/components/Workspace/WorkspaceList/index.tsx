@@ -8,6 +8,7 @@ import CreateNewProject from "../../Common/Modal/CreateNewPoject";
 import { useCreateProjectMutation } from "../../../hooks/mutations/create-project.mutation";
 import { useQueryClient } from "react-query";
 import { Keys } from "../../../hooks/keys";
+import { Link } from "react-router-dom";
 
 interface IWorkspaceListProps {
   id: number;
@@ -21,10 +22,7 @@ const WorkspaceList: React.FC<IWorkspaceListProps> = ({
   color,
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
-  const [newProject, setNewProject] = useState("");
   const { data: projects } = useGetProjects(id);
-  const createProjectMutation = useCreateProjectMutation();
-  const queryClient = useQueryClient();
   return (
     <>
       <div className="flex flex-col gap-m">
@@ -41,6 +39,7 @@ const WorkspaceList: React.FC<IWorkspaceListProps> = ({
           {projects?.map((project) => (
             <WorkspaceItem
               key={project.id}
+              to={`/workspace/${id}/project/${project.id}`}
               name={project.name}
               workspaceColor={color}
             />
@@ -49,27 +48,9 @@ const WorkspaceList: React.FC<IWorkspaceListProps> = ({
         <hr className="text-gray-secondary" />
       </div>
       <CreateNewProject
+        workspaceid={id}
         isVisible={isVisible}
         onClose={() => setIsVisible(false)}
-        project={newProject}
-        handleProjectNameChange={(event) => {
-          setNewProject(event.target.value);
-        }}
-        handleSubmit={() =>
-          createProjectMutation.mutate(
-            { name: newProject, workspaceid: id },
-            {
-              onSuccess(payload) {
-                setIsVisible(false);
-                toast.success("پروژه با موفقیت ساخته شد");
-                queryClient.invalidateQueries({ queryKey: [Keys.GetProjects] });
-              },
-              onError(error) {
-                toast.success("ساخت پروژه با خطا روبه رو شد");
-              },
-            }
-          )
-        }
       />
     </>
   );

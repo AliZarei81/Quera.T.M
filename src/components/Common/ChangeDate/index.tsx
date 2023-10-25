@@ -16,7 +16,7 @@ const ChangeDate: React.FC<IChangeDateProbs> = ({
 }) => {
   const formattedMonthYear = displayedMonth.locale("fa").format("jMMMM jYYYY");
   return (
-    <div className="w-[200px]  h-[24] gap-xs flex">
+    <div className="w-[238px]  h-[24] gap-xs flex">
       <div
         className="w-[30px] h-[21px] font-iran-yekan body-xs self-start cursor-pointer"
         onClick={onTodayClick}

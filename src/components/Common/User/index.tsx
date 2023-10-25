@@ -18,7 +18,7 @@ const User: React.FC<IProfileProbs> = ({
   userProfilePicture,
   hasProfilePicture,
   isOwner = false,
-  className,
+  className = "#4C6EF5",
   userNameShow = true,
   email,
   showEmailOrUser = true,
@@ -46,7 +46,8 @@ const User: React.FC<IProfileProbs> = ({
     } else {
       return (
         <div
-          className={` w-[${width}px] h-[${height}px] rounded-full flex items-center justify-center bg-[${className}] }`}
+          style={{ backgroundColor: className }}
+          className={` w-[${width}px] h-[${height}px] rounded-full flex items-center justify-center }`}
         >
           <span className={`text-[${textSize}px]  text-white font-semibold`}>
             {initials}

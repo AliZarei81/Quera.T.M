@@ -1,4 +1,3 @@
-
 export enum Keys {
   Register = "register",
   Login = "login",
@@ -8,7 +7,13 @@ export enum Keys {
   ForgotPassword = "forgotPassword",
   ResetPassword = "resetPassword",
   GetWorkspaces = "getWorkspaces",
+  GetWorkspace = "getWorkspace",
+  PostWorkspaces = "postWorkspaces",
+  PatchWorkspaces = "patchworkspaces",
   GetProjects = "getProjects",
+  GetProject = "getProject",
   CreateProject = "createProject",
   GetBoards = "getBoards",
+  GetMembers = "getmembers",
 }
+

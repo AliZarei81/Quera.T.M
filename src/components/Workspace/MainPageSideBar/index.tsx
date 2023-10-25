@@ -23,7 +23,6 @@ const MainPageSideBar = () => {
               hasProfilePicture={false}
               isOwner={false}
               userName={state.user.first_name + " " + state.user.last_name}
-              className="#4C6EF5"
             />
             <Button
               type="button"

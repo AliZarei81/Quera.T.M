@@ -69,7 +69,7 @@ const router = createBrowserRouter(
         }
       >
         <Route index element={<MainPage />} />
-        <Route path="board" element={<BoardLayout />}>
+        <Route path=":workspaceid/project/:projectid" element={<BoardLayout />}>
           <Route index element={<BoardView />} />
           <Route path="list" element={<ListViewPage />} />
           <Route path="calendar" element={<CalendarView />} />

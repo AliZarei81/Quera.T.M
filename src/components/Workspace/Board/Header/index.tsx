@@ -20,16 +20,18 @@ const Header: FC<IHeaderProps> = ({ onSearch, children }) => {
 
   return (
     <div className="flex items-center border-b-2 border-gray-primary w-full">
-      <Input
-        type="text"
-        value={value}
-        onChange={handleChange}
-        placeholder={"جستجو بین تسک‌ها"}
-        icon={<CiSearch />}
-        className="h-[24px] text-[14px] font-normal "
-      />
-      <div className="before:border-l-2 text-gray-primary pr-[10px]" />
-      <div className="pr-[30px]">{children}</div>
+      <div className="flex items-center w-[500px]">
+        <Input
+          type="text"
+          value={value}
+          onChange={handleChange}
+          placeholder={"جستجو بین تسک‌ها"}
+          icon={<CiSearch />}
+          className="h-[24px] text-[14px] font-normal"
+        />
+        <div className="before:border-l-2 text-gray-primary pr-[10px]" />
+        <div className="pr-[30px]">{children}</div>
+      </div>
     </div>
   );
 };
