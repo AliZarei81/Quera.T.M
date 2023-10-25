@@ -1,5 +1,6 @@
 import { MouseEvent, ReactElement, ReactNode, cloneElement } from "react";
 import { IconContext } from "react-icons";
+
 interface IButtonProps {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
@@ -8,6 +9,7 @@ interface IButtonProps {
   title?: string;
   icon?: ReactElement;
   bgColor?: string;
+  direction?: "rtl" | "ltr";
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -18,6 +20,7 @@ const Button: React.FC<IButtonProps> = ({
   title,
   icon,
   bgColor,
+  direction,
 }): JSX.Element => {
   return (
     <button
@@ -25,7 +28,7 @@ const Button: React.FC<IButtonProps> = ({
       className={`flex items-center gap-xs ${className}  `}
       disabled={disabled}
       onClick={onClick}
-      style={{ backgroundColor: bgColor }}
+      style={{ backgroundColor: bgColor, direction: direction }}
     >
       <IconContext.Provider value={{}}>
         {icon && cloneElement(icon)}

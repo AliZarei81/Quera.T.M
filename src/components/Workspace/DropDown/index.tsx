@@ -7,6 +7,11 @@ import Input from "../../Common/Input";
 import Button from "../../Common/Button";
 import WorkSpaceColumnMore from "../WorkSpaceColumnMore";
 import ProjectColumnMore from "../ProjectColumnMore";
+import { useQuery } from "react-query";
+import { Keys } from "../../../hooks/keys";
+import { GetWorkspaceResponse } from "../../../services/requests/get-workspaces";
+import DropDownList from "../DropDownList";
+import CreateNewWorkspace from "../../Common/Modal/CreateNewWorkspace";
 
 interface Iitems {
   color: string;
@@ -17,165 +22,66 @@ interface Iitems {
 
 const Dropdown: React.FC = () => {
   const [search, setSearch] = useState("");
-  const items: Iitems[] = [
-    {
-      color: "bg-green-primary",
-      title: "درس مدیریت  پروژه",
-      projects: ["پروژه اول", "پروژه دهم"],
-    },
-    {
-      color: "bg-blue-primary",
-      title: "طراحی واسط",
-    },
-    {
-      color: "bg-red-primary",
-      title: "درس شبکه های کامپیوتری",
-      projects: ["پروژه اول", "پروژه هشتم"],
-    },
-  ];
-
   const [isOpen, setIsOpen] = useState(false);
-
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [hoveredIndex2, setHoveredIndex2] = useState<number | null>(null);
-  const [hoveredIndex3, setHoveredIndex3] = useState<number | null>(null);
-
-  const handleMouseEnter = (
-    index: number,
-    type: "lessson" | "project",
-    secondindex?: number
-  ) => {
-    switch (type) {
-      case "lessson":
-        setHoveredIndex(index);
-        break;
-      case "project":
-        const hoveredIndex2 = index;
-        const hoveredIndex3 = secondindex !== undefined ? secondindex : -1;
-        setHoveredIndex2(hoveredIndex2);
-        setHoveredIndex3(hoveredIndex3);
-        break;
-    }
-  };
-
-  const handleMouseLeave = (type: "lessson" | "project") => {
-    switch (type) {
-      case "lessson":
-        setHoveredIndex(null);
-        break;
-      case "project":
-        setHoveredIndex2(null);
-        setHoveredIndex3(null);
-        break;
-    }
-  };
-
-  const handleDropdownClick = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const [expandedItems, setExpandedItems] = useState<number[]>([]);
-
-  const handleItemClick = (index: number) => {
-    const isExpanded = expandedItems.includes(index);
-    if (isExpanded) {
-      setExpandedItems(
-        expandedItems.filter((itemIndex) => itemIndex !== index)
-      );
-    } else {
-      setExpandedItems([...expandedItems, index]);
-    }
-  };
+  const [createWorkspaceModalIsOpen, setCreateWorkspaceModalIsOpen] =
+    useState(false);
+  const { data: workspaces } = useQuery<GetWorkspaceResponse[]>({
+    queryKey: [Keys.GetWorkspaces],
+  });
 
   return (
-    <div className="w-[340px] pl-s pr-l">
-      <div
-        onClick={handleDropdownClick}
-        className="w-[274px] h-[25px] rounded-[4px] flex justify-between ltr "
-      >
-        <div className="text-[16px] block">ورک‌اسپیس‌ها</div>
-        <RiArrowDropDownLine className="w-[24px] h-[24px] " />
-      </div>
+    <>
+      <div className="pl-m pr-l">
+        <Button
+          title="ورک‌اسپیس‌ها"
+          className="text-[16px] w-[274px] h-[25px] rounded-[4px] flex justify-between"
+          icon={<RiArrowDropDownLine className="w-[24px] h-[24px] " />}
+          direction="ltr"
+          onClick={() => setIsOpen(!isOpen)}
+        />
 
-      {isOpen && (
-        <div className="flex flex-col gap-[16px] mt-[16px]">
-          <Input
-            icon={<BiSearch></BiSearch>}
-            type="text"
-            value={search}
-            placeholder="جستجو کنید"
-            className="bg-gray-input w-[100%] h-[24px] rounded-4[px]"
-            onChange={(e) => setSearch(e.target.value)}
-          />
+        {isOpen && (
+          <div className="flex flex-col gap-[16px] mt-[16px]">
+            <Input
+              icon={<BiSearch></BiSearch>}
+              type="text"
+              value={search}
+              placeholder="جستجو کنید"
+              className="bg-gray-input w-[100%] h-[24px] rounded-4[px]"
+              onChange={(e) => setSearch(e.target.value)}
+            />
 
-          <Button
-            type="button"
-            disabled={false}
-            className="justify-center h-[40px] p-[10px] bg-gray-button text-body-[12px] gap-[4px] rounded-[6px] "
-            title="ساختن اسپیس جدید"
-            icon={<LuPlusSquare size={25} />}
-          />
+            <Button
+              type="button"
+              disabled={false}
+              className="justify-center h-[40px] p-[10px] bg-gray-button text-body-[12px] gap-[4px] rounded-[6px] "
+              title="ساختن ورک اسپیس جدید"
+              icon={<LuPlusSquare size={25} />}
+              onClick={() => setCreateWorkspaceModalIsOpen(true)}
+            />
 
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className=" inline-flex flex-col  p-[4px] rounded-[4px] justify-end items-center gap-[16px] "
-            >
-              <div
-                onMouseEnter={() => handleMouseEnter(index, "lessson")}
-                onMouseLeave={() => handleMouseLeave("lessson")}
-                className="flex w-[100%] h-[28px] justify-between items-center  cursor-pointer rounded-[4px] hover:bg-gray-input"
-              >
-                <div
-                  onClick={() => handleItemClick(index)}
-                  className="flex  h-[100%] items-center gap-[8px]"
-                >
-                  <div
-                    className={`w-[20px] h-[20px] rounded-[4px] ${item.color}`}
-                  ></div>
-                  <div className="text-[16px]">{item.title}</div>
+            {isOpen &&
+              workspaces?.map((workspace) => (
+                <div className="flex flex-col">
+                  <DropDownList
+                    key={workspace.id}
+                    id={workspace.id}
+                    name={workspace.name}
+                    color={workspace.color}
+                  />
                 </div>
-                {hoveredIndex === index && <WorkSpaceColumnMore />}
-              </div>
-
-              {(expandedItems.includes(index) && item.projects && (
-                <>
-                  {item.projects &&
-                    item.projects.map((project, projectIndex) => (
-                      <div
-                        onMouseEnter={() =>
-                          handleMouseEnter(projectIndex, "project", index)
-                        }
-                        onMouseLeave={() => handleMouseLeave("project")}
-                        className="flex justify-between font-iran-yekan text-[16px] w-[100%] h-[100%] "
-                        key={projectIndex}
-                      >
-                        <div className="mr-[30px]">{project}</div>
-                        {hoveredIndex2 === projectIndex &&
-                          index === hoveredIndex3 && <ProjectColumnMore />}
-                      </div>
-                    ))}
-                  <Button
-                    type="button"
-                    disabled={false}
-                    className=" h-[32px] p-[10px] text-green-button border-[2px] border-green-button font-iran-yekan text-[12px] gap-[4px] rounded-[6px] "
-                    title="ساختن پروژه جدید"
-                  />
-                </>
-              )) ||
-                (expandedItems.includes(index) && !item.projects && (
-                  <Button
-                    type="button"
-                    disabled={false}
-                    className=" h-[32px] p-[10px] text-green-button border-[2px] border-green-button font-iran-yekan text-[12px] gap-[4px] rounded-[6px] "
-                    title="ساختن پروژه جدید"
-                  />
-                ))}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+              ))}
+          </div>
+        )}
+      </div>
+      <CreateNewWorkspace
+        isVisible={createWorkspaceModalIsOpen}
+        onClose={() => setCreateWorkspaceModalIsOpen(false)}
+        userName=""
+        userColor=""
+        hasProfilePic={false}
+      />
+    </>
   );
 };
 

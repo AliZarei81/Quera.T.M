@@ -6,7 +6,6 @@ import { ColorResult } from "@uiw/color-convert";
 import User from "../../User";
 
 interface ICreateNewWorkspaceProbs {
-  handleCreate: () => void; //workspace create ;
   //colors :Array<string>
   hasProfilePic: boolean;
   userName: string;
@@ -16,7 +15,6 @@ interface ICreateNewWorkspaceProbs {
   onClose: () => void;
 }
 const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
-  handleCreate /*,colors*/,
   hasProfilePic,
   userName,
   userColor,
@@ -132,6 +130,8 @@ const CreateNewWorkspace: React.FC<ICreateNewWorkspaceProbs> = ({
     if (currentPage === 3) return "ساختن ورک اسپیس";
     return "ادامه";
   };
+
+  const handleCreate = () => {};
 
   const handleClick = () => {
     if (currentPage === 3) return handleCreate();
