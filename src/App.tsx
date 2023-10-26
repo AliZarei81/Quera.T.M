@@ -11,16 +11,12 @@ import ProfileForm from "./components/Profile/ProfileForm";
 import AccountForm from "./components/Profile/AccountForm";
 import SettingForm from "./components/Profile/SettingForm";
 import CammonDropdown from "./components/Common/CommonDropdown";
+import TaskInfo from "./components/TaskInformation/TaskInfo";
 
 function App() {
   return (
-       <div className="flex justify-between bg-gray-primary">
-       <CammonDropdown type="fullaccess"></CammonDropdown>
-       <CammonDropdown type="search between filters"></CammonDropdown>
-       <CammonDropdown type="select"></CammonDropdown>
-       <CammonDropdown type="is and is not"></CammonDropdown>
-
-       <CammonDropdown type="Wich Project Access" projects={["پروژه اول", "پروژه دوم"]}></CammonDropdown>
+       <div className="flex justify-between ">
+       <TaskInfo BuildDate="۱ اردیبهشت ۱۴۰۲" Deadline="پس فردا"></TaskInfo>
        </div> 
   );
 }
