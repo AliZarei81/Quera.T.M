@@ -4,19 +4,17 @@ import Button from "../Button";
 interface IFileUpload {
   label: string;
   filetypes: string;
+  selectedFile: File | null;
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const FileUpload: React.FC<IFileUpload> = ({ label,filetypes }): JSX.Element => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
+const FileUpload: React.FC<IFileUpload> = ({
+  label,
+  filetypes,
+  selectedFile,
+  handleFileChange,
+}): JSX.Element => {
   const fileInputRef = React.createRef<HTMLInputElement>();
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      setSelectedFile(file);
-    }
-  };
 
   const handleCustomButtonClick = () => {
     if (fileInputRef.current) {
@@ -37,14 +35,11 @@ const FileUpload: React.FC<IFileUpload> = ({ label,filetypes }): JSX.Element => 
       <Button
         className="p-[8px] bg-white text-brand-primary gap-[4px] cursor-pointer border rounded-[4px] text-[16px] border-brand-primary flex text-center"
         onClick={handleCustomButtonClick}
-        title={selectedFile
-          ? `Selected File: ${selectedFile.name}`
-          : "آپلود فایل"}
-          icon={<TiAttachment className="text-[24px]"/>}
+        title={
+          selectedFile ? `Selected File: ${selectedFile.name}` : "آپلود فایل"
+        }
+        icon={<TiAttachment className="text-[24px]" />}
       />
-        
-        
-      
     </div>
   );
 };

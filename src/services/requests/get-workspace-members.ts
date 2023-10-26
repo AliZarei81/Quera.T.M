@@ -1,6 +1,6 @@
 import apiClients from "../api-clients";
 
-export interface GetMembersResponse {
+export interface GetWorkspaceMembersResponse {
   user: User;
   is_super_access: boolean;
 }
@@ -14,9 +14,10 @@ interface User {
   phone_number: string;
   thumbnail: string;
 }
-export const getMembers = (
+
+export const getWorkspaceMembers = (
   workspaceid: number
-): Promise<GetMembersResponse[]> =>
+): Promise<GetWorkspaceMembersResponse[]> =>
   apiClients
-    .get<GetMembersResponse[]>(`/workspaces/${workspaceid}/members/`)
+    .get<GetWorkspaceMembersResponse[]>(`/workspaces/${workspaceid}/members/`)
     .then((res) => res.data);

@@ -14,7 +14,7 @@ const NewTask: React.FC<INewTaskProbs> = ({
   date,
   handleTaskCreate,
   handleClose,
-}):JSX.Element => {
+}): JSX.Element => {
   const [taskName, setTaskName] = useState<string>("");
   const [isOpen, setIsOpen] = useState(true);
 
@@ -52,9 +52,7 @@ const NewTask: React.FC<INewTaskProbs> = ({
     >
       <div className="modal-content" id="new-task-modal">
         <div className="w-[463px] h-[157px] rounded-[8px] p-[20px] border border-[#208D8E] flex flex-col gap-l">
-          <div
-            className="flex items-center"
-          >
+          <div className="flex items-center">
             <button
               className="text-[#C8C8C8] w-[24px] h-[24px] "
               onClick={() => setIsOpen(false)}
@@ -72,7 +70,7 @@ const NewTask: React.FC<INewTaskProbs> = ({
           <div className="flex items-center justify-between">
             <div className="w-[100px] flex items-center">
               <div className="w-[50px] flex items-center p-[6px]">
-                <Flag />
+                {/* <Flag /> */}
               </div>
               <div className="text-brand-primary text-[20px] font-medium">
                 {date}

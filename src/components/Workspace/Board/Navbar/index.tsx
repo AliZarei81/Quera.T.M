@@ -137,13 +137,13 @@ const Navbar: React.FC<INavbarProps> = ({
           />
         </div>
       </div>
-      <ShareModal
+      {/* <ShareModal
         isVisible={shareModalIsOpen}
         onClose={() => setShareModalIsOpen(false)}
         privateLink="https://google.com"
         type="project"
         users={users}
-      />
+      /> */}
     </>
   );
 };

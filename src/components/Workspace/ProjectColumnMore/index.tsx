@@ -83,13 +83,13 @@ const ProjectColumnMore = () => {
           />
         </div>
       </PopoverButton>
-      <ShareModal
+      {/* <ShareModal
         isVisible={shareModalIsOpen}
         onClose={() => setShareModalIsOpen(false)}
         privateLink="https://google.com"
         type="project"
         users={users}
-      />
+      /> */}
     </>
   );
 };

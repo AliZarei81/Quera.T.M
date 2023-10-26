@@ -6,15 +6,19 @@ import CopyLinkButton from "../../CopyLinkButton";
 import User from "../../User";
 import CommonDropdown from "../../CommonDropdown";
 import Button from "../../Button";
+import { useSubscriptionsMutation } from "../../../../hooks/mutations/subscription.mutation";
+import toast from "react-hot-toast";
 interface IUser {
-  userName: string;
-  userProfilePicture?: string;
-  hasProfilePicture: boolean;
-  isOwner: boolean;
-  userNameShow?: boolean;
-  userColor: string;
-  email: string;
-  access?: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    thumbnail: string;
+    first_name: string;
+    phone_number: string;
+    last_name: string;
+  };
+  is_super_access: boolean;
 }
 interface IShareModalProbs {
   type: "workSpace" | "project" | "task";
@@ -35,10 +39,27 @@ const ShareModal: React.FC<IShareModalProbs> = ({
   // userAccess,
 }): JSX.Element => {
   const [email, setEmail] = useState<string>("");
+  const subscriptionMutation = useSubscriptionsMutation();
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
-  const handleSend = () => {};
+  const handleSend = () => {
+    subscriptionMutation.mutate(
+      { email: email, url: privateLink },
+      {
+        onSuccess() {
+          toast.success("ایمیل با موفقیت ارسال شد");
+          setEmail("");
+          onClose();
+        },
+        onError() {
+          toast.error("ارسال ایمیل با خطا مواجه شد");
+          setEmail("");
+          onClose();
+        },
+      }
+    );
+  };
   const renderTitle = () => {
     switch (type) {
       case "workSpace":
@@ -56,22 +77,21 @@ const ShareModal: React.FC<IShareModalProbs> = ({
     return users.map((user, index) => (
       <div className="flex justify-between">
         <User
-          hasProfilePicture={user.hasProfilePicture}
-          isOwner={user.isOwner}
-          userName={user.userName}
-          className={user.userColor}
+          hasProfilePicture={user.user.thumbnail ? true : false}
+          isOwner={user.is_super_access}
+          userName={user.user.username}
           userNameShow={true}
-          userProfilePicture={user.userProfilePicture}
-          email={user.email}
+          userProfilePicture={user.user.thumbnail}
+          email={user.user.email}
           showEmailOrUser={false}
         />
         <div className="felx justify-between ">
-          {user.isOwner && (
+          {user.is_super_access && (
             <div className="bg-white w-[90px] h-[30px] text-[12px] flex justify-center items-center rounded-[6px] border border-[#E9EBF0]">
               دسترسی کامل
             </div>
           )}
-          {!user.isOwner && (
+          {!user.is_super_access && (
             <div className="flex justify-between gap-xs ">
               <CommonDropdown type="fullaccess" />
               {type === "workSpace" && (

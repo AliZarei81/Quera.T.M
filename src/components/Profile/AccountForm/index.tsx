@@ -14,10 +14,11 @@ import {
 } from "../../../services/requests/update-account";
 import { useChangePasswordMutation } from "../../../hooks/mutations/change-password.mutation";
 import { ChangeUserPassworErrorResponse } from "../../../services/requests/change-password";
+import { UpdateUser } from "../../../context/userStore/user/user.action";
 const AccountForm: React.FC = () => {
   const updateAccountMutation = useUpdateAccountMutation();
   const changePasswordMutation = useChangePasswordMutation();
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
   const {
     values,
     errors,
@@ -44,10 +45,29 @@ const AccountForm: React.FC = () => {
         if (values.username) updateAccountData["username"] = values.username;
         if (values.email) updateAccountData["email"] = values.email;
         updateAccountMutation.mutate(updateAccountData, {
-          onSuccess(payload) {
+          onSuccess({
+            username,
+            email,
+            first_name,
+            last_name,
+            thumbnail,
+            phone_number,
+            id,
+          }) {
+            const updateState = {
+              access: "",
+              refresh: "",
+              email,
+              first_name,
+              last_name,
+              thumbnail,
+              user_id: id,
+              username,
+              phone_number,
+            };
             toast.success("ایمیل و نام کاربری با موفقیت آپدیت شد");
             resetForm();
-            // dispatch(AuthenticateUser(payload));
+            dispatch(UpdateUser(updateState));
           },
           onError(error) {
             let errorMsg: string = "آپدیت ایمیل و نام کاربری با خطا روبه رو شد";

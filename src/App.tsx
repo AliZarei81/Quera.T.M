@@ -13,26 +13,27 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 // layouts
 import AuthenticationLayout from "./Layouts/Authentication/AuthenticationLayout";
+import ProfileLayout from "./Layouts/Profile/ProfileLayout";
+import WorkspaceLayout from "./Layouts/Workspace";
+import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 
 // pages
 import Login from "./pages/Authentication/Login";
 import Register from "./pages/Authentication/Register";
 import ForgetPassword from "./pages/Authentication/Forgot";
 import ResetPassword from "./pages/Authentication/Reset";
-import ProfileLayout from "./Layouts/Profile/ProfileLayout";
 import EmailRecieved from "./pages/Authentication/EmailRecieved";
 import ProfileInfo from "./pages/Profile/ProfileInfo";
 import Account from "./pages/Profile/Account";
 import Setting from "./pages/Profile/setting";
-import WorkspaceLayout from "./Layouts/Workspace";
 import BoardView from "./pages/Workspace/Board/BoardView";
 import ListViewPage from "./pages/Workspace/Board/ListView";
-import BoardLayout from "./Layouts/Workspace/Board/BoardLayout";
 import MainPage from "./pages/Workspace/MainPage";
 import CalendarView from "./pages/Workspace/Board/CalendarView";
 import { AppContextProvider } from "./context/userStore/store";
 import PrivateRoute from "./routes/PrivateRoute";
 import { SettingContextProvider } from "./context/settingStore/SettingStore";
+import WorkspaceAddMemeberPage from "./pages/Workspace/WorkspaceAddMemeberPage";
 
 const queryClient = new QueryClient();
 
@@ -69,10 +70,13 @@ const router = createBrowserRouter(
         }
       >
         <Route index element={<MainPage />} />
-        <Route path=":workspaceid/project/:projectid" element={<BoardLayout />}>
-          <Route index element={<BoardView />} />
-          <Route path="list" element={<ListViewPage />} />
-          <Route path="calendar" element={<CalendarView />} />
+        <Route path=":workspaceid">
+          <Route path="addMember" element={<WorkspaceAddMemeberPage />} />
+          <Route path="project/:projectid" element={<BoardLayout />}>
+            <Route index element={<BoardView />} />
+            <Route path="list" element={<ListViewPage />} />
+            <Route path="calendar" element={<CalendarView />} />R
+          </Route>
         </Route>
       </Route>
     </Route>

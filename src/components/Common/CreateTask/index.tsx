@@ -9,6 +9,9 @@ import Input from "../Input";
 import Calendar from "../Calendar";
 import Button from "../Button";
 import { useCreateTaskMutation } from "../../../hooks/mutations/creat-task.mutation";
+import toast from "react-hot-toast";
+import { Keys } from "../../../hooks/keys";
+import { useQueryClient } from "react-query";
 
 interface ICreateTaskProps {
   workspaceid: number;
@@ -31,8 +34,20 @@ const CreateTask: React.FC<ICreateTaskProps> = ({
   const [description, setDescription] = useState("");
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isTagOpen, setIsTagOpen] = useState(false);
+  const [isFlagOpen, setIsFlagOpen] = useState(false);
   const createTaskMutation = useCreateTaskMutation();
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [attachment, setAttachment] = useState<File | null>(null);
+  const queryClient = useQueryClient();
   const taskColor = "black";
+  const priorityOptions = [
+    { color: "#FA5252", text: "فوری", priority: 1 },
+    { color: "#FAB005", text: "بالا", priority: 2 },
+    { color: "#15AABF", text: "متوسط", priority: 3 },
+    { color: "#82C91E", text: "پایین", priority: 4 },
+    { color: "#C1C1C1", text: "حذف اولویت", priority: 5 },
+  ];
+  const [selectedPriority, setSelectedPriority] = useState(priorityOptions[4]);
 
   const handleTaskTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTaskTitle(event.target.value);
@@ -52,18 +67,37 @@ const CreateTask: React.FC<ICreateTaskProps> = ({
   const handleTagIconClick = () => {
     setIsTagOpen(!isCalendarOpen);
   };
-  ///CreateTask
-  // const handleCreate = () => {
-  //   createTaskMutation.mutate({
-  //     name: taskTitle,
-  //     description: description,
-  //     order: 1,
-  //     priority: 1,
-  //     workspaceid,
-  //     projectid,
-  //     boardid,
-  //   });
-  // };
+
+  // CreateTask
+  const handleCreate = () => {
+    if (thumbnail && attachment) {
+      const data = {
+        name: taskTitle,
+        description: description,
+        order: 1,
+        priority: selectedPriority.priority,
+        workspaceid,
+        projectid,
+        boardid,
+        thumbnail,
+        attachment,
+      };
+
+      createTaskMutation.mutate(data, {
+        onSuccess() {
+          toast.success("تسک با موفقیت ساخته شد");
+          queryClient.invalidateQueries({
+            queryKey: [Keys.GetTasks, workspaceid, projectid, boardid],
+          });
+          handleClose();
+        },
+        onError() {
+          toast.error("ساخت تسک با خطا مواجه شد");
+          handleClose();
+        },
+      });
+    }
+  };
   return (
     <div
       className={`w-full h-full fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center ${
@@ -121,13 +155,39 @@ const CreateTask: React.FC<ICreateTaskProps> = ({
             <FileUpload
               filetypes=".jpg, .jpeg, .png, .pdf"
               label="افزودن پیوست"
+              selectedFile={attachment}
+              handleFileChange={(e) => {
+                if (e.target.files) {
+                  const file = e.target.files[0];
+                  setAttachment(file);
+                }
+              }}
             />
-            <FileUpload filetypes=".jpg, .jpeg, .png" label="افزودن کاور" />
+            <FileUpload
+              filetypes=".jpg, .jpeg, .png"
+              label="افزودن کاور"
+              selectedFile={thumbnail}
+              handleFileChange={(e) => {
+                if (e.target.files) {
+                  const file = e.target.files[0];
+                  setThumbnail(file);
+                }
+              }}
+            />
           </div>
           <div className="flex justify-between">
             <div className="flex gap-m">
               <div className="cursor-pointer w-[50px] h-[50px] rounded-full border border-dashed border-gray-primary flex justify-center items-center text-gray-primary">
-                <Flag />
+                <Flag
+                  priorityOptions={priorityOptions}
+                  isPriorityListOpen={isFlagOpen}
+                  handlePriorityListOpen={() => setIsFlagOpen(!isFlagOpen)}
+                  selectedPriority={selectedPriority}
+                  handlePriorityChange={(index) => {
+                    setSelectedPriority(priorityOptions[index]);
+                    setIsFlagOpen(false);
+                  }}
+                />
               </div>
               <div
                 onClick={handleCalendarIconClick}
@@ -146,7 +206,7 @@ const CreateTask: React.FC<ICreateTaskProps> = ({
             <div>
               <Button
                 className="bg-brand-primary flex justify-center text-white px-[7px] py-[4px] rounded-[4px]"
-                // onClick={handleCreate}
+                onClick={handleCreate}
                 title="ساختن تسک"
               />
             </div>

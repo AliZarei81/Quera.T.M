@@ -39,7 +39,13 @@ const ListView: React.FC<iListView> = ({ projectName }) => {
       {isOpen && (
         <div className="flex-col justify-between mr-[23px] w-[1011px]">
           {boards?.map((board) => (
-            <ListViewDropDown title={board.name} color={board.color} />
+            <ListViewDropDown
+              boardTitle={board.name}
+              boardColor={board.color}
+              workspaceid={workspaceidNumber}
+              projectid={projectidNumber}
+              boardid={board.id}
+            />
           ))}
         </div>
       )}

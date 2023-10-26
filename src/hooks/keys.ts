@@ -16,8 +16,10 @@ export enum Keys {
   GetBoards = "getBoards",
   GetBoard = "getBoard",
   CreateBoard = "createBoard",
-  GetMembers = "getmembers",
+  GetWorkspaceMembers = "getWorkspaceMembers",
+  AddWorkspaceMember = "addWorkspaceMember",
   GetTasks = "getTasks",
   CreateTask = "createTask",
-  GetAssignees = "getAssignee"
+  GetAssignees = "getAssignee",
+  Subscriptions = "subscriptions"
 }

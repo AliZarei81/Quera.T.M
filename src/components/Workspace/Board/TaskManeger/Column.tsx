@@ -5,24 +5,24 @@ import { PiPlusSquareBold } from "react-icons/pi";
 import { AiOutlinePlus } from "react-icons/ai";
 import Button from "../../../Common/Button";
 import BoardColumnMore from "../../BoardColumnMore";
+import { useGetTasks } from "../../../../hooks/queries/get-tasks.query";
 
 interface ColumnProps {
   column: ColumnType;
+  workspaceid: number;
+  projectid: number;
+  boardid: number;
   handleAddTask: () => void;
 }
 
-export const Column: React.FC<ColumnProps> = ({ column, handleAddTask }) => {
-  const [tasks, setTasks] = useState<Task[]>(column.tasks);
-
-  const addTask = (title: string, description: string) => {
-    const newTask: Task = {
-      id: tasks.length + 1,
-      title,
-      description,
-    };
-    setTasks([...tasks, newTask]);
-  };
-
+export const Column: React.FC<ColumnProps> = ({
+  column,
+  workspaceid,
+  projectid,
+  boardid,
+  handleAddTask,
+}) => {
+  const { data: tasks } = useGetTasks(workspaceid, projectid, boardid);
   return (
     <div className=" flex flex-col items-center space-y-4 bg-gray-200 p-4 rounded gap-s">
       <h2
@@ -44,8 +44,11 @@ export const Column: React.FC<ColumnProps> = ({ column, handleAddTask }) => {
         </div>
       </h2>
 
-      {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} />
+      {tasks?.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={{ title: task.name, image: task.thumbnail, ...task }}
+        />
       ))}
 
       <Button

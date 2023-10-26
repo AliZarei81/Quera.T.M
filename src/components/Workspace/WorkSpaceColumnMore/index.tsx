@@ -4,54 +4,32 @@ import { LiaTrashAlt } from "react-icons/lia";
 import { MdOutlineColorLens } from "react-icons/md";
 import Button from "../../Common/Button";
 import PopoverButton from "../../Common/PopoverButton";
-import { useState } from "react";
+import React, { useState } from "react";
 import ShareModal from "../../Common/Modal/ShareModal";
+import { useGetWorkspaceMembers } from "../../../hooks/queries/get-workspace-members.query";
+import CreateNewProject from "../../Common/Modal/CreateNewPoject";
 
-const WorkSpaceColumnMore = () => {
+interface IWorkSpaceColumnMoreProps {
+  workspaceid: number;
+}
+
+const WorkSpaceColumnMore: React.FC<IWorkSpaceColumnMoreProps> = ({
+  workspaceid,
+}) => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState<boolean>(false);
-  const users = [
-    {
-      userName: "za h",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: true,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-  ];
+  const [createNewProjectModalIsOpen, setCreateNewProjectModalIsOpen] =
+    useState(false);
+  const { data: workspaceMembers } = useGetWorkspaceMembers(workspaceid);
   return (
     <>
       <PopoverButton>
-        <div className="flex flex-col gap-xs">
+        <div className="flex flex-col gap-xs fixed bg-white">
           <Button
             type="button"
             disabled={false}
             title="ساختن پروژه جدید"
             icon={<IoIosAdd />}
+            onClick={() => setCreateNewProjectModalIsOpen(true)}
           />
           <Button
             type="button"
@@ -88,12 +66,17 @@ const WorkSpaceColumnMore = () => {
           />
         </div>
       </PopoverButton>
+      <CreateNewProject
+        workspaceid={workspaceid}
+        isVisible={createNewProjectModalIsOpen}
+        onClose={() => setCreateNewProjectModalIsOpen(false)}
+      />
       <ShareModal
         isVisible={shareModalIsOpen}
         onClose={() => setShareModalIsOpen(false)}
-        privateLink="https://google.com"
+        privateLink={`http://localhost:3000/workspace/${workspaceid}/addMember`}
         type="workSpace"
-        users={users}
+        users={workspaceMembers ? workspaceMembers : []}
       />
     </>
   );

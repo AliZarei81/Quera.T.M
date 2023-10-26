@@ -30,6 +30,18 @@ export const UserReducer = (
         username: '',
         phone_number: ''
       };
+    case UserActionTypes.USER_UPDATE:
+      return {
+        access: state.access,
+        email: action?.payload?.email || '',
+        first_name: action?.payload?.first_name || '',
+        last_name: action?.payload?.last_name || '',
+        refresh: state.refresh,
+        thumbnail: action?.payload?.thumbnail || '',
+        user_id: action?.payload?.user_id || 0,
+        username: action?.payload?.username || '',
+        phone_number: action?.payload?.phone_number || ''
+      };
     default:
       return state;
   }

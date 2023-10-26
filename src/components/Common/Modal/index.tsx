@@ -17,6 +17,8 @@ interface IModalProbs {
   mFooter?: React.ReactNode;
   mBodyStyle?: string;
   hasFooter: boolean;
+  width?: number;
+  height?: number;
 }
 const Modal: React.FC<IModalProbs> = ({
   isVisible,
@@ -33,6 +35,8 @@ const Modal: React.FC<IModalProbs> = ({
   mFooter,
   mBodyStyle,
   hasFooter,
+  width = 550,
+  height,
 }): React.JSX.Element | null => {
   const handleClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLDivElement;
@@ -43,12 +47,15 @@ const Modal: React.FC<IModalProbs> = ({
   if (!isVisible) return null;
   return (
     <div
-      className="top-[0px] z-30 w-full h-full absolute inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex flex-col gap-xl justify-center items-center"
+      className="top-[0px] z-30 w-full h-full fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex flex-col gap-xl justify-center items-center"
       id="wrapper"
       //@ts-ignore
       onClick={handleClose}
     >
-      <div className="w-[550px] h-max bg-white rounded-md flex flex-col gap-xl p-s relative">
+      <div
+        style={{ width }}
+        className="h-max bg-white rounded-md flex flex-col gap-xl p-s relative"
+      >
         <div className="w-full flex items-center justify-around">
           {/* Header content goes here */}
           <Button

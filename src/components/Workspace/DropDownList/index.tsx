@@ -33,7 +33,7 @@ const DropDownList: React.FC<IDropDownList> = ({
           icon={<FaSquare style={{ color }} />}
           onClick={() => setIsOpen(!isOpen)}
         />
-        <WorkSpaceColumnMore />
+        <WorkSpaceColumnMore workspaceid={id} />
       </div>
       {isOpen && (
         <div className="flex flex-col gap-s static">

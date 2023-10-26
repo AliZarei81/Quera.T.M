@@ -35,10 +35,14 @@ const LoginForm = () => {
     validationSchema: loginSchema,
     onSubmit: (values) => {
       loginMutation.mutate(values, {
-        onSuccess(payload) {
+        onSuccess({ thumbnail, ...rest }) {
+          const data = {
+            thumbnail: `${process.env.REACT_APP_BASE_URL}/${thumbnail}`,
+            ...rest,
+          };
           toast.success("شما با موفقيت وارد شديد");
           resetForm();
-          dispatch(AuthenticateUser(payload));
+          dispatch(AuthenticateUser(data));
           navigate("/workspace");
         },
         onError(error) {

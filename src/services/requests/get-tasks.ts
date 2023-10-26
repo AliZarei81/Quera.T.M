@@ -15,5 +15,7 @@ export interface GetTasksResponse {
 
 
 
-export const getTasks = (workspaceid: number, projectid: number, boardid: number): Promise<GetTasksResponse[]> =>
-  apiClients.get(`/workspaces/${workspaceid}/projects/${projectid}/boards/${boardid}/tasks/}`).then(res => res.data)
+export const getTasks = (workspaceid: number, projectid: number, boardid: number): Promise<GetTasksResponse[]> => {
+  const url = `/workspaces/${workspaceid}/projects/${projectid}/boards/${boardid}/tasks/`;
+  return apiClients.get(url).then(res => res.data)
+}

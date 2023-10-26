@@ -3,44 +3,41 @@ import { IoIosArrowDropdown } from "react-icons/io";
 import { BsFlag } from "react-icons/bs";
 import { BsFlagFill } from "react-icons/bs";
 import { BsTextParagraph } from "react-icons/bs";
-
-interface iListViewDropDown {
-  title: string;
-  color: string;
-  tasks?: iTask[];
-}
-
-interface iTask {
-  title: string;
-  members?: string;
-  deadline: string;
-  description?: string;
-  priority: boolean;
-}
+import { GetTasksResponse } from "../../../../services/requests/get-tasks";
+import { Keys } from "../../../../hooks/keys";
+import { useQuery } from "react-query";
 
 const items: string[] = ["اعضا", "ددلاین", "الویت", "توضیحات"];
 
-const taskslist: iTask[] = [
-  { title: "این یک تیتر برای تسک است", deadline: "6 آبان", priority: false },
-  { title: "این یک تیتر برای تسک است", deadline: "6 آبان", priority: true },
-  { title: "این یک تیتر برای تسک است", deadline: "6 آبان", priority: true },
-];
+interface iListViewDropDown {
+  workspaceid: number;
+  projectid: number;
+  boardid: number;
+  boardColor: string;
+  boardTitle: string;
+}
 
-const ListViewDropDown: React.FC<iListViewDropDown> = ({ title, color }) => {
+const ListViewDropDown: React.FC<iListViewDropDown> = ({
+  workspaceid,
+  projectid,
+  boardid,
+  boardColor,
+  boardTitle,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleDropdownClick = () => {
     setIsOpen(!isOpen);
   };
-
-  const sortedTasks = [...taskslist].sort((a, b) => {
-    if (a.priority && !b.priority) {
-      return -1;
-    } else if (!a.priority && b.priority) {
-      return 1;
-    } else {
-      return 0;
-    }
+  const { data: tasks } = useQuery<GetTasksResponse[]>({
+    queryKey: [Keys.GetTasks, workspaceid, projectid, boardid],
   });
+  const priorityOptions = [
+    { color: "#FA5252", text: "فوری", priority: 1 },
+    { color: "#FAB005", text: "بالا", priority: 2 },
+    { color: "#15AABF", text: "متوسط", priority: 3 },
+    { color: "#82C91E", text: "پایین", priority: 4 },
+    { color: "#C1C1C1", text: "حذف اولویت", priority: 5 },
+  ];
 
   return (
     <div className="flex-col font-iran-yekan w-[1011px]">
@@ -53,13 +50,13 @@ const ListViewDropDown: React.FC<iListViewDropDown> = ({ title, color }) => {
             {" "}
           </IoIosArrowDropdown>
           <div
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: boardColor }}
             className={` text-white w-[100%] h-[100%] pl-[6px] pr-[6px] pt-[4px] pb-[4px] rounded-[4px] justify-start items-start gap-[10px] inline-flex`}
           >
-            <div>{title}</div>
+            <div>{boardTitle}</div>
           </div>
           <div className="flex text-[12px] gap-[2px]">
-            {taskslist.length}
+            {tasks?.length}
             <div> تسک </div>
           </div>
         </div>
@@ -73,17 +70,17 @@ const ListViewDropDown: React.FC<iListViewDropDown> = ({ title, color }) => {
       </div>
 
       {isOpen &&
-        sortedTasks.map((task, index) => (
+        tasks?.map((task, index) => (
           <div
             key={index}
             className="w-[986px] h-[51px] flex items-center  justify-between text-[12px] mr-[25px] rounded-[4px] "
           >
             <div className="flex items-center text-right font-normal gap-[7px]">
               <div
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: boardColor }}
                 className="w-s h-s rounded-[3px]"
               ></div>
-              <div>{task.title}</div>
+              <div>{task.name}</div>
             </div>
 
             <div className="w-[473px] h-[100%] inline-flex justify-between items-center gap-[70px] text-right font-normal capitalize ">
@@ -94,9 +91,14 @@ const ListViewDropDown: React.FC<iListViewDropDown> = ({ title, color }) => {
                 {task.deadline}
               </div>
               <div className="w-[70px]  h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] ">
-                {(task.priority && <BsFlagFill></BsFlagFill>) || (
-                  <BsFlag></BsFlag>
-                )}
+                <BsFlag
+                  color={
+                    priorityOptions.find(
+                      (item) => item.priority === task.priority
+                    )?.color
+                  }
+                  size={20}
+                />
               </div>
               <div className="w-[70px]  h-[28px] pl-[10px] pr-[10px] justify-center items-center flex gap-[10px] ">
                 {" "}

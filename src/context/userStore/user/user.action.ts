@@ -28,6 +28,26 @@ export const AuthenticateUser = (payload: IUserState) => (dispatch: any) => {
   apiClients.defaults.headers.common.Authorization = `Bearer ${payload.access}`;
 };
 
+export const UpdateUser = (payload: IUserState) => (dispatch: any) => {
+  // 1.Update Context Api
+  dispatch({
+    type: UserActionTypes.USER_LOGGED_IN,
+    payload
+  });
+  localStorage.setItem(
+    'user',
+    JSON.stringify({
+      email: payload.email,
+      first_name: payload.first_name,
+      last_name: payload.last_name,
+      phone_number: payload.phone_number,
+      thumbnail: payload.thumbnail,
+      user_id: payload.user_id,
+      username: payload.username
+    })
+  );
+};
+
 export const ReJoinUser = () => (dispatch: any) => {
   //1. check token exist in browser
   const accessToken = localStorage.getItem('accessToken');

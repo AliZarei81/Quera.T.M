@@ -11,6 +11,7 @@ interface IProfileProbs {
   height?: number;
   width?: number;
   textSize?: number;
+  textColor?: string;
 }
 
 const User: React.FC<IProfileProbs> = ({
@@ -25,6 +26,7 @@ const User: React.FC<IProfileProbs> = ({
   height = 36,
   width = 36,
   textSize = 14,
+  textColor,
 }): JSX.Element => {
   // Extract initials from the user's name
 
@@ -39,17 +41,22 @@ const User: React.FC<IProfileProbs> = ({
       return (
         <img
           src={userProfilePicture}
-          alt=""
-          className={`w-[${width}px] h-[${height}px] rounded-full`}
+          alt="profile picture"
+          className="rounded-full"
+          width={width}
+          height={height}
         />
       );
     } else {
       return (
         <div
-          style={{ backgroundColor: className }}
-          className={` w-[${width}px] h-[${height}px] rounded-full flex items-center justify-center }`}
+          style={{ backgroundColor: className, height, width }}
+          className={`rounded-full flex items-center justify-center }`}
         >
-          <span className={`text-[${textSize}px]  text-white font-semibold`}>
+          <span
+            style={{ color: textColor, fontSize: textSize }}
+            className={`text-white font-semibold`}
+          >
             {initials}
           </span>
         </div>

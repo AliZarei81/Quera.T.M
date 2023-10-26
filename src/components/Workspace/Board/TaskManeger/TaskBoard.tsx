@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import Column from "./Column";
 import { AiOutlinePlus } from "react-icons/ai";
 import Button from "../../../Common/Button";
@@ -13,13 +13,13 @@ export interface Task {
   title: string;
   description: string;
   image?: string;
+  priority: number;
+  deadline: string;
 }
 
 export interface Column {
-  id: number;
   title: string;
   color: string;
-  tasks: Task[];
 }
 
 export const TaskBoard: React.FC = () => {
@@ -29,6 +29,7 @@ export const TaskBoard: React.FC = () => {
   const workspaceidNumber = workspaceid ? Number(workspaceid) : 0;
   const projectidNumber = projectid ? Number(projectid) : 0;
   const { data: boards } = useGetBoards(workspaceidNumber, projectidNumber);
+  const [boardID, setBoardID] = useState(0);
 
   return (
     <>
@@ -47,14 +48,18 @@ export const TaskBoard: React.FC = () => {
         <div className="flex space-x-4 gap-x-m">
           {boards?.map((board) => (
             <Column
+              workspaceid={workspaceidNumber}
+              projectid={projectidNumber}
+              boardid={board.id}
               key={board.id}
               column={{
-                id: board.id,
                 title: board.name,
                 color: board.color,
-                tasks: [],
               }}
-              handleAddTask={() => setNewTaskModal(true)}
+              handleAddTask={() => {
+                setBoardID(board.id);
+                setNewTaskModal(true);
+              }}
             />
           ))}
         </div>
@@ -68,14 +73,14 @@ export const TaskBoard: React.FC = () => {
       <CreateTask
         workspaceid={workspaceidNumber}
         projectid={projectidNumber}
-        boardid={1}
+        boardid={boardID}
         isOpen={newTaskModal}
         handleClose={() => setNewTaskModal(false)}
       />
       <CreateNewBoard
         projectid={projectidNumber}
         workspaceid={workspaceidNumber}
-        order={1}
+        order={boardID}
         isVisible={isVisible}
         onClose={() => setIsVisible(false)}
       />
