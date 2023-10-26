@@ -8,6 +8,10 @@ import React, { useState } from "react";
 import ShareModal from "../../Common/Modal/ShareModal";
 import { useGetWorkspaceMembers } from "../../../hooks/queries/get-workspace-members.query";
 import CreateNewProject from "../../Common/Modal/CreateNewPoject";
+import { useDeleteWorkspacesMutation } from "../../../hooks/mutations/delete-workspace.mutation";
+import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
+import { Keys } from "../../../hooks/keys";
 
 interface IWorkSpaceColumnMoreProps {
   workspaceid: number;
@@ -20,6 +24,22 @@ const WorkSpaceColumnMore: React.FC<IWorkSpaceColumnMoreProps> = ({
   const [createNewProjectModalIsOpen, setCreateNewProjectModalIsOpen] =
     useState(false);
   const { data: workspaceMembers } = useGetWorkspaceMembers(workspaceid);
+  const queryclient = useQueryClient();
+  const deleteWorkspsceMutation = useDeleteWorkspacesMutation();
+  const handledeletebuttonclicked = () => {
+    deleteWorkspsceMutation.mutate(
+      { workspaceid },
+      {
+        onSuccess() {
+          toast.success("ورک اسپیس شما با موفقیت حذف شد");
+          queryclient.invalidateQueries(Keys.GetWorkspace);
+        },
+        onError() {
+          toast.error("حذف ورک اسپیس با خطا مواجه شد");
+        },
+      }
+    );
+  };
   return (
     <>
       <PopoverButton>
@@ -51,6 +71,7 @@ const WorkSpaceColumnMore: React.FC<IWorkSpaceColumnMoreProps> = ({
           />
           <Button
             type="button"
+            onClick={handledeletebuttonclicked}
             disabled={false}
             title="حذف"
             icon={<LiaTrashAlt />}

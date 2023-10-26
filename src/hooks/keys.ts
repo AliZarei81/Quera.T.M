@@ -21,5 +21,6 @@ export enum Keys {
   GetTasks = "getTasks",
   CreateTask = "createTask",
   GetAssignees = "getAssignee",
-  Subscriptions = "subscriptions"
+  Subscriptions = "subscriptions",
+  DeleteWorkspsce = "deleteWorkspace",
 }
