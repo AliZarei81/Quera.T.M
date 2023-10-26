@@ -7,7 +7,7 @@ import User from "../../Common/User";
 import { useContext, useState } from "react";
 import { AppContext } from "../../../context/userStore/store";
 import { LogoutUser } from "../../../context/userStore/user/user.action";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MainPageSideBar = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -19,11 +19,13 @@ const MainPageSideBar = () => {
         <div className="h-screen flex flex-col justify-between">
           <Dropdown />
           <div className="flex flex-col gap-s p-s">
-            <User
-              hasProfilePicture={false}
-              isOwner={false}
-              userName={state.user.first_name + " " + state.user.last_name}
-            />
+            <Link to="/profile">
+              <User
+                hasProfilePicture={false}
+                isOwner={false}
+                userName={state.user.first_name + " " + state.user.last_name}
+              />
+            </Link>
             <Button
               type="button"
               disabled={false}

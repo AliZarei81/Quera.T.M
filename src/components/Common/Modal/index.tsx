@@ -47,7 +47,7 @@ const Modal: React.FC<IModalProbs> = ({
   if (!isVisible) return null;
   return (
     <div
-      className="top-[0px] z-30 w-full h-full fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex flex-col gap-xl justify-center items-center"
+      className="top-[0px] z-30 w-screen h-screen right-[0] fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex flex-col gap-xl justify-center items-center"
       id="wrapper"
       //@ts-ignore
       onClick={handleClose}
