@@ -12,6 +12,7 @@ import { useDeleteWorkspacesMutation } from "../../../hooks/mutations/delete-wor
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import { Keys } from "../../../hooks/keys";
+import EditWorkspaceName from "../../Common/Modal/EditWorkspaceName";
 
 interface IWorkSpaceColumnMoreProps {
   workspaceid: number;
@@ -23,8 +24,10 @@ const WorkSpaceColumnMore: React.FC<IWorkSpaceColumnMoreProps> = ({
   const [shareModalIsOpen, setShareModalIsOpen] = useState<boolean>(false);
   const [createNewProjectModalIsOpen, setCreateNewProjectModalIsOpen] =
     useState(false);
+  const [editWorkspaceNameModalIsOpen, setEditWorkspaceNameModalIsOpen] =
+    useState(false);
   const { data: workspaceMembers } = useGetWorkspaceMembers(workspaceid);
-  const queryclient = useQueryClient();
+  const queryClient = useQueryClient();
   const deleteWorkspsceMutation = useDeleteWorkspacesMutation();
   const handledeletebuttonclicked = () => {
     deleteWorkspsceMutation.mutate(
@@ -32,7 +35,7 @@ const WorkSpaceColumnMore: React.FC<IWorkSpaceColumnMoreProps> = ({
       {
         onSuccess() {
           toast.success("ورک اسپیس شما با موفقیت حذف شد");
-          queryclient.invalidateQueries(Keys.GetWorkspace);
+          queryClient.invalidateQueries({ queryKey: [Keys.GetWorkspaces] });
         },
         onError() {
           toast.error("حذف ورک اسپیس با خطا مواجه شد");
@@ -56,6 +59,7 @@ const WorkSpaceColumnMore: React.FC<IWorkSpaceColumnMoreProps> = ({
             disabled={false}
             title="ویرایش نام ورک اسپیس"
             icon={<FiEdit />}
+            onClick={() => setEditWorkspaceNameModalIsOpen(true)}
           />
           <Button
             type="button"
@@ -91,6 +95,11 @@ const WorkSpaceColumnMore: React.FC<IWorkSpaceColumnMoreProps> = ({
         workspaceid={workspaceid}
         isVisible={createNewProjectModalIsOpen}
         onClose={() => setCreateNewProjectModalIsOpen(false)}
+      />{" "}
+      <EditWorkspaceName
+        workspaceid={workspaceid}
+        isVisible={editWorkspaceNameModalIsOpen}
+        onClose={() => setEditWorkspaceNameModalIsOpen(false)}
       />
       <ShareModal
         isVisible={shareModalIsOpen}

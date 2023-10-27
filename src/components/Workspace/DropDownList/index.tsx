@@ -46,6 +46,8 @@ const DropDownList: React.FC<IDropDownList> = ({
           />
           {projects?.map((project) => (
             <DropDownItem
+              projectid={project.id}
+              workspaceid={id}
               key={project.id}
               name={project.name}
               to={`/workspace/${id}/project/${project.id}`}

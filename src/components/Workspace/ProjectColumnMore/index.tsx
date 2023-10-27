@@ -6,44 +6,40 @@ import Button from "../../Common/Button";
 import PopoverButton from "../../Common/PopoverButton";
 import { useState } from "react";
 import ShareModal from "../../Common/Modal/ShareModal";
+import { useDeleteProjectMutation } from "../../../hooks/mutations/delete-project.mutation";
+import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
+import { Keys } from "../../../hooks/keys";
+import EditProjectName from "../../Common/Modal/EditProjectName";
 
-const ProjectColumnMore = () => {
+interface IProjectColumnMoreProps {
+  workspaceid: number;
+  projectid: number;
+}
+
+const ProjectColumnMore: React.FC<IProjectColumnMoreProps> = ({
+  workspaceid,
+  projectid,
+}) => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState<boolean>(false);
-  const users = [
-    {
-      userName: "za h",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: true,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-    {
-      userName: "pe a",
-      userProfilePicture: "string",
-      hasProfilePicture: false,
-      isOwner: false,
-      userColor: "bg-[#F27474]",
-      email: "za@g.com",
-    },
-  ];
-
+  const [editProjectNameModalIsOpen, setEditProjectNameModalIsOpen] =
+    useState(false);
+  const queryClient = useQueryClient();
+  const deleteProjectMutation = useDeleteProjectMutation();
+  const handledeletebuttonclicked = () => {
+    deleteProjectMutation.mutate(
+      { workspaceid, projectid },
+      {
+        onSuccess() {
+          toast.success(" پروژه شما با موفقیت حذف شد");
+          queryClient.invalidateQueries({ queryKey: [Keys.GetProjects] });
+        },
+        onError() {
+          toast.error("حذف پروژه با خطا مواجه شد");
+        },
+      }
+    );
+  };
   return (
     <>
       <PopoverButton>
@@ -59,6 +55,7 @@ const ProjectColumnMore = () => {
             disabled={false}
             title="ویرایش نام پروژه"
             icon={<FiEdit />}
+            onClick={() => setEditProjectNameModalIsOpen(true)}
           />
           <Button
             type="button"
@@ -69,6 +66,7 @@ const ProjectColumnMore = () => {
           <Button
             type="button"
             disabled={false}
+            onClick={handledeletebuttonclicked}
             title="حذف"
             icon={<LiaTrashAlt />}
             className="text-red-primary"
@@ -83,6 +81,12 @@ const ProjectColumnMore = () => {
           />
         </div>
       </PopoverButton>
+      <EditProjectName
+        workspaceid={workspaceid}
+        projectid={projectid}
+        isVisible={editProjectNameModalIsOpen}
+        onClose={() => setEditProjectNameModalIsOpen(false)}
+      />
       {/* <ShareModal
         isVisible={shareModalIsOpen}
         onClose={() => setShareModalIsOpen(false)}

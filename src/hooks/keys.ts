@@ -10,6 +10,8 @@ export enum Keys {
   GetWorkspace = "getWorkspace",
   PostWorkspaces = "postWorkspaces",
   PatchWorkspaces = "patchworkspaces",
+  PatchProject = "patchproject",
+  PatchBoard = "patchboard",
   GetProjects = "getProjects",
   GetProject = "getProject",
   CreateProject = "createProject",
@@ -23,4 +25,6 @@ export enum Keys {
   GetAssignees = "getAssignee",
   Subscriptions = "subscriptions",
   DeleteWorkspsce = "deleteWorkspace",
+  DeleteProject = "deleteProject",
+  DeleteBoard = "deleteBoard",
 }

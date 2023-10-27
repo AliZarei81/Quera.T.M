@@ -12,7 +12,6 @@ import { Link, useNavigate } from "react-router-dom";
 const MainPageSideBar = () => {
   const { state, dispatch } = useContext(AppContext);
   const navigate = useNavigate();
-  const [checked, setChecked] = useState(false);
   return (
     <>
       <SideBar>
@@ -21,8 +20,9 @@ const MainPageSideBar = () => {
           <div className="flex flex-col gap-s p-s">
             <Link to="/profile">
               <User
-                hasProfilePicture={false}
+                hasProfilePicture={state.user.thumbnail ? true : false}
                 isOwner={false}
+                userProfilePicture={state.user.thumbnail}
                 userName={state.user.first_name + " " + state.user.last_name}
               />
             </Link>

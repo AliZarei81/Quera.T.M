@@ -40,7 +40,11 @@ const User: React.FC<IProfileProbs> = ({
     if (hasProfilePicture) {
       return (
         <img
-          src={userProfilePicture}
+          src={
+            userProfilePicture?.includes(process.env.REACT_APP_BASE_URL!)
+              ? userProfilePicture
+              : `${process.env.REACT_APP_BASE_URL}${userProfilePicture}`
+          }
           alt="profile picture"
           className="rounded-full"
           width={width}

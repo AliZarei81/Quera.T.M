@@ -32,7 +32,11 @@ export const Column: React.FC<ColumnProps> = ({
         {column.title}
 
         <div className="group-hover:visible invisible flex flex-row gap-xs pl-xs">
-          <BoardColumnMore />
+          <BoardColumnMore
+            boardid={boardid}
+            projectid={projectid}
+            workspaceid={workspaceid}
+          />
           <Button
             title=""
             disabled={false}
