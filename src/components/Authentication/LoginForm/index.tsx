@@ -37,7 +37,9 @@ const LoginForm = () => {
       loginMutation.mutate(values, {
         onSuccess({ thumbnail, ...rest }) {
           const data = {
-            thumbnail: `${process.env.REACT_APP_BASE_URL}/${thumbnail}`,
+            thumbnail: thumbnail
+              ? `${process.env.REACT_APP_BASE_URL}/${thumbnail}`
+              : "",
             ...rest,
           };
           toast.success("شما با موفقيت وارد شديد");

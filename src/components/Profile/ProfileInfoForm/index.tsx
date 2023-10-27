@@ -5,7 +5,7 @@ import Input from "../../../components/Common/Input";
 import Form from "../../../components/Common/Form";
 import User from "../../../components/Common/User";
 import { profileInfoSchema } from "../../../schemas/profileInfo.schema";
-import { createRef, useContext, useState } from "react";
+import { createRef, useContext } from "react";
 import toast from "react-hot-toast";
 import { AppContext } from "../../../context/userStore/store";
 import { useUpdateAccountMutation } from "../../../hooks/mutations/update-account.mutation";
@@ -43,8 +43,6 @@ const ProfileInfoForm = () => {
     },
     validationSchema: profileInfoSchema,
     onSubmit: (values) => {
-      console.log(values);
-
       if (
         values.firstName ||
         values.lastName ||
@@ -107,7 +105,9 @@ const ProfileInfoForm = () => {
         <div className="flex gap-s self-start">
           <User
             hasProfilePicture={state.user.thumbnail ? true : false}
-            userProfilePicture={state.user.thumbnail}
+            userProfilePicture={
+              state.user.thumbnail ? state.user.thumbnail : ""
+            }
             isOwner={false}
             className="#FFF3BF"
             userName={state.user.first_name + " " + state.user.last_name}

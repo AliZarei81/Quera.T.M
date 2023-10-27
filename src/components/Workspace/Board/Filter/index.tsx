@@ -23,7 +23,7 @@ const Filter: React.FC<IFilterProps> = ({
   if (!isVisible) return null;
   return (
     <div
-      className="w-full h-full fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center"
+      className="w-screen h-screen right-[0] fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center"
       id="wrapper"
       onClick={handleClose}
     >
